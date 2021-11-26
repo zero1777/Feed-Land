@@ -1,0 +1,10 @@
+Thanks for purchasing this 3D Pixel Weapons & Tools pack!
+
+This pack contains 6 unique low poly cartoon style models with textures that make them into 3D pixel-style weapons and tools. The models are as follow: A Sword, Pickaxe, Axe, Hammer, Hoe, and Shovel. There are also 4 textures/materials for each of these models. These textures are for Iron, Silver, Gold and Copper versions of these tools. There are in total 24 textures for these models.
+
+Included in this pack is an image of the recommended import settings for the textures to give the textures the heighest possible quality.
+
+Questions or recommendations? Visit our website: https://sites.google.com/site/lionassetssite/
+
+Check out our page on the Unity Assets Store for more useful packs like this one:
+https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=popularity/query=publisher:19483
