@@ -18,37 +18,33 @@ public class MonsterControl : MonoBehaviour
 	public int greenFoodNum = 5;
 
 	private Animator animator;
-	private GameObject eattenFood;
-	private GameObject lastTwoEattenFood;
 	private List<string> foodList = new List<string> { "red_food", "blue_food", "green_food" };
 	private AudioSource audioPlayer;
-	private bool playSound;
 
 	void Start()
 	{
 		audioPlayer = gameObject.GetComponent<AudioSource>();
 
-		GameObject redFruit;
 		int randomRedFood = Random.Range(1, redFoodNum);
 		if (gameObject.tag == "red_monster")
 		{
-			for (int count = 1; count <= randomRedFood; count++)
+			for (int i = 0; i < randomRedFood; i++)
 			{
-				redFruit = Instantiate(redFood, new Vector3(0, 0, 0), Quaternion.identity);
-				redFruit.transform.parent = gameObject.transform;
-				redFruit.transform.localPosition = new Vector3(0, 2.0f + 0.5f * count, 0);
+				GameObject redFruit;
+				redFruit = Instantiate(redFood, gameObject.transform);
+				redFruit.transform.localPosition = new Vector3(0, 2.0f + 0.5f*i, 0);
 			}
 		}
 
-		GameObject blueFruit;
+
 		int randomBlueFood = Random.Range(1, blueFoodNum);
 		if (gameObject.tag == "blue_monster")
 		{
-			for (int count = 1; count <= randomBlueFood; count++)
+			for (int i = 0; i < randomBlueFood; i++)
 			{
-				blueFruit = Instantiate(blueFood, new Vector3(0, 0, 0), Quaternion.identity);
-				blueFruit.transform.parent = gameObject.transform;
-				blueFruit.transform.localPosition = new Vector3(0, 2.0f + 0.6f * count, 0);
+				GameObject blueFruit;
+				blueFruit = Instantiate(blueFood, gameObject.transform);
+				blueFruit.transform.localPosition = new Vector3(0, 2.0f + 0.6f*i, 0);
 			}
 		}
 
@@ -56,11 +52,10 @@ public class MonsterControl : MonoBehaviour
 		int randomGreenFood = Random.Range(1, greenFoodNum);
 		if (gameObject.tag == "green_monster")
 		{
-			for (int count = 1; count <= randomGreenFood; count++)
+			for (int i = 0; i < randomBlueFood; i++)
 			{
-				greenFruit = Instantiate(greenFood, new Vector3(0, 0, 0), Quaternion.identity);
-				greenFruit.transform.parent = gameObject.transform;
-				greenFruit.transform.localPosition = new Vector3(0, 2.0f + 0.8f * count, 0);
+				greenFruit = Instantiate(greenFood, gameObject.transform);
+				greenFruit.transform.localPosition = new Vector3(0, 2.0f + 0.8f*i, 0);
 			}
 		}
 
@@ -75,6 +70,8 @@ public class MonsterControl : MonoBehaviour
 		if (Input.GetKey(KeyCode.E))
 		{
 			animator.SetTrigger("Eat");
+			GameObject eattenFood;
+			GameObject lastTwoEattenFood;
 			eattenFood = transform.GetChild(transform.childCount - 1).gameObject;
 			lastTwoEattenFood = transform.GetChild(transform.childCount - 2).gameObject;
 			// double checked to make sure didn't delete wrong object
