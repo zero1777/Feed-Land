@@ -10,6 +10,7 @@ TagManager:
   - blue_food
   - green_monster
   - green_food
+  - random_point
   layers:
   - Default
   - TransparentFX
