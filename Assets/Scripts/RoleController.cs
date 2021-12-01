@@ -21,7 +21,9 @@ public class RoleController : MonoBehaviour
         Right
     };
 
+    // store path
     public List<Vector3> storedPath;
+    public int bufferSize = 15;
 
     private NavMeshAgent nma = null;
     
@@ -29,6 +31,7 @@ public class RoleController : MonoBehaviour
     private Vector3 initDestination;
     private Vector3 newDirection;
     private Vector3 newDestination;
+
 
     private bool canMove;
 
@@ -38,7 +41,7 @@ public class RoleController : MonoBehaviour
 
 	void Start()
     {
-        // init
+        // init para
         rb = GetComponent<Rigidbody>();
         canMove = true;
         currentHealth = maxHealth;
@@ -47,22 +50,33 @@ public class RoleController : MonoBehaviour
         nma = this.GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
+        // init route;
+        initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
+        newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
+        newDestination = initDestination + newDirection;
+        InitFirst15Path();
 
     }
 
 	void FixedUpdate()
 	{
-        // check role is moving or not
-        if (nma.hasPath == false && canMove == true)
+
+        // dynamic generate route list
+        if (storedPath.Count < bufferSize && canMove == true)
         {
-            // decide new route
-            initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
             newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
-            newDestination = initDestination + newDirection;
-            nma.SetDestination(newDestination);
-            animator.SetFloat("speed", 0.0f);
+            newDestination += newDirection;
             // store path
-            storedPath.Add(newDirection);
+            storedPath.Add(newDestination);
+        }
+        // check role is moving or not
+        else if(nma.hasPath == false && canMove == true)
+        {
+
+            nma.SetDestination(storedPath[0]);
+            animator.SetFloat("speed", 0.0f);
+            storedPath.RemoveAt(0);
+
         }
         else
         {
@@ -82,11 +96,40 @@ public class RoleController : MonoBehaviour
             nma.isStopped = false;
             animator.SetInteger("animation", 1);
         }
+        // check if out of bound
+        if (this.gameObject.transform.position.x <=-8)
+        {
+            canMove = false;
+        }
         // debug health Z to -hp
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(1);
         }
+        Debug.Log(storedPath[0]);
+    }
+
+    // insert fixed first 15 path
+    private void InitFirst15Path()
+    {
+        storedPath.Add(new Vector3(6.0f, 0.7f, 6.0f));
+        storedPath.Add(new Vector3(5.0f, 0.7f, 7.0f));
+        storedPath.Add(new Vector3(5.0f, 0.7f, 6.0f));
+        storedPath.Add(new Vector3(4.0f, 0.7f, 7.0f));
+        storedPath.Add(new Vector3(4.0f, 0.7f, 8.0f));
+        storedPath.Add(new Vector3(4.0f, 0.7f, 7.0f));
+        storedPath.Add(new Vector3(3.0f, 0.7f, 6.0f));
+        storedPath.Add(new Vector3(2.0f, 0.7f, 5.0f));
+        storedPath.Add(new Vector3(1.0f, 0.7f, 5.0f));
+        storedPath.Add(new Vector3(1.0f, 0.7f, 4.0f));
+        storedPath.Add(new Vector3(0.0f, 0.7f, 4.0f));
+        storedPath.Add(new Vector3(-1.0f, 0.7f, 4.0f));
+        storedPath.Add(new Vector3(-2.0f, 0.7f, 5.0f));
+        storedPath.Add(new Vector3(-3.0f, 0.7f, 5.0f));
+        storedPath.Add(new Vector3(-4.0f, 0.7f, 4.0f));
+        initDestination = new Vector3(-4.0f, 0.7f, 4.0f);
+        newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
+        newDestination = initDestination + newDirection;
     }
 
     public void TakeDamage(int damage)
@@ -94,7 +137,7 @@ public class RoleController : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
-    public void appendPath(Vector3 newPath)
+    public void AppendPath(Vector3 newPath)
     {
         storedPath.Add(newPath);
     }
