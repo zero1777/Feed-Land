@@ -52,10 +52,9 @@ public class RoleController : MonoBehaviour
         newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
         newDestination = initDestination + newDirection;
         InitFirst15Path();
-
     }
 
-	void FixedUpdate()
+    void FixedUpdate()
 	{
         // dynamic generate route list
         if (storedPath.Count < bufferSize && canMove == true)
