@@ -37,9 +37,9 @@ public class RoleController : MonoBehaviour
 
     private Animator animator;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-	void Start()
+    void Start()
     {
         // init para
         rb = GetComponent<Rigidbody>();
@@ -60,7 +60,6 @@ public class RoleController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-
         // dynamic generate route list
         if (storedPath.Count < bufferSize && canMove == true)
         {
