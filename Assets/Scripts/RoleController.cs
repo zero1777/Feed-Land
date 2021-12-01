@@ -7,9 +7,6 @@ using System;
 
 public class RoleController : MonoBehaviour
 {
-    public float speed;
-    public float rotateSpeed;
-    public float jumpForce;
 
     public int maxHealth = 5;
     public int currentHealth;
@@ -27,16 +24,12 @@ public class RoleController : MonoBehaviour
     public List<Vector3> storedPath;
 
     private NavMeshAgent nma = null;
-    private GameObject[] randomPoint;
-    private int currentRandom;
-
-
-    private Vector3 initPos;
+    
+    // use to decide route
     private Vector3 initDestination;
     private Vector3 newDirection;
     private Vector3 newDestination;
 
-    private bool canJump;
     private bool canMove;
 
     private Animator animator;
@@ -45,41 +38,30 @@ public class RoleController : MonoBehaviour
 
 	void Start()
     {
+        // init
         rb = GetComponent<Rigidbody>();
-		initPos = this.gameObject.transform.position;
-		canJump = true;
         canMove = true;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
         nma = this.GetComponent<NavMeshAgent>();
-        randomPoint = GameObject.FindGameObjectsWithTag("random_point");
-        Debug.Log("random_point = " + randomPoint.Length.ToString());
-
         animator = GetComponent<Animator>();
 
 
     }
 
-    void Update()
-    {
-
-    }
-
 	void FixedUpdate()
 	{
-
+        // check role is moving or not
         if (nma.hasPath == false && canMove == true)
         {
-            /*currentRandom = UnityEngine.Random.Range(0, randomPoint.Length + 1);
-            nma.SetDestination(randomPoint[currentRandom].transform.position);
-            Debug.Log("Moving to RandomPoint " + currentRandom.ToString());*/
+            // decide new route
             initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
             newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
             newDestination = initDestination + newDirection;
-            Debug.Log("Moving to newDestination " + newDestination.ToString());
             nma.SetDestination(newDestination);
             animator.SetFloat("speed", 0.0f);
+            // store path
             storedPath.Add(newDirection);
         }
         else
@@ -87,6 +69,7 @@ public class RoleController : MonoBehaviour
             animator.SetFloat("speed", 1.0f);
             
         }
+        // check if dead
         if (currentHealth <= 0)
         {
             canMove = false;
@@ -99,24 +82,20 @@ public class RoleController : MonoBehaviour
             nma.isStopped = false;
             animator.SetInteger("animation", 1);
         }
+        // debug health Z to -hp
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(1);
         }
     }
 
-
-	private void OnTriggerEnter(Collider other)
-	{
-
-    }
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
-    public void appendPath()
+    public void appendPath(Vector3 newPath)
     {
-
+        storedPath.Add(newPath);
     }
 }
