@@ -2,8 +2,14 @@
 
 public class PlayerController : MonoBehaviour
 {
+    // player controller settings
     public float movementSpeed;
     public float rotationSpeed;
+
+    // tag definitions
+    public const string towerPlaceTag = "towerPlace";
+    public const string towerTag = "tower";
+    public const string treeTag = "tree";
 
     private Animator animator;
 
@@ -15,8 +21,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
     }
- 
-    void FixedUpdate() {
+
+    void FixedUpdate()
+    {
         // get keyboard inputs
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -34,6 +41,23 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"[PlayerController.OnTriggerEnter] hit {other.transform.name}");
+
+        switch (other.tag)
+        {
+            case towerPlaceTag:
+                break;
+            case towerTag:
+                break;
+            case treeTag:
+                break;
+            default:
+                break;
         }
     }
 }
