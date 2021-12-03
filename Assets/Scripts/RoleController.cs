@@ -12,7 +12,7 @@ public class RoleController : MonoBehaviour
 
     public enum Direction
     {
-        UP ,
+        UP,
         Down,
         Left,
         Right
@@ -23,7 +23,7 @@ public class RoleController : MonoBehaviour
     public int bufferSize = 15;
 
     private NavMeshAgent nma = null;
-    
+
     // use to decide route
     private Vector3 initDestination;
     private Vector3 newDirection;
@@ -55,7 +55,7 @@ public class RoleController : MonoBehaviour
     }
 
     void FixedUpdate()
-	{
+    {
         // dynamic generate route list
         if (storedPath.Count < bufferSize && canMove == true)
         {
@@ -65,19 +65,17 @@ public class RoleController : MonoBehaviour
             storedPath.Add(newDestination);
         }
         // check role is moving or not
-        else if(nma.hasPath == false && canMove == true)
+        else if (nma.hasPath == false && canMove == true)
         {
-
             nma.SetDestination(storedPath[0]);
             animator.SetFloat("speed", 0.0f);
             storedPath.RemoveAt(0);
-
         }
         else
         {
             animator.SetFloat("speed", 1.0f);
-            
         }
+
         // check if dead
         if (currentHealth <= 0)
         {
@@ -91,11 +89,13 @@ public class RoleController : MonoBehaviour
             nma.isStopped = false;
             animator.SetInteger("animation", 1);
         }
+
         // check if out of bound
-        if (this.gameObject.transform.position.x <=-8)
+        if (this.gameObject.transform.position.x <= -8)
         {
             canMove = false;
         }
+
         // debug health Z to -hp
         if (Input.GetKeyDown(KeyCode.Z))
         {
