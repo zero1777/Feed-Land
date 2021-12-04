@@ -22,6 +22,7 @@ public class RoleController : MonoBehaviour
     public List<Vector3> storedPath;
     public int bufferSize = 15;
 
+    public List<GameObject> enemies = new List<GameObject>();
     private NavMeshAgent nma = null;
 
     // use to decide route
@@ -52,6 +53,13 @@ public class RoleController : MonoBehaviour
         newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
         newDestination = initDestination + newDirection;
         InitFirst15Path();
+        // generate Enemy after 1 second, every 10 second generate another monster
+        InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
+    }
+
+    void GenerateEnemy() {
+        int idx = Random.Range(0, enemies.Count);
+        Instantiate(enemies[idx]);
     }
 
     void FixedUpdate()
@@ -101,7 +109,7 @@ public class RoleController : MonoBehaviour
         {
             TakeDamage(1);
         }
-        Debug.Log(storedPath[0]);
+        //Debug.Log(storedPath[0]);
     }
 
     // insert fixed first 15 path

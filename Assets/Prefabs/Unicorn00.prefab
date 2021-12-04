@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 9216281834332423906}
   m_Layer: 0
   m_Name: Unicorn00
-  m_TagString: Untagged
+  m_TagString: role
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -360,13 +360,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81764ca0d6d6b6d4e9800ce9fc78bb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  rotateSpeed: 0
-  jumpForce: 0
   maxHealth: 5
-  currentHealth: 0
+  currentHealth: 5
   healthBar: {fileID: 782867172595525757}
   storedPath: []
+  bufferSize: 15
+  enemies:
+  - {fileID: 4595219238604163120, guid: 0f8e9c6510039b24d90d7d257aba5c33, type: 3}
 --- !u!54 &4073917158648544163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -381,7 +381,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!65 &-131493516560412522
 BoxCollider:
