@@ -57,7 +57,8 @@ public class RoleController : MonoBehaviour
         InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
     }
 
-    void GenerateEnemy() {
+    void GenerateEnemy()
+    {
         int idx = Random.Range(0, enemies.Count);
         Instantiate(enemies[idx]);
     }

@@ -14,7 +14,7 @@ public class MonsterControl : MonoBehaviour
     public AudioClip roarSound;
     public AudioClip roleHurtSound;
     public GameObject unicorn;
-    
+
     // store path
     public List<Vector3> storedPath;
     private NavMeshAgent nma = null;
@@ -90,10 +90,13 @@ public class MonsterControl : MonoBehaviour
         float distance = (unicorn.transform.position - transform.position).magnitude;
 
         // distance can be changed in the future
-        if (distance < 5) {
+        if (distance < 5)
+        {
             animator.SetBool("Attack", true);
             // PlaySoundEffect(roarSound);
-        } else {
+        }
+        else
+        {
             animator.SetBool("Attack", false);
         }
 
@@ -193,10 +196,13 @@ public class MonsterControl : MonoBehaviour
         storedPath.Add(newPath);
     }
 
-    void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == "role") {
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "role")
+        {
             other.gameObject.GetComponent<RoleController>().TakeDamage(1);
-            if (other.gameObject.GetComponent<RoleController>().currentHealth >= 0 ) {
+            if (other.gameObject.GetComponent<RoleController>().currentHealth >= 0)
+            {
                 PlaySoundEffect(roleHurtSound);
             }
         }
