@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Text.RegularExpressions;
 
 public class CannonSenseShoot : MonoBehaviour
 {
@@ -12,22 +11,26 @@ public class CannonSenseShoot : MonoBehaviour
     public int bulletNum = 1;
     public Transform shootPoint;
     private float coolDownTime = 3f; // shooting CD
-    private float _shootTimer = 0f;
+    private float shootTimer = 0f;
     private Collider nearestEnemy;
     private bool vacant = true;
 
-    void FixedUpdate()
+    void Update()
     {
-        _shootTimer += Time.deltaTime;
+        shootTimer += Time.deltaTime;
 
         // build the bullet in runtime
-        if (_shootTimer > coolDownTime && bulletNum > 0 && vacant)
+        if (shootTimer > coolDownTime && bulletNum > 0 && vacant)
         {
-            _shootTimer = 0f;
+            shootTimer = 0f;
             bulletNum -= 1;
-            // Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-            Instantiate(bulletPrefab, shootPoint).transform.position = shootPoint.position;
-            // vacant = false;
+            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity, shootPoint);
+            vacant = false;
+        }
+
+        if (shootPoint.childCount == 0)
+        {
+            vacant = true;
         }
     }
 
@@ -40,12 +43,12 @@ public class CannonSenseShoot : MonoBehaviour
         // compare enemies distance, array[0] is the nearest one
         Array.Sort(nearEnemies, new DistanceComparer(transform));
 
-        String foodColor = Regex.Match(food.tag, @"^[^_]*").Value;
+        String foodColor = food.tag.Split('_')[0];
 
         // find the same tag between food and monster
         foreach (Collider nearEnemy in nearEnemies)
         {
-            String monsterColor = Regex.Match(nearEnemy.tag, @"^[^_]*").Value;
+            String monsterColor = nearEnemy.tag.Split('_')[0];
             if (foodColor == monsterColor)
             {
                 return nearEnemy;
@@ -54,8 +57,9 @@ public class CannonSenseShoot : MonoBehaviour
 
         return null;
     }
+
     // draw the checking radius
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, checkRadius);

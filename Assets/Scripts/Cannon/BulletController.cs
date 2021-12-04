@@ -10,9 +10,8 @@ public class BulletController : MonoBehaviour
     public AnimationCurve lerpCurve;
     public Vector3 lerpOffset;
     public float lerpTime = 3f;
-    public Rigidbody rb;
-    private float _timer = 0f;
-    private Collider nearestEnemy;
+    private Rigidbody rb;
+    private float timer = 0f;
     private Vector3 startPoint;
 
     // Start is called before the first frame update
@@ -32,20 +31,20 @@ public class BulletController : MonoBehaviour
         Array.Sort(colliders, new DistanceComparer(transform));
 
         // return a nearest enemy with correct tag or null
-        nearestEnemy = transform.parent.parent.parent.GetComponent<CannonSenseShoot>().FindNearestEnemyWithTag(this.gameObject);
+        Collider nearestEnemy = gameObject.GetComponentInParent<CannonSenseShoot>().FindNearestEnemyWithTag(gameObject);
 
         // if there is an enemy, throw bullet to the nearest enemy
         if (nearestEnemy != null)
         {
             ActivateRb();
-            _timer += Time.deltaTime;
-            if (_timer > lerpTime)
+            timer += Time.deltaTime;
+            if (timer > lerpTime)
             {
-                _timer = lerpTime;
+                timer = lerpTime;
             }
 
             // lerpRatio: 0-1
-            float lerpRatio = _timer / lerpTime;
+            float lerpRatio = timer / lerpTime;
 
             // become curve otherwise it will be a straight line
             Vector3 positionOffset = lerpCurve.Evaluate(lerpRatio) * lerpOffset;
@@ -56,7 +55,7 @@ public class BulletController : MonoBehaviour
         }
         else
         {
-            DesactivateRb();
+            DeactivateRb();
         }
 
     }
@@ -71,7 +70,7 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void DesactivateRb()
+    public void DeactivateRb()
     {
         rb.isKinematic = true;
         rb.detectCollisions = false;
