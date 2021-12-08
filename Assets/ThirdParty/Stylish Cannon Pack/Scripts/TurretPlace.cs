@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TurretPlace : MonoBehaviour
 {
-    public GameObject turret;
+    public GameObject turretPrefab;
     public GameObject minesPlace;
-    public GameObject mine;
+    public GameObject minePrefab;
     // public GameObject turretPlace;
     public int demandMines;
 
@@ -26,42 +26,42 @@ public class TurretPlace : MonoBehaviour
         UpdateMinesStatus();
     }
 
-    public void GetMines() {
+    public void GetMine() {
         if (currentMines < 4) currentMines++;
         if (currentMines >= demandMines) ConstructTurret();
     }
 
-    void InitialMines() {
+    private void InitialMines() {
         Vector3 offsetY = new Vector3(0f, 0.5f, 0f);
         for (int i=0; i<demandMines; i++) {
-            GameObject m = Instantiate(mine, minesPlace.transform);
+            GameObject m = Instantiate(minePrefab, minesPlace.transform);
             m.transform.localPosition = offsetY * i;
         }
     }
 
-    void ConstructTurret() {
+    private void ConstructTurret() {
         // destroy the floor
-        for (int i=0; i<places; i++) {
+        for (int i=places-1; i>=0; i--) {
             Destroy(transform.GetChild(i).gameObject);
         }
 
         // destroy the floating mines
-        for (int i=0; i<demandMines; i++) {
-            Destroy(minesPlace.transform.GetChild(i).gameObject);
-        }
+        // for (int i=0; i<demandMines; i++) {
+        //     Destroy(minesPlace.transform.GetChild(i).gameObject);
+        // }
         Destroy(minesPlace);
 
         // construct the turret on the current turret place
-        Instantiate(turret, gameObject.transform);
-        turret.transform.localPosition = new Vector3(-0.5f, 1.0f, -0.5f);
+        Instantiate(turretPrefab, gameObject.transform);
+        turretPrefab.transform.localPosition = new Vector3(-0.5f, 1.0f, -0.5f);
     }
 
-    void UpdateMinesStatus() {
+    private void UpdateMinesStatus() {
         if (currentMines == demandMines) return;
         SetMinesAlphaVal(1f);
     }
 
-    void SetMinesAlphaVal(float alphaVal) {
+    private void SetMinesAlphaVal(float alphaVal) {
         for (int i=0; i<currentMines; i++) {
             Material mat = minesPlace.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().materials[0];
             Color newColor = new Color(mat.color.r, mat.color.g, mat.color.b, alphaVal);
