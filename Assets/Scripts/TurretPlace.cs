@@ -26,22 +26,27 @@ public class TurretPlace : MonoBehaviour
         UpdateMinesStatus();
     }
 
-    public void GetMine() {
+    public void GetMine()
+    {
         if (currentMines < 4) currentMines++;
         if (currentMines >= demandMines) ConstructTurret();
     }
 
-    private void InitialMines() {
+    private void InitialMines()
+    {
         Vector3 offsetY = new Vector3(0f, 0.5f, 0f);
-        for (int i=0; i<demandMines; i++) {
+        for (int i = 0; i < demandMines; i++)
+        {
             GameObject m = Instantiate(minePrefab, minesPlace.transform);
             m.transform.localPosition = offsetY * i;
         }
     }
 
-    private void ConstructTurret() {
+    private void ConstructTurret()
+    {
         // destroy the floor
-        for (int i=places-1; i>=0; i--) {
+        for (int i = places - 1; i >= 0; i--)
+        {
             Destroy(transform.GetChild(i).gameObject);
         }
 
@@ -56,13 +61,16 @@ public class TurretPlace : MonoBehaviour
         turretPrefab.transform.localPosition = new Vector3(-0.5f, 1.0f, -0.5f);
     }
 
-    private void UpdateMinesStatus() {
+    private void UpdateMinesStatus()
+    {
         if (currentMines == demandMines) return;
         SetMinesAlphaVal(1f);
     }
 
-    private void SetMinesAlphaVal(float alphaVal) {
-        for (int i=0; i<currentMines; i++) {
+    private void SetMinesAlphaVal(float alphaVal)
+    {
+        for (int i = 0; i < currentMines; i++)
+        {
             Material mat = minesPlace.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().materials[0];
             Color newColor = new Color(mat.color.r, mat.color.g, mat.color.b, alphaVal);
             mat.color = newColor;
