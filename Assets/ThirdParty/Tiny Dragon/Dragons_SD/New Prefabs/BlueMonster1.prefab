@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 8341555360107069913}
   - component: {fileID: 8341555360107069918}
   - component: {fileID: 8341555360107069915}
+  - component: {fileID: 799418903}
   m_Layer: 10
   m_Name: BlueMonster1
   m_TagString: blue_monster
@@ -389,7 +390,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8341555360107069860}
-  m_LocalRotation: {x: -0, y: 0.053635243, z: -0, w: 0.99856067}
+  m_LocalRotation: {x: 0, y: 0.053634368, z: 0, w: 0.99856067}
   m_LocalPosition: {x: 6.69, y: 0.6820049, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -463,18 +464,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2806b56aeac3d4f44846b60ea75f657b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomForce: 20
-  foodType: 
   redFood: {fileID: 2368693546532051336, guid: 0d79f5e87ed981d4a934858513a37a32, type: 3}
   blueFood: {fileID: 4317940529210026039, guid: 53084f9ce54dd2740998c05e7605b2c3,
     type: 3}
   greenFood: {fileID: 6341855032448282133, guid: aa641b177f4e4804e9795fe29830b2fb,
     type: 3}
+  eatSound: {fileID: 8300000, guid: ac1054742beaf1649960bb0338b9430c, type: 3}
+  successSound: {fileID: 8300000, guid: b225e60909768fa45a47c8c9af9cc461, type: 3}
+  roarSound: {fileID: 8300000, guid: f877bfd4bec65b749b84cb7e1f62130a, type: 3}
+  roleHurtSound: {fileID: 8300000, guid: ad476cda078dab74994091aaf7c3d0f9, type: 3}
+  unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
+  storedPath: []
+  bufferSize: 15
   redFoodNum: 5
   blueFoodNum: 5
   greenFoodNum: 5
-  eatSound: {fileID: 8300000, guid: ac1054742beaf1649960bb0338b9430c, type: 3}
-  successSound: {fileID: 8300000, guid: b225e60909768fa45a47c8c9af9cc461, type: 3}
 --- !u!82 &8341555360107069915
 AudioSource:
   m_ObjectHideFlags: 0
@@ -571,6 +575,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!195 &799418903
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341555360107069860}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 80
+  avoidancePriority: 50
+  m_AngularSpeed: 300
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &8341555360194542317
 GameObject:
   m_ObjectHideFlags: 0
