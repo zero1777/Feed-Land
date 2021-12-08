@@ -110,7 +110,7 @@ public class RoleController : MonoBehaviour
         {
             TakeDamage(1);
         }
-        //Debug.Log(storedPath[0]);
+        // Debug.Log(storedPath[0]);
     }
 
     // insert fixed first 15 path
