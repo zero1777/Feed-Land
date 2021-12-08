@@ -32,6 +32,8 @@ public class MonsterControl : MonoBehaviour
     public int blueFoodNum = 5;
     public int greenFoodNum = 5;
 
+    public float attackDistance;
+
     private Animator animator;
     private List<string> foodList = new List<string> { "red_food", "blue_food", "green_food" };
     private AudioSource audioPlayer;
@@ -78,7 +80,7 @@ public class MonsterControl : MonoBehaviour
         nma = this.GetComponent<NavMeshAgent>();
         // init route;
         initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
-        newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
+        newDirection = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 2));
         newDestination = initDestination + newDirection;
         InitFirst15Path();
         //InvokeRepeating("MovedRandomly", 0.0f, 0.5f);
@@ -90,7 +92,7 @@ public class MonsterControl : MonoBehaviour
         float distance = (unicorn.transform.position - transform.position).magnitude;
 
         // distance can be changed in the future
-        if (distance < 5)
+        if (distance < attackDistance)
         {
             animator.SetBool("Attack", true);
             // PlaySoundEffect(roarSound);
@@ -147,21 +149,20 @@ public class MonsterControl : MonoBehaviour
     }
 
 
-    // // will be replaced after (follow the player)
-    // void MovedRandomly()
-    // {
-    //     float randomNum = Random.Range(-1.0f, 1.0f);
-    //     float absSpeed = Mathf.Abs(randomNum);
-    //     animator.SetFloat("Speed", absSpeed);
-    //     if (randomNum > 0.0f)
-    //     {
-    //         GetComponent<Rigidbody>().AddForce(Vector3.forward * randomForce);
-    //     }
-    //     else
-    //     {
-    //         GetComponent<Rigidbody>().AddForce(-1 * Vector3.back * randomForce);
-    //     }
-    // }
+    /* void MovedRandomly()
+    {
+        float randomNum = Random.Range(-1.0f, 1.0f);
+        float absSpeed = Mathf.Abs(randomNum);
+        animator.SetFloat("Speed", absSpeed);
+        if (randomNum > 0.0f)
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.forward * randomForce);
+        }
+        else
+        {
+            GetComponent<Rigidbody>().AddForce(-1 * Vector3.back * randomForce);
+        }
+    } */
 
     void PlaySoundEffect(AudioClip soundEffect)
     {
