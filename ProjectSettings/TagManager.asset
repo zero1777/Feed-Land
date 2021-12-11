@@ -11,6 +11,7 @@ TagManager:
   - green_monster
   - green_food
   - random_point
+  - role
   layers:
   - Default
   - TransparentFX
