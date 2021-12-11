@@ -9,23 +9,28 @@ public class ButtonControl : MonoBehaviour
     public AudioClip clickSound;
     public GameObject exitCanvas;
 
-    public void PlayButtonSound() {
+    public void PlayButtonSound()
+    {
         audioPlayer.PlayOneShot(clickSound);
     }
 
-    public void LoadGameScene() {
+    public void LoadGameScene()
+    {
         SceneManager.LoadScene("GameScene");
     }
 
-    public void ReturnToMenu(){
+    public void ReturnToMenu()
+    {
         exitCanvas.SetActive(false);
     }
 
-    public void PrepareToExit() {
+    public void PrepareToExit()
+    {
         exitCanvas.SetActive(true);
     }
 
-    public void ExitGame() {
+    public void ExitGame()
+    {
         Application.Quit();
     }
 }
