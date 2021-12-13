@@ -207,6 +207,31 @@ public class MonsterControl : MonoBehaviour
                 PlaySoundEffect(roleHurtSound);
             }
         }
+
+        if (foodList.Contains(other.gameObject.tag))
+        {
+            animator.SetTrigger("Eat");
+            GameObject eattenFood = transform.GetChild(transform.childCount - 1).gameObject;
+            GameObject lastTwoEattenFood = transform.GetChild(transform.childCount - 2).gameObject;
+            // double checked to make sure didn't delete wrong object
+            if (foodList.Contains(eattenFood.tag))
+            {
+                PlaySoundEffect(eatSound);
+                Destroy(eattenFood, 0.5f);
+
+                // if the food is the last one, after eatten the monster should feel satisfy and disappear
+                if (!foodList.Contains(lastTwoEattenFood.tag))
+                {
+                    // stop chasing the unicorn
+                    canMove = false;
+                    nma.isStopped = true;
+                    animator.SetBool("Satisfied", true);
+                    PlaySoundEffect(successSound);
+                    Destroy(gameObject, 3.0f);
+                }
+            }
+
+        }
     }
 
     // // draw the checking radius
