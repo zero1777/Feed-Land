@@ -446,9 +446,12 @@ MonoBehaviour:
     type: 3}
   blueFoodPrefab: {fileID: 6220021002384598952, guid: a74b3b3e1d120487397b6eaa51be7e15,
     type: 3}
-  redMinePrefab: {fileID: 0}
-  greenMinePrefab: {fileID: 0}
-  blueMinePrefab: {fileID: 0}
+  redMinePrefab: {fileID: 8543233761469926269, guid: 6e5fa80b70c3146d9b60cb3129ffd0bb,
+    type: 3}
+  greenMinePrefab: {fileID: 3331674196762662333, guid: 0afdb2ecc0e3b4a2695d2d3dfec9099d,
+    type: 3}
+  blueMinePrefab: {fileID: 8842546389692242188, guid: 9b420c3c8e36b497fb8a7d07cdcf01ad,
+    type: 3}
 --- !u!54 &2391161885628173750
 Rigidbody:
   m_ObjectHideFlags: 0
