@@ -56,9 +56,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
             bool shouldResetCooldown = TakeAction(Time.time > nextActionTime);
-            if (shouldResetCooldown) {
+            if (shouldResetCooldown)
+            {
                 nextActionTime = Time.time + actionCooldown;
             }
         }
@@ -93,18 +95,22 @@ public class PlayerController : MonoBehaviour
         targets.Add(other.gameObject);
     }
 
-    void OnTriggerExit(Collider other) {
+    void OnTriggerExit(Collider other)
+    {
         Debug.Log($"[PlayerController.OnTriggerExit] exit {other.transform.name}");
 
         targets.Remove(other.gameObject);
     }
 
     // TakeAction returns true if should reset the cooldown
-    private bool TakeAction(bool notInCooldown) {
+    private bool TakeAction(bool notInCooldown)
+    {
         bool shouldResetCooldown = false;
 
-        foreach (GameObject target in targets) {
-            if (target.CompareTag(turretPlaceTag) && IsCarryingMine()) {
+        foreach (GameObject target in targets)
+        {
+            if (target.CompareTag(turretPlaceTag) && IsCarryingMine())
+            {
                 Debug.Log($"[PlayerController.TakeAction] interacting with turret place: {target.name}");
 
                 // TODO: call the turret place method to interact with the turret place
@@ -114,7 +120,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("building");
             }
 
-            if (target.CompareTag(turretTag) && IsCarryingFood()) {
+            if (target.CompareTag(turretTag) && IsCarryingFood())
+            {
                 Debug.Log($"[PlayerController.TakeAction] interacting with turret: {target.name}");
 
                 // TODO: call the turret method to interact with the turret
@@ -123,11 +130,13 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("reloading");
             }
 
-            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null) {
+            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null)
+            {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
                 // TODO: call the tree method to interact with the tree
-                if (MockResourceTakeDamage(target)) {
+                if (MockResourceTakeDamage(target))
+                {
                     DestroyResource(target, "tree", target.tag.Split('_')[0]);
                 }
 
@@ -135,11 +144,13 @@ public class PlayerController : MonoBehaviour
                 shouldResetCooldown = true;
             }
 
-            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null) {
+            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null)
+            {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
 
                 // TODO: call the mine method to interact with the mine
-                if (MockResourceTakeDamage(target)) {
+                if (MockResourceTakeDamage(target))
+                {
                     DestroyResource(target, "mine", target.tag.Split('_')[0]);
                 }
 
@@ -150,7 +161,8 @@ public class PlayerController : MonoBehaviour
 
         // we delete the object after the loop finished,
         // since we cannot delete object when there is an foreach loop using the object
-        if (toBeDestroyedObject != null) {
+        if (toBeDestroyedObject != null)
+        {
             targets.Remove(toBeDestroyedObject);
             Destroy(toBeDestroyedObject);
             toBeDestroyedObject = null;
@@ -159,13 +171,17 @@ public class PlayerController : MonoBehaviour
         return shouldResetCooldown;
     }
 
-    private void DestroyResource(GameObject o, string resourceType, string color = "") {
+    private void DestroyResource(GameObject o, string resourceType, string color = "")
+    {
         Debug.Log($"[PlayerController.DestroyResource] destroy {resourceType} with color {color}");
 
-        if (resourceType == "tree") {
+        if (resourceType == "tree")
+        {
             GameObject food = Instantiate(foodPrefabs[color], gameObject.transform);
             carryingObject = food;
-        } else if (resourceType == "mine") {
+        }
+        else if (resourceType == "mine")
+        {
             GameObject mine = Instantiate(minePrefabs[color], gameObject.transform);
             carryingObject = mine;
         }
@@ -175,20 +191,24 @@ public class PlayerController : MonoBehaviour
         toBeDestroyedObject = o;
     }
 
-    private void ReleaseResource() {
+    private void ReleaseResource()
+    {
         Destroy(carryingObject);
         carryingObject = null;
     }
 
-    private bool IsCarryingMine() {
+    private bool IsCarryingMine()
+    {
         return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix);
     }
 
-    private bool IsCarryingFood() {
+    private bool IsCarryingFood()
+    {
         return carryingObject && carryingObject.tag.EndsWith(foodTagSuffix);
     }
 
-    private bool MockResourceTakeDamage(GameObject o) {
+    private bool MockResourceTakeDamage(GameObject o)
+    {
         bool resourceHealthZero = Random.Range(0, 4) == 0;
         return resourceHealthZero;
     }
