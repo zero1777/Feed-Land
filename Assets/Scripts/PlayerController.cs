@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public const string turretTag = "turret";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
+    public const string foodTagSuffix = "_food";
 
     // carriable object prefabs
     public GameObject redFoodPrefab;
@@ -25,6 +26,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private List<GameObject> targets;
     private float nextActionTime;
+    private GameObject carryingObject;
+    private GameObject toBeDestroyedObject;
+
+    // prefabs collections for convinience
+    private Dictionary<string, GameObject> foodPrefabs;
+    private Dictionary<string, GameObject> minePrefabs;
 
     void Start()
     {
@@ -33,6 +40,18 @@ public class PlayerController : MonoBehaviour
         targets = new List<GameObject>();
 
         nextActionTime = Time.time;
+
+        foodPrefabs = new Dictionary<string, GameObject>(){
+            {"red", redFoodPrefab},
+            {"green", greenFoodPrefab},
+            {"blue", blueFoodPrefab},
+        };
+
+        minePrefabs = new Dictionary<string, GameObject>(){
+            {"red", redMinePrefab},
+            {"green", greenMinePrefab},
+            {"blue", blueMinePrefab},
+        };
     }
 
     void Update()
@@ -81,41 +100,96 @@ public class PlayerController : MonoBehaviour
     }
 
     // TakeAction returns true if should reset the cooldown
-    private bool TakeAction(bool isInCooldown) {
+    private bool TakeAction(bool notInCooldown) {
         bool shouldResetCooldown = false;
 
         foreach (GameObject target in targets) {
-            if (target.CompareTag(turretPlaceTag)) {
+            if (target.CompareTag(turretPlaceTag) && IsCarryingMine()) {
                 Debug.Log($"[PlayerController.TakeAction] interacting with turret place: {target.name}");
 
                 // TODO: call the turret place method to interact with the turret place
+
+                ReleaseResource();
+
+                animator.SetTrigger("building");
             }
 
-            if (target.CompareTag(turretTag)) {
+            if (target.CompareTag(turretTag) && IsCarryingFood()) {
                 Debug.Log($"[PlayerController.TakeAction] interacting with turret: {target.name}");
 
                 // TODO: call the turret method to interact with the turret
+                ReleaseResource();
+
+                animator.SetTrigger("reloading");
             }
 
-            if (target.tag.EndsWith(treeTagSuffix) && isInCooldown) {
+            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null) {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
                 // TODO: call the tree method to interact with the tree
+                if (MockResourceTakeDamage(target)) {
+                    DestroyResource(target, "tree", target.tag.Split('_')[0]);
+                }
 
                 animator.SetTrigger("cutting");
                 shouldResetCooldown = true;
             }
-            
-            if (target.tag.EndsWith(mineTagSuffix) && isInCooldown) {
+
+            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null) {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
 
                 // TODO: call the mine method to interact with the mine
+                if (MockResourceTakeDamage(target)) {
+                    DestroyResource(target, "mine", target.tag.Split('_')[0]);
+                }
 
                 animator.SetTrigger("mining");
                 shouldResetCooldown = true;
             }
         }
 
+        // we delete the object after the loop finished,
+        // since we cannot delete object when there is an foreach loop using the object
+        if (toBeDestroyedObject != null) {
+            targets.Remove(toBeDestroyedObject);
+            Destroy(toBeDestroyedObject);
+            toBeDestroyedObject = null;
+        }
+
         return shouldResetCooldown;
+    }
+
+    private void DestroyResource(GameObject o, string resourceType, string color = "") {
+        Debug.Log($"[PlayerController.DestroyResource] destroy {resourceType} with color {color}");
+
+        if (resourceType == "tree") {
+            GameObject food = Instantiate(foodPrefabs[color], gameObject.transform);
+            carryingObject = food;
+        } else if (resourceType == "mine") {
+            GameObject mine = Instantiate(minePrefabs[color], gameObject.transform);
+            carryingObject = mine;
+        }
+
+        carryingObject.transform.localPosition = new Vector3(0, 2.2f, 0);
+
+        toBeDestroyedObject = o;
+    }
+
+    private void ReleaseResource() {
+        Destroy(carryingObject);
+        carryingObject = null;
+    }
+
+    private bool IsCarryingMine() {
+        return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix);
+    }
+
+    private bool IsCarryingFood() {
+        return carryingObject && carryingObject.tag.EndsWith(foodTagSuffix);
+    }
+
+    private bool MockResourceTakeDamage(GameObject o) {
+        bool resourceHealthZero = Random.Range(0, 4) == 0;
+        return resourceHealthZero;
     }
 }

@@ -17,6 +17,9 @@ TagManager:
   - blue_tree
   - turret
   - turret_place
+  - red_mine
+  - blue_mine
+  - green_mine
   layers:
   - Default
   - TransparentFX
