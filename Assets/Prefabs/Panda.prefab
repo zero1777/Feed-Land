@@ -439,6 +439,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 6
   rotationSpeed: 540
+  actionCooldown: 1
+  redFoodPrefab: {fileID: 5452013488800006156, guid: 5dfbbd9a8a33f4a49b8b6cb7afe07715,
+    type: 3}
+  greenFoodPrefab: {fileID: 4331629460947023306, guid: 4b7e6120fd93d4536a1d737a3c1358ba,
+    type: 3}
+  blueFoodPrefab: {fileID: 6220021002384598952, guid: a74b3b3e1d120487397b6eaa51be7e15,
+    type: 3}
+  redMinePrefab: {fileID: 8543233761469926269, guid: 6e5fa80b70c3146d9b60cb3129ffd0bb,
+    type: 3}
+  greenMinePrefab: {fileID: 3331674196762662333, guid: 0afdb2ecc0e3b4a2695d2d3dfec9099d,
+    type: 3}
+  blueMinePrefab: {fileID: 8842546389692242188, guid: 9b420c3c8e36b497fb8a7d07cdcf01ad,
+    type: 3}
 --- !u!54 &2391161885628173750
 Rigidbody:
   m_ObjectHideFlags: 0
