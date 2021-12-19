@@ -5,31 +5,29 @@ using System;
 
 public class BulletController : MonoBehaviour
 {
-    public float checkRadius;
-    public LayerMask checkLayers; // Layer = Enemy
     public AnimationCurve lerpCurve;
     public Vector3 lerpOffset;
     public float lerpTime = 3f;
     private Rigidbody rb;
     private float timer = 0f;
     private Vector3 startPoint;
+    private Transform cannonTransform;
+    private Animation m_animations;
+    private bool isShoot = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         startPoint = transform.position;
+
+        m_animations = gameObject.GetComponentInParent<Animation>();
+        cannonTransform = this.transform.parent.parent;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // find all the enemies as colliders
-        Collider[] colliders = Physics.OverlapSphere(transform.position, checkRadius, checkLayers);
-
-        // compare enemies distance, array[0] is the nearest one
-        Array.Sort(colliders, new DistanceComparer(transform));
-
         // return a nearest enemy with correct tag or null
         Collider nearestEnemy = gameObject.GetComponentInParent<CannonSenseShoot>().FindNearestEnemyWithTag(gameObject);
 
@@ -43,6 +41,15 @@ public class BulletController : MonoBehaviour
                 timer = lerpTime;
             }
 
+            // Cannon turn to nearest enemy
+            FaceTarget(nearestEnemy.transform, cannonTransform);
+
+            if (!isShoot && m_animations != null)
+            {
+                isShoot = true;
+                m_animations.Play("CannonShoot");
+            }
+
             // lerpRatio: 0-1
             float lerpRatio = timer / lerpTime;
 
@@ -51,7 +58,6 @@ public class BulletController : MonoBehaviour
 
             // bullet will follow the curve and be reached the destination in [lerpTime]
             transform.position = Vector3.Lerp(startPoint, nearestEnemy.transform.position, lerpRatio) + positionOffset;
-
         }
         else
         {
@@ -67,6 +73,7 @@ public class BulletController : MonoBehaviour
         {
             Debug.Log("hit monster");
             Destroy(gameObject);
+            isShoot = false;
         }
     }
 
@@ -80,5 +87,12 @@ public class BulletController : MonoBehaviour
     {
         rb.isKinematic = false;
         rb.detectCollisions = true;
+    }
+
+    private void FaceTarget(Transform target, Transform cannon)
+    {
+        Vector3 direction = (target.position - cannon.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        cannon.rotation = Quaternion.Slerp(cannon.rotation, lookRotation, Time.deltaTime * 5f);
     }
 }

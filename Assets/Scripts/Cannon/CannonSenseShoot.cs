@@ -5,26 +5,59 @@ using System;
 
 public class CannonSenseShoot : MonoBehaviour
 {
+    // tag definitions
+    public const string foodTagSuffix = "_food";
+
+    // nearest enemy related
     public float checkRadius;
     public LayerMask checkLayers; // Layer = Enemy
-    public GameObject bulletPrefab;
-    public int bulletNum = 1;
+
+    // shooting bullet related
     public Transform shootPoint;
+    public int maxBulletNum = 3;
+    public GameObject redBulletPrefab;
+    public GameObject blueBulletPrefab;
+    public GameObject greenBulletPrefab;
+    public Transform stagePoint;  // the bullet used for display 
+    public GameObject redDisplayPrefab;
+    public GameObject blueDisplayPrefab;
+    public GameObject greenDisplayPrefab;
     private float coolDownTime = 3f; // shooting CD
     private float shootTimer = 0f;
-    private Collider nearestEnemy;
     private bool vacant = true;
+    private Dictionary<string, GameObject> bulletPrefabs;
+    private Dictionary<string, GameObject> displayPrefabs;
+    private Queue<GameObject> waitBullets = new Queue<GameObject>();
 
+    void Start()
+    {
+        bulletPrefabs = new Dictionary<string, GameObject>(){
+            {"red", redBulletPrefab},
+            {"green", greenBulletPrefab},
+            {"blue", blueBulletPrefab},
+        };
+
+        displayPrefabs = new Dictionary<string, GameObject>(){
+            {"red", redDisplayPrefab},
+            {"green", greenDisplayPrefab},
+            {"blue", blueDisplayPrefab},
+        };
+    }
     void Update()
     {
         shootTimer += Time.deltaTime;
-
+        int waitBulletsCount = waitBullets.Count;
         // build the bullet in runtime
-        if (shootTimer > coolDownTime && bulletNum > 0 && vacant)
+        if (shootTimer > coolDownTime && waitBulletsCount > 0 && vacant)
         {
             shootTimer = 0f;
-            bulletNum -= 1;
-            Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity, shootPoint);
+            GameObject nextBullet = waitBullets.Dequeue();
+
+            // the bullet used for display will be destroyed if that bullet is fired
+            Destroy(stagePoint.GetChild(0).gameObject);
+
+            // create next bullet
+            CreateBullet(nextBullet.tag.Split('_')[0]);
             vacant = false;
         }
 
@@ -63,5 +96,32 @@ public class CannonSenseShoot : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, checkRadius);
+    }
+
+    // load bullet
+    public void LoadBullet(GameObject newBullet)
+    {
+        if (waitBullets.Count < maxBulletNum)
+        {
+            if (newBullet.tag.EndsWith(foodTagSuffix))
+            {
+                waitBullets.Enqueue(newBullet);
+                Debug.Log("load bullet");
+
+                // display on the top of turret
+                CreateDisplayBullet(newBullet.tag.Split('_')[0]);
+            }
+        }
+    }
+
+    private void CreateBullet(string color = "")
+    {
+        Instantiate(bulletPrefabs[color], shootPoint.position, shootPoint.rotation, shootPoint);
+    }
+
+    private void CreateDisplayBullet(string color = "")
+    {
+        GameObject ammoFood = Instantiate(displayPrefabs[color], stagePoint);
+        ammoFood.transform.localPosition = new Vector3(0.3f, 0, 4.0f);
     }
 }
