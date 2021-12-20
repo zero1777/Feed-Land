@@ -12,7 +12,7 @@ public class BulletController : MonoBehaviour
     private float timer = 0f;
     private Vector3 startPoint;
     private Transform cannonTransform;
-    private Animation m_animations;
+    private Animation animations;
     private bool isShoot = false;
 
     // Start is called before the first frame update
@@ -21,8 +21,8 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPoint = transform.position;
 
-        m_animations = gameObject.GetComponentInParent<Animation>();
-        cannonTransform = this.transform.parent.parent;
+        animations = gameObject.GetComponentInParent<Animation>();
+        cannonTransform = transform.parent.parent;
     }
 
     // Update is called once per frame
@@ -44,10 +44,10 @@ public class BulletController : MonoBehaviour
             // Cannon turn to nearest enemy
             FaceTarget(nearestEnemy.transform, cannonTransform);
 
-            if (!isShoot && m_animations != null)
+            if (!isShoot && animations != null)
             {
                 isShoot = true;
-                m_animations.Play("CannonShoot");
+                animations.Play("CannonShoot");
             }
 
             // lerpRatio: 0-1
