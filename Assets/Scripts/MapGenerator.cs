@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour
     public int minElementNum;
     public int maxElementNum;
     public int mapNum;
-    
+
     private int turretPlaceNum;
     private int treesNum;
     private int minesNum;
@@ -170,12 +170,14 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    private void GenerateTurretPlace() {
+    private void GenerateTurretPlace()
+    {
         // for convenience, directly set the constant
         float x = -9.5f + mapIdx * mapWidth;
         float z = -1.5f;
-        for (int i=0; i<turretPlaceNum; i++) {
-            Vector3 vec = new Vector3(x + i*4f, 0f, z);
+        for (int i = 0; i < turretPlaceNum; i++)
+        {
+            Vector3 vec = new Vector3(x + i * 4f, 0f, z);
             Instantiate(turretPlacePrefab, vec, Quaternion.identity);
         }
     }
