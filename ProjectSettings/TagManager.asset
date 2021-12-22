@@ -12,6 +12,9 @@ TagManager:
   - green_food
   - random_point
   - role
+  - turret_place
+  - red_stone
+  - red_tree
   layers:
   - Default
   - TransparentFX

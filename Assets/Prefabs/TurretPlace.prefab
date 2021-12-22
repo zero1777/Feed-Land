@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -5813027616617572780}
   m_Layer: 0
   m_Name: TurretPlace
-  m_TagString: Untagged
+  m_TagString: turret_place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d24af782778e41aa83e64f2629643c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 0}
-  turretPlace: {fileID: 0}
+  turretPrefab: {fileID: 0}
+  minesPlace: {fileID: 0}
+  minePrefab: {fileID: 0}
   demandMines: 0
 --- !u!1 &100475669043413388
 GameObject:
