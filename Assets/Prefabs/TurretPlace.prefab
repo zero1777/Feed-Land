@@ -47,10 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d24af782778e41aa83e64f2629643c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 0}
-  minesPlace: {fileID: 0}
-  minePrefab: {fileID: 0}
-  demandMines: 0
+  turretPrefab: {fileID: 606173555527376378, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94,
+    type: 3}
+  minesPlace: {fileID: 100475668941552973}
+  minePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
+    type: 3}
+  demandMines: 4
 --- !u!1 &100475669043413388
 GameObject:
   m_ObjectHideFlags: 0

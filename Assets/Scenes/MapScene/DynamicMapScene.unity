@@ -273,8 +273,10 @@ MonoBehaviour:
     type: 3}
   pathEffectPrefab: {fileID: 2586128363244842901, guid: f784b45b2004c4c2d8fc3c1c03d7710d,
     type: 3}
-  minNum: 10
-  maxNum: 10
+  turretPlacePrefab: {fileID: 100475668941552973, guid: 11ff683d60b044b61baff93d49fd1f82,
+    type: 3}
+  minElementNum: 10
+  maxElementNum: 10
   mapNum: 2
 --- !u!4 &1240369406
 Transform:

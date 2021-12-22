@@ -9,10 +9,12 @@ public class MapGenerator : MonoBehaviour
     public GameObject treePrefab;
     public GameObject minePrefab;
     public GameObject pathEffectPrefab;
-    public int minNum;
-    public int maxNum;
+    public GameObject turretPlacePrefab;
+    public int minElementNum;
+    public int maxElementNum;
     public int mapNum;
-
+    
+    private int turretPlaceNum;
     private int treesNum;
     private int minesNum;
     private int mapWidth;
@@ -28,6 +30,7 @@ public class MapGenerator : MonoBehaviour
         mapHeight = 14;
         offsetY = 0.5f;
         mapIdx = 0;
+        turretPlaceNum = 6;
         paths = new List<List<int>>();
 
         while (mapIdx < mapNum)
@@ -38,10 +41,12 @@ public class MapGenerator : MonoBehaviour
             // generate path on the map
             GeneratePath();
             // generate elements on the map
-            treesNum = Random.Range(minNum, maxNum + 1);
-            minesNum = Random.Range(minNum, maxNum + 1);
+            treesNum = Random.Range(minElementNum, maxElementNum + 1);
+            minesNum = Random.Range(minElementNum, maxElementNum + 1);
             GenerateElement(minesNum, "left", minePrefab);
             GenerateElement(treesNum, "right", treePrefab);
+            // generate turretPlace on the map
+            GenerateTurretPlace();
             mapIdx++;
         }
     }
@@ -57,8 +62,8 @@ public class MapGenerator : MonoBehaviour
     private void GenerateElement(int total, string region, GameObject _object)
     {
         List<int> elementIdx = new List<int>();
-        // temporarily set the region size = 14 * 8 = 112
-        int regionSize = 112;
+        // temporarily set the region size = 14 * 7
+        int regionSize = 98;
         for (int i = 0; i < total; i++)
         {
             int idx;
@@ -103,7 +108,7 @@ public class MapGenerator : MonoBehaviour
     {
         // First, random each column position
         List<int> pos = new List<int>();
-        int lines = 5;
+        int lines = 4;
         for (int i = 0; i < mapWidth - 2; i++)
         {
             pos.Add(Random.Range(0, lines));
@@ -162,6 +167,17 @@ public class MapGenerator : MonoBehaviour
     public List<int> GetPath(int idx)
     {
         return paths[idx];
+    }
+
+
+    private void GenerateTurretPlace() {
+        // for convenience, directly set the constant
+        float x = -9.5f + mapIdx * mapWidth;
+        float z = -1.5f;
+        for (int i=0; i<turretPlaceNum; i++) {
+            Vector3 vec = new Vector3(x + i*4f, 0f, z);
+            Instantiate(turretPlacePrefab, vec, Quaternion.identity);
+        }
     }
 
 }
