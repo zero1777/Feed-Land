@@ -20,14 +20,12 @@ public class MapGenerator : MonoBehaviour
     private int mapWidth;
     private int mapHeight;
     private List<List<Vector3>> paths;
-    private float offsetY;
 
     void Start()
     {
         // initialization
         mapWidth = 28;
         mapHeight = 14;
-        offsetY = 0.5f;
         turretPlaceNum = 6;
         paths = new List<List<Vector3>>();
 
