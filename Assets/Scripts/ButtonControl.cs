@@ -16,7 +16,9 @@ public class ButtonControl : MonoBehaviour
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        // this will be changed back in the future
+        //SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("OtherCanvasScene");
     }
 
     public void ReturnToMenu()
@@ -32,5 +34,10 @@ public class ButtonControl : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 }
