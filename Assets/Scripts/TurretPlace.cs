@@ -34,11 +34,12 @@ public class TurretPlace : MonoBehaviour
 
     private void InitialMines()
     {
+        Vector3 baseY = new Vector3(0f, 0.7f, 0f);
         Vector3 offsetY = new Vector3(0f, 0.5f, 0f);
         for (int i = 0; i < demandMines; i++)
         {
             GameObject m = Instantiate(minePrefab, minesPlace.transform);
-            m.transform.localPosition = offsetY * i;
+            m.transform.localPosition = offsetY * i + baseY;
         }
     }
 
