@@ -24,7 +24,7 @@ public class UITimer : MonoBehaviour
     public Sprite eliteBadge;
     private bool hasWon = false;
 
-    AudioSource audioPlayer;
+    private AudioSource audioPlayer;
     public AudioClip succuessSE;
 
 
@@ -53,39 +53,40 @@ public class UITimer : MonoBehaviour
             hasWon = true;
             badgeCanvas.SetActive(true);
             gamingCanvas.SetActive(false);
-            timerEndingText.text = "You've protected the unicorn for " + timerFloat.ToString("F2") + " seconds!";
+            timerEndingText.text = timerFloat.ToString("F2");
             if (10.0f > timerFloat && timerFloat >= 0.0f)
             {
-                badgeTitle.text = "Bronze BodyGuard";
+                badgeTitle.text = "Bronze";
+                badgeTitle.color = new Color(0.9056604f, 0.5277233f, 0.1153435f, 1);
                 badgeImage.sprite = bronzeBadge;
             }
             else if (20.0f > timerFloat && timerFloat >= 10.0f)
             {
-                badgeTitle.text = "Silver BodyGuard";
-                badgeTitle.color = new Color(0.8490566f, 0.8241089f, 0.756942f, 1);
+                badgeTitle.text = "Silver";
+                badgeTitle.color = new Color(0.745283f, 0.7093292f, 0.6925507f, 1);
                 badgeImage.sprite = silverBadge;
             }
             else if (30.0f > timerFloat && timerFloat >= 20.0f)
             {
-                badgeTitle.text = "Gold BodyGuard";
-                badgeTitle.color = new Color(1, 0.9105341f, 0, 1);
+                badgeTitle.text = "Gold";
+                badgeTitle.color = new Color(1, 0.7716983f, 0.0235849f, 1);
                 badgeImage.sprite = goldBadge;
             }
             else if (40.0f > timerFloat && timerFloat >= 30.0f)
             {
-                badgeTitle.text = "Platinum BodyGuard";
+                badgeTitle.text = "Platinum";
                 badgeTitle.color = new Color(0.6650944f, 0.9793268f, 1, 1);
                 badgeImage.sprite = platinumBadge;
             }
             else if (50.0f > timerFloat && timerFloat >= 40.0f)
             {
-                badgeTitle.text = "Diamond BodyGuard";
-                badgeTitle.color = new Color(0.6666667f, 0.8777453f, 1, 1);
+                badgeTitle.text = "Diamond";
+                badgeTitle.color = new Color(0.0764062f, 0.6203933f, 1, 1);
                 badgeImage.sprite = diamondBadge;
             }
             else
             {
-                badgeTitle.text = "Elite BodyGuard";
+                badgeTitle.text = "Elite";
                 badgeTitle.color = new Color(1, 1, 1, 1);
                 badgeImage.sprite = eliteBadge;
             }
