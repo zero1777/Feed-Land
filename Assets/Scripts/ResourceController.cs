@@ -24,11 +24,11 @@ public class ResourceController : MonoBehaviour
         // debug health X to -hp
         if (Input.GetKeyDown(KeyCode.X))
         {
-            getHit(1);
+            GetHit(1);
         }
     }
 
-    public bool getHit(int damage)
+    public bool GetHit(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
