@@ -25,18 +25,21 @@ public class CannonUpgrade : MonoBehaviour
         UpdateProgressBar((float)currentUpgradeMaterials / demandUpgradeMaterials);
     }
 
-    private void UpdateProgressBar(float ratio) {
+    private void UpdateProgressBar(float ratio)
+    {
         // Debug.Log(currentUpgradeMaterials);
         progressBar.fillAmount = ratio;
     }
 
-    private void UpgradeCannon() {
+    private void UpgradeCannon()
+    {
         GameObject upgradeCannon = Instantiate(upgradeCannonPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
-    public void GetUpgradeMaterial() {
-        if (currentUpgradeMaterials < demandUpgradeMaterials) 
+    public void GetUpgradeMaterial()
+    {
+        if (currentUpgradeMaterials < demandUpgradeMaterials)
             currentUpgradeMaterials++;
         if (currentUpgradeMaterials >= demandUpgradeMaterials) UpgradeCannon();
     }
