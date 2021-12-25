@@ -18,9 +18,10 @@ public class CannonUpgrade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown) {
-            GetUpgradeMaterial();
-        }
+        // for testing
+        // if (Input.anyKeyDown) {
+        //     GetUpgradeMaterial();
+        // }
         UpdateProgressBar((float)currentUpgradeMaterials / demandUpgradeMaterials);
     }
 
@@ -30,7 +31,7 @@ public class CannonUpgrade : MonoBehaviour
     }
 
     private void UpgradeCannon() {
-        Instantiate(upgradeCannonPrefab, transform.position, Quaternion.identity);
+        GameObject upgradeCannon = Instantiate(upgradeCannonPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
