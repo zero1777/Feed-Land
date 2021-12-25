@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 2124490248}
   m_Layer: 0
   m_Name: CannonLevel1
-  m_TagString: Untagged
+  m_TagString: turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30720ce87f22c481d8b561bf45a6dddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkRadius: 10
+  checkRadius: 6
   checkLayers:
     serializedVersion: 2
     m_Bits: 1024
@@ -865,7 +865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606173556489771458}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 0.74, z: 0.92}
+  m_LocalPosition: {x: 0.01, y: 0.442, z: 0.593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 606173555527376359}
@@ -1400,7 +1400,7 @@ Transform:
   m_GameObject: {fileID: 629075214906560537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 6959385191578791833}
   m_Father: {fileID: 606173555527376359}

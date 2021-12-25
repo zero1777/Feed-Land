@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3457361372964506091}
   - component: {fileID: 3447288765898311953}
   - component: {fileID: 5566169284006870334}
+  - component: {fileID: -1560316355443076784}
   m_Layer: 0
   m_Name: Mines
   m_TagString: red_mine
@@ -94,3 +95,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300040, guid: 044a4bb579cfb5a42ad41179beb60260, type: 3}
+--- !u!114 &-1560316355443076784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424928520502617047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c281718e215ee434cb0ef0cb7d52ff66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
+  getHit: 0
