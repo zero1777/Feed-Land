@@ -28,7 +28,7 @@ public class TurretPlace : MonoBehaviour
 
     public void GetMine()
     {
-        if (currentMines < 4) currentMines++;
+        if (currentMines < demandMines) currentMines++;
         if (currentMines >= demandMines) ConstructTurret();
     }
 
