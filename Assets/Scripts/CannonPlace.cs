@@ -30,6 +30,8 @@ public class CannonPlace : MonoBehaviour
 
     public bool GetMine()
     {
+        Debug.Log("[CannonPlace.GetMine]: get mine");
+
         if (currentMines > demandMines)
         {
             return false;

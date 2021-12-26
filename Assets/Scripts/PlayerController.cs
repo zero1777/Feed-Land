@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private float nextActionTime;
     private GameObject carryingObject;
     private GameObject toBeDestroyedObject;
+    private bool isTriggeringAnimation;
 
     // prefabs collections for convinience
     private Dictionary<string, GameObject> foodPrefabs;
@@ -52,6 +54,8 @@ public class PlayerController : MonoBehaviour
             {"green", greenMinePrefab},
             {"blue", blueMinePrefab},
         };
+
+        isTriggeringAnimation = false;
     }
 
     void Update()
@@ -68,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isTriggeringAnimation) return;
+
         // get keyboard inputs
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -109,57 +115,63 @@ public class PlayerController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            if (target.CompareTag(cannonPlaceTag) && IsCarryingMine("red"))
+            if (target.CompareTag(cannonPlaceTag) && IsCarryingMine("red") && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
-
-                // TODO: call the cannon place method to interact with the cannon place
 
                 CannonPlace cannonPlace = target.GetComponent<CannonPlace>();
                 if (cannonPlace.GetMine())
                 {
-                    ReleaseResource();
-                    animator.SetTrigger("building");
+                    isTriggeringAnimation = true;
+                    StartCoroutine(TriggerBlockingAnimation("building"));
+
+                    StartCoroutine(ReleaseResource());
                 }
             }
 
-            if (target.CompareTag(cannonTag) && IsCarryingFood())
+            if (target.CompareTag(cannonTag) && IsCarryingFood() && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with cannon: {target.name}");
 
                 CannonSenseShoot cannonSenseShoot = target.GetComponent<CannonSenseShoot>();
                 if (cannonSenseShoot.LoadBullet(carryingObject))
                 {
-                    ReleaseResource();
-                    animator.SetTrigger("reloading");
+                    isTriggeringAnimation = true;
+                    StartCoroutine(TriggerBlockingAnimation("reloading"));
+
+                    StartCoroutine(ReleaseResource());
                 }
             }
 
-            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null)
+            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
+                isTriggeringAnimation = true;
+                StartCoroutine(TriggerBlockingAnimation("cutting"));
+
                 ResourceController resourceController = target.GetComponent<ResourceController>();
                 if (resourceController.GetHit(1))
                 {
-                    DestroyResource(target, "tree", target.tag.Split('_')[0]);
+                    StartCoroutine(DestroyResource(target, "tree", target.tag.Split('_')[0]));
                 }
 
-                animator.SetTrigger("cutting");
                 shouldResetCooldown = true;
             }
 
-            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null)
+            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
+
+                isTriggeringAnimation = true;
+                StartCoroutine(TriggerBlockingAnimation("mining"));
 
                 ResourceController resourceController = target.GetComponent<ResourceController>();
                 if (resourceController.GetHit(1))
                 {
-                    DestroyResource(target, "mine", target.tag.Split('_')[0]);
+                    StartCoroutine(DestroyResource(target, "mine", target.tag.Split('_')[0]));
                 }
 
-                animator.SetTrigger("mining");
                 shouldResetCooldown = true;
             }
         }
@@ -176,8 +188,10 @@ public class PlayerController : MonoBehaviour
         return shouldResetCooldown;
     }
 
-    private void DestroyResource(GameObject o, string resourceType, string color = "")
+    private IEnumerator DestroyResource(GameObject o, string resourceType, string color = "")
     {
+        yield return new WaitUntil(() => (!isTriggeringAnimation));
+
         Debug.Log($"[PlayerController.DestroyResource] destroy {resourceType} with color {color}");
 
         if (resourceType == "tree")
@@ -196,8 +210,21 @@ public class PlayerController : MonoBehaviour
         toBeDestroyedObject = o;
     }
 
-    private void ReleaseResource()
+    private IEnumerator TriggerBlockingAnimation(string triggerName) {
+        Debug.Log("[PlayerController.TriggerBlockingAnimation]: trigger starts");
+
+        animator.SetTrigger(triggerName);
+
+        yield return new WaitForSeconds(0.417f);
+
+        isTriggeringAnimation = false;
+        Debug.Log("[PlayerController.TriggerBlockingAnimation]: trigger ends");
+    }
+
+    private IEnumerator ReleaseResource()
     {
+        yield return new WaitUntil(() => (!isTriggeringAnimation));
+
         Destroy(carryingObject);
         carryingObject = null;
     }
