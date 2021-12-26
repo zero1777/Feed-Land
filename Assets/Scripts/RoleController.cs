@@ -37,6 +37,7 @@ public class RoleController : MonoBehaviour
     IEnumerator Start()
     {
         // init para
+        mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
         rb = GetComponent<Rigidbody>();
         canMove = true;
         currentHealth = maxHealth;
@@ -45,7 +46,7 @@ public class RoleController : MonoBehaviour
         animator = GetComponent<Animator>();
         // generate Enemy after 1 second, every 10 second generate another monster
 
-        //InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
+        InvokeRepeating("GenerateEnemy", 1.0f, 5.0f);
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
@@ -59,10 +60,13 @@ public class RoleController : MonoBehaviour
         // check role is  not
         if (isMoving == false && canMove == true)
         {
-            targetPosition = storedPath[0];
-            SetTargetPosition();
-            animator.SetFloat("speed", 1.0f);
-            storedPath.RemoveAt(0);
+            if (storedPath.Count > 0)
+            {
+                targetPosition = storedPath[0];
+                SetTargetPosition();
+                animator.SetFloat("speed", 1.0f);
+                storedPath.RemoveAt(0);
+            }
         }
         else
         {
