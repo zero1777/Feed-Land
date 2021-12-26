@@ -210,7 +210,8 @@ public class PlayerController : MonoBehaviour
         toBeDestroyedObject = o;
     }
 
-    private IEnumerator TriggerBlockingAnimation(string triggerName) {
+    private IEnumerator TriggerBlockingAnimation(string triggerName)
+    {
         Debug.Log("[PlayerController.TriggerBlockingAnimation]: trigger starts");
 
         animator.SetTrigger(triggerName);
