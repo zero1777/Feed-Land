@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public int minElementNum;
     public int maxElementNum;
     public int mapNum;
+    public bool isInitialized { get; private set; }
 
     private int cannonPlaceNum;
     private int treesNum;
@@ -44,6 +45,7 @@ public class MapGenerator : MonoBehaviour
             // generate cannonPlace on the map
             GenerateCannonPlace(new Vector3(-9.5f + mapIdx * mapWidth, 0f, -1.5f));
         }
+        isInitialized = true;
     }
 
     // Update is called once per frame
