@@ -149,6 +149,13 @@ public class MonsterControl : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitThenMove()
+    {
+        yield return new WaitForSeconds(1);
+        print("wait");
+        canMove = true;
+    }
+
 
     /* void MovedRandomly()
     {
@@ -184,6 +191,9 @@ public class MonsterControl : MonoBehaviour
             {
                 PlaySoundEffect(roleHurtSound);
             }
+            // wait a bit after attack the role
+            canMove = false;
+            StartCoroutine(WaitThenMove());
         }
 
         if (foodList.Contains(other.gameObject.tag))

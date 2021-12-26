@@ -113,12 +113,12 @@ MonoBehaviour:
   roleHurtSound: {fileID: 8300000, guid: 6130b43b8d684134d9aab47e98a62bc8, type: 3}
   unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
   storedPath: []
-  monsterMovingSpeed: 1
+  monsterMovingSpeed: 2.5
   monsterRotSpeed: 0.1
   mapGenerator: {fileID: 0}
-  redFoodNum: 5
-  blueFoodNum: 5
-  greenFoodNum: 5
+  redFoodNum: 3
+  blueFoodNum: 3
+  greenFoodNum: 3
   attackDistance: 0
 --- !u!82 &4595219238604163121
 AudioSource:
