@@ -7,7 +7,10 @@ public class RoleController : MonoBehaviour
 {
 
     public int maxHealth = 5;
+    public float roleMovingSpeed = 2.0f;
+    public float roleRotSpeed = 0.1f;
     public int currentHealth;
+
     public HealthBar healthBar;
     public MapGenerator mapGenerator;
 
@@ -20,8 +23,7 @@ public class RoleController : MonoBehaviour
     };
 
     public List<GameObject> enemies = new List<GameObject>();
-
-    private int mapNow;
+    public List<Vector3> storedPath;
 
     // use to decide route
     private Vector3 targetPosition;
@@ -29,15 +31,8 @@ public class RoleController : MonoBehaviour
     private Quaternion roleRot;
     private bool canMove;
     private bool isMoving = false;
-    public float roleMovingSpeed = 2.0f;
-    public float roleRotSpeed = 0.1f;
-    // store path
-    public List<Vector3> storedPath;
-
     private Animator animator;
-
     private Rigidbody rb;
-
 
     IEnumerator Start()
     {
@@ -54,12 +49,6 @@ public class RoleController : MonoBehaviour
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
-    }
-
-    void GenerateEnemy()
-    {
-        int idx = Random.Range(0, enemies.Count);
-        Instantiate(enemies[idx]);
     }
 
     void FixedUpdate()
@@ -79,6 +68,7 @@ public class RoleController : MonoBehaviour
         {
             animator.SetFloat("speed", 0.0f);
         }
+
         // check if dead
         if (currentHealth <= 0)
         {
@@ -93,6 +83,23 @@ public class RoleController : MonoBehaviour
 
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void AppendPath(Vector3 newPath)
+    {
+        storedPath.Add(newPath);
+    }
+
+    private void GenerateEnemy()
+    {
+        int idx = Random.Range(0, enemies.Count);
+        Instantiate(enemies[idx]);
+    }
+
     private void GetMapPath()
     {
         for (int i = 0; i < mapGenerator.mapNum; i++)
@@ -102,17 +109,17 @@ public class RoleController : MonoBehaviour
                 storedPath.Add(mapGenerator.GetPath(i)[j]);
                 Debug.Log(mapGenerator.GetPath(i)[j]);
             }
-            mapNow++;
         }
     }
 
     private void SetTargetPosition()
     {
-        this.transform.LookAt(targetPosition);
+        transform.LookAt(targetPosition);
         lookAtTarget = new Vector3(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y, targetPosition.z - transform.position.z);
         roleRot = Quaternion.LookRotation(lookAtTarget);
         isMoving = true;
     }
+
     private void MoveRole()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, roleRot, roleRotSpeed * Time.fixedDeltaTime);
@@ -121,15 +128,5 @@ public class RoleController : MonoBehaviour
         {
             isMoving = false;
         }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-    }
-    public void AppendPath(Vector3 newPath)
-    {
-        storedPath.Add(newPath);
     }
 }
