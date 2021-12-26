@@ -21,12 +21,14 @@ public class CannonSenseShoot : MonoBehaviour
     public GameObject redDisplayPrefab;
     public GameObject blueDisplayPrefab;
     public GameObject greenDisplayPrefab;
-    private float coolDownTime = 3f; // shooting CD
+    public AudioClip loadBulletSound;
+    public float coolDownTime = 3f; // shooting CD
     private float shootTimer = 0f;
     private bool vacant = true;
     private Dictionary<string, GameObject> bulletPrefabs;
     private Dictionary<string, GameObject> displayPrefabs;
-    private Queue<GameObject> waitBullets = new Queue<GameObject>();
+    private Queue<String> waitBullets = new Queue<String>();
+    private AudioSource audioPlayer;
 
     void Start()
     {
@@ -41,6 +43,8 @@ public class CannonSenseShoot : MonoBehaviour
             {"green", greenDisplayPrefab},
             {"blue", blueDisplayPrefab},
         };
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -50,13 +54,13 @@ public class CannonSenseShoot : MonoBehaviour
         if (shootTimer > coolDownTime && waitBulletsCount > 0 && vacant)
         {
             shootTimer = 0f;
-            GameObject nextBullet = waitBullets.Dequeue();
+            String nextBulletTag = waitBullets.Dequeue();
 
             // the bullet used for display will be destroyed if that bullet is fired
             Destroy(stagePoint.GetChild(0).gameObject);
 
             // create next bullet
-            CreateBullet(nextBullet.tag.Split('_')[0]);
+            CreateBullet(nextBulletTag.Split('_')[0]);
             vacant = false;
         }
 
@@ -109,13 +113,13 @@ public class CannonSenseShoot : MonoBehaviour
 
         if (bulletPrefab.tag.EndsWith(foodTagSuffix))
         {
-            GameObject newBullet = Instantiate(bulletPrefab);
-            newBullet.SetActive(false);
-            waitBullets.Enqueue(newBullet);
+            String newBulletTag = bulletPrefab.tag;
+            waitBullets.Enqueue(newBulletTag);
+            PlaySoundEffect(loadBulletSound);
             Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
 
             // display on the top of cannon
-            CreateDisplayBullet(newBullet.tag.Split('_')[0]);
+            CreateDisplayBullet(newBulletTag.Split('_')[0]);
         }
 
         return true;
@@ -130,5 +134,10 @@ public class CannonSenseShoot : MonoBehaviour
     {
         GameObject ammoFood = Instantiate(displayPrefabs[color], stagePoint);
         ammoFood.transform.localPosition = new Vector3(0.3f, 0, 4.0f);
+    }
+
+    private void PlaySoundEffect(AudioClip soundEffect)
+    {
+        audioPlayer.PlayOneShot(soundEffect);
     }
 }
