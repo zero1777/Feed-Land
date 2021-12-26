@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CannonCavas : MonoBehaviour
 {
-    public Transform cam;
+    private GameObject mainCamera;
     // Start is called before the first frame update
     void Start()
     {
-
+        mainCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -23,6 +23,6 @@ public class CannonCavas : MonoBehaviour
     /// </summary>
     void LateUpdate()
     {
-        transform.LookAt(transform.position + cam.forward);
+        transform.LookAt(transform.position + mainCamera.transform.forward);
     }
 }
