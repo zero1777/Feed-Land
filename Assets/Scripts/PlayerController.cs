@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
-        
+
         if (transform.position.y < resetBoundaryY)
         {
             transform.position = mapGenerator.ResetPlayerPosition(transform.position);
