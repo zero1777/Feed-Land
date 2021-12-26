@@ -35,9 +35,7 @@ public class RoleController : MonoBehaviour
     private Rigidbody rb;
     // camera & light follow
     private GameObject mainCamera;
-    private Vector3 mainCameraInitialRelativePosition;
     private GameObject light;
-    private Vector3 lightInitialRelativePosition;
 
     IEnumerator Start()
     {
@@ -50,9 +48,7 @@ public class RoleController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         mainCamera = GameObject.Find("Main Camera");
-        mainCameraInitialRelativePosition = mainCamera.transform.position - transform.position;
         light = GameObject.Find("Directional Light");
-        lightInitialRelativePosition = light.transform.position - transform.position;
 
         // generate Enemy after 1 second, every 10 second generate another monster
 
