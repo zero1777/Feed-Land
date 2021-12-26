@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public int minElementNum;
     public int maxElementNum;
     public int mapNum;
+    public bool IsInitialized { get; private set; }
 
     private int turretPlaceNum;
     private int treesNum;
@@ -43,6 +44,7 @@ public class MapGenerator : MonoBehaviour
             GenerateElement(treesNum, new Vector3(0.5f + mapIdx * mapWidth, 0.5f, 6.5f), treePrefab);
             // generate turretPlace on the map
             GenerateTurretPlace(new Vector3(-9.5f + mapIdx * mapWidth, 0f, -1.5f));
+            IsInitialized = true;
         }
     }
 
