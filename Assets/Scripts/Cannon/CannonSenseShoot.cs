@@ -98,15 +98,19 @@ public class CannonSenseShoot : MonoBehaviour
     }
 
     // load bullet
-    public bool LoadBullet(GameObject newBullet)
+    public bool LoadBullet(GameObject bulletPrefab)
     {
         if (waitBullets.Count >= maxBulletNum)
         {
             return false;
         }
 
-        if (newBullet.tag.EndsWith(foodTagSuffix))
+        Debug.Log($"[CannonSenseShoot.LoadBullet]: load bullet with {bulletPrefab.name}, {bulletPrefab.tag}");
+
+        if (bulletPrefab.tag.EndsWith(foodTagSuffix))
         {
+            GameObject newBullet = Instantiate(bulletPrefab);
+            newBullet.SetActive(false);
             waitBullets.Enqueue(newBullet);
             Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
 
