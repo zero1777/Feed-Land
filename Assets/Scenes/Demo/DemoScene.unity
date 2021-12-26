@@ -3600,6 +3600,11 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4353533598030991345, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: m_Value
+      value: 1.11
+      objectReference: {fileID: 0}
     - target: {fileID: 5078980918062961763, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: m_AnchorMin.x
