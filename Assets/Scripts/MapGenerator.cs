@@ -129,12 +129,13 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateCannonPlace(Vector3 offset)
     {
+        Vector3 baseY = new Vector3(0f, 1f, 0f);
         // for convenience, directly set the constant
         for (int i = 0; i < cannonPlaceNum; i++)
         {
             Vector3 point = new Vector3(i * 4f, 0f, 0f);
             Vector3 position = offset + point;
-            Instantiate(cannonPlacePrefab, position, Quaternion.identity);
+            Instantiate(cannonPlacePrefab, position + baseY, Quaternion.identity);
         }
     }
 
