@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UITimer : MonoBehaviour
@@ -92,5 +90,4 @@ public class UITimer : MonoBehaviour
             }
         }
     }
-
 }

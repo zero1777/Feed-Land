@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public float rotationSpeed;
     public float actionCooldown;
+    public float resetBoundaryY;
 
     // tag definitions
     public const string cannonPlaceTag = "cannon_place";
@@ -15,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
+
+    // map generator
+    public MapGenerator mapGenerator;
 
     // carriable object prefabs
     public GameObject redFoodPrefab;
@@ -100,6 +104,12 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+
+        if (transform.position.y < resetBoundaryY)
+        {
+            transform.position = mapGenerator.ResetPlayerPosition(transform.position);
+            StartCoroutine(ReleaseResource());
         }
     }
 

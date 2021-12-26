@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI; //for NavMeshAgent
 
 public class RoleController : MonoBehaviour
 {
-
     public int maxHealth = 5;
     public float roleMovingSpeed = 2.0f;
     public float roleRotSpeed = 0.1f;
