@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -5813027616617572780}
   m_Layer: 0
   m_Name: CannonPlace
-  m_TagString: turret_place
+  m_TagString: cannon_place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
