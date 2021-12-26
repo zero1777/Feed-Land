@@ -51,7 +51,7 @@ public class RoleController : MonoBehaviour
 
         // generate Enemy after 1 second, every 10 second generate another monster
 
-        InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
+        InvokeRepeating("GenerateEnemy", 10.0f, 10.0f);
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
