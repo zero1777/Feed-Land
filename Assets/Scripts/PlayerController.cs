@@ -143,9 +143,10 @@ public class PlayerController : MonoBehaviour
                 if (resourceController.GetHit(1))
                 {
                     DestroyResource(target, "tree", target.tag.Split('_')[0]);
-                    animator.SetTrigger("cutting");
-                    shouldResetCooldown = true;
                 }
+
+                animator.SetTrigger("cutting");
+                shouldResetCooldown = true;
             }
 
             if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null)
@@ -156,9 +157,10 @@ public class PlayerController : MonoBehaviour
                 if (resourceController.GetHit(1))
                 {
                     DestroyResource(target, "mine", target.tag.Split('_')[0]);
-                    animator.SetTrigger("mining");
-                    shouldResetCooldown = true;
                 }
+
+                animator.SetTrigger("mining");
+                shouldResetCooldown = true;
             }
         }
 

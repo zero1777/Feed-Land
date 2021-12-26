@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI; //for NavMeshAgent
+﻿using UnityEngine;
 
 public class ResourceController : MonoBehaviour
 {
