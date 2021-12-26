@@ -145,7 +145,7 @@ public class MapGenerator : MonoBehaviour
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
-        Vector3 resetPosition = new Vector3(-0.5f + mapIdx * mapWidth, currentPos.y, currentPos.z);
+        Vector3 resetPosition = new Vector3(-0.5f + mapIdx * mapWidth, 2.0f, 1.5f);
         return resetPosition;
     }
 
