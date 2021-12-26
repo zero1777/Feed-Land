@@ -20,9 +20,9 @@ public class CannonUpgrade : MonoBehaviour
     void Update()
     {
         // for testing
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            GetUpgradeMaterial();
-        }
+        // if (Input.GetKeyDown(KeyCode.Tab)) {
+        //     GetUpgradeMaterial();
+        // }
         UpdateProgressBar((float)currentUpgradeMaterials / demandUpgradeMaterials);
     }
 
