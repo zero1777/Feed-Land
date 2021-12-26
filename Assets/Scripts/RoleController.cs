@@ -48,7 +48,9 @@ public class RoleController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
 
         animator = GetComponent<Animator>();
+        // generate Enemy after 1 second, every 10 second generate another monster
 
+        //InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
