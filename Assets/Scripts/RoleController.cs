@@ -33,6 +33,9 @@ public class RoleController : MonoBehaviour
     private bool isMoving = false;
     private Animator animator;
     private Rigidbody rb;
+    // camera & light follow
+    private GameObject mainCamera;
+    private GameObject light;
 
     IEnumerator Start()
     {
@@ -43,6 +46,10 @@ public class RoleController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
 
         animator = GetComponent<Animator>();
+
+        mainCamera = GameObject.Find("Main Camera");
+        light = GameObject.Find("Directional Light");
+
         // generate Enemy after 1 second, every 10 second generate another monster
 
         //InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
@@ -80,7 +87,14 @@ public class RoleController : MonoBehaviour
             canMove = true;
             animator.SetInteger("animation", 1);
         }
+    }
 
+    void LateUpdate()
+    {
+        Vector3 mainCameraPosition = new Vector3(transform.position.x - 5.0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        mainCamera.transform.position = mainCameraPosition;
+        Vector3 lightPosition = new Vector3(transform.position.x - 5.0f, light.transform.position.y, light.transform.position.z);
+        light.transform.position = lightPosition;
     }
 
     public void TakeDamage(int damage)
