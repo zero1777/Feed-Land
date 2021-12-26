@@ -13,6 +13,7 @@ public class CannonUpgrade : MonoBehaviour
     void Start()
     {
         currentUpgradeMaterials = 0;
+        UpdateProgressBar((float)currentUpgradeMaterials / demandUpgradeMaterials);
     }
 
     // Update is called once per frame
