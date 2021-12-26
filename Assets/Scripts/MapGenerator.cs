@@ -9,6 +9,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject minePrefab;
     public GameObject pathEffectPrefab;
     public GameObject cannonPlacePrefab;
+    public GameObject unicorn;
     public int minElementNum;
     public int maxElementNum;
     public int mapNum;
@@ -138,10 +139,10 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public Vector3 ResetPlayerPosition(Vector3 currentPos)
+    public Vector3 ResetPlayerPosition()
     {
         // first, find out which map the player is at
-        int mapIdx = Mathf.FloorToInt((14f + currentPos.x) / mapWidth);
+        int mapIdx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
         mapIdx = Mathf.Max(mapIdx, 0);
         // Debug.Log(mapIdx);
 

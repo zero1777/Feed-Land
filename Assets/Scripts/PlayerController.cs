@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y < resetBoundaryY)
         {
-            transform.position = mapGenerator.ResetPlayerPosition(transform.position);
+            transform.position = mapGenerator.ResetPlayerPosition();
             StartCoroutine(ReleaseResource());
         }
     }
