@@ -16,6 +16,7 @@ public class BulletController : MonoBehaviour
     private Animation animations;
     private bool isShoot = false;
     private AudioSource audioPlayer;
+    private Collider nearestEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +27,16 @@ public class BulletController : MonoBehaviour
         animations = gameObject.GetComponentInParent<Animation>();
         cannonTransform = transform.parent.parent;
 
-        audioPlayer = gameObject.GetComponent<AudioSource>();
+        audioPlayer = gameObject.GetComponent<AudioSource>();     
+          
+        // return a nearest enemy with correct tag or null
+        nearestEnemy = gameObject.GetComponentInParent<CannonSenseShoot>().FindNearestEnemyWithTag(gameObject);
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // return a nearest enemy with correct tag or null
-        Collider nearestEnemy = gameObject.GetComponentInParent<CannonSenseShoot>().FindNearestEnemyWithTag(gameObject);
-
         // if there is an enemy, throw bullet to the nearest enemy
         if (nearestEnemy != null)
         {
