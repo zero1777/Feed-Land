@@ -33,6 +33,11 @@ public class RoleController : MonoBehaviour
     private bool isMoving = false;
     private Animator animator;
     private Rigidbody rb;
+    // camera & light follow
+    private GameObject mainCamera;
+    private Vector3 mainCameraInitialRelativePosition;
+    private GameObject light;
+    private Vector3 lightInitialRelativePosition;
 
     IEnumerator Start()
     {
@@ -86,6 +91,14 @@ public class RoleController : MonoBehaviour
             canMove = true;
             animator.SetInteger("animation", 1);
         }
+    }
+
+    void LateUpdate()
+    {
+        Vector3 mainCameraPosition = new Vector3(transform.position.x - 5.0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        mainCamera.transform.position = mainCameraPosition;
+        Vector3 lightPosition = new Vector3(transform.position.x - 5.0f, light.transform.position.y, light.transform.position.z);
+        light.transform.position = lightPosition;
     }
 
     public void TakeDamage(int damage)
