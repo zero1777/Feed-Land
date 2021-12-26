@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
@@ -535,7 +535,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &557844464
 PrefabInstance:
@@ -603,6 +603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CannonLevel1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794500956765143014, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94, type: 3}
@@ -1043,7 +1048,7 @@ PrefabInstance:
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
@@ -1262,6 +1267,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 372717334692429292, guid: 11ff683d60b044b61baff93d49fd1f82,
+        type: 3}
+      propertyPath: m_TagString
+      value: cannon_place
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11ff683d60b044b61baff93d49fd1f82, type: 3}
 --- !u!1 &971723669
@@ -1402,7 +1412,7 @@ PrefabInstance:
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
@@ -1545,7 +1555,7 @@ PrefabInstance:
     - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
         type: 3}
@@ -1609,7 +1619,7 @@ PrefabInstance:
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
@@ -1683,7 +1693,7 @@ PrefabInstance:
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
@@ -1840,7 +1850,7 @@ PrefabInstance:
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7214979518173596176, guid: dbfc9f447444746ae9d1710e1ea7a948,
         type: 3}
@@ -1914,7 +1924,7 @@ PrefabInstance:
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3428319228099806747, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
         type: 3}
@@ -2016,7 +2026,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &2046252243
 MonoBehaviour:
