@@ -68,6 +68,15 @@ public class PlayerController : MonoBehaviour
                 nextActionTime = Time.time + actionCooldown;
             }
         }
+
+        // we delete the object after taking action finish
+        // since we cannot delete object when there is an foreach loop using the object
+        if (toBeDestroyedObject != null)
+        {
+            targets.Remove(toBeDestroyedObject);
+            Destroy(toBeDestroyedObject);
+            toBeDestroyedObject = null;
+        }
     }
 
     void FixedUpdate()
@@ -174,15 +183,6 @@ public class PlayerController : MonoBehaviour
 
                 shouldResetCooldown = true;
             }
-        }
-
-        // we delete the object after the loop finished,
-        // since we cannot delete object when there is an foreach loop using the object
-        if (toBeDestroyedObject != null)
-        {
-            targets.Remove(toBeDestroyedObject);
-            Destroy(toBeDestroyedObject);
-            toBeDestroyedObject = null;
         }
 
         return shouldResetCooldown;
