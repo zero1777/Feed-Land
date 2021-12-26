@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
             Vector3 point;
             do
             {
-                point = new Vector3(Random.Range(0, 14), 0f, (-1) * Random.Range(0, 7));
+                point = new Vector3(Random.Range(0, 13), 0f, (-1) * Random.Range(0, 7));
             } while (elements.Contains(point));
             elements.Add(point);
 
@@ -136,6 +136,17 @@ public class MapGenerator : MonoBehaviour
             Vector3 position = offset + point;
             Instantiate(cannonPlacePrefab, position, Quaternion.identity);
         }
+    }
+
+    public Vector3 ResetPlayerPosition(Vector3 currentPos)
+    {
+        // first, find out which map the player is at
+        int mapIdx = Mathf.FloorToInt((14f + currentPos.x) / mapWidth);
+        // Debug.Log(mapIdx);
+
+        // next, set the player's position in the middle of the map
+        Vector3 resetPosition = new Vector3(-0.5f + mapIdx * mapWidth, currentPos.y, currentPos.z);
+        return resetPosition;
     }
 
 }
