@@ -43,6 +43,12 @@ public class RoleController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
 
         animator = GetComponent<Animator>();
+
+        mainCamera = GameObject.Find("Main Camera");
+        mainCameraInitialRelativePosition = mainCamera.transform.position - transform.position;
+        light = GameObject.Find("Directional Light");
+        lightInitialRelativePosition = light.transform.position - transform.position;
+
         // generate Enemy after 1 second, every 10 second generate another monster
 
         //InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
@@ -80,7 +86,6 @@ public class RoleController : MonoBehaviour
             canMove = true;
             animator.SetInteger("animation", 1);
         }
-
     }
 
     public void TakeDamage(int damage)
