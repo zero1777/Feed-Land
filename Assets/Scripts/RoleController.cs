@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //for NavMeshAgent
 
@@ -8,6 +9,7 @@ public class RoleController : MonoBehaviour
     public int maxHealth = 5;
     public int currentHealth;
     public HealthBar healthBar;
+    public MapGenerator mapGenerator;
 
 
     public enum Direction
@@ -29,6 +31,7 @@ public class RoleController : MonoBehaviour
     private Vector3 initDestination;
     private Vector3 newDirection;
     private Vector3 newDestination;
+    private int mapNow;
 
 
     private bool canMove;
@@ -37,7 +40,7 @@ public class RoleController : MonoBehaviour
 
     private Rigidbody rb;
 
-    void Start()
+    IEnumerator Start()
     {
         // init para
         rb = GetComponent<Rigidbody>();
@@ -49,12 +52,16 @@ public class RoleController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // init route;
-        initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
+        /*initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
         newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
         newDestination = initDestination + newDirection;
-        InitFirst15Path();
+        InitFirst15Path();*/
         // generate Enemy after 1 second, every 10 second generate another monster
         //InvokeRepeating("GenerateEnemy", 1.0f, 10.0f);
+
+        // wait mapGenerator has terminated own "Start" life cycle
+        yield return new WaitUntil(() => mapGenerator.IsInitialized);
+        getMapPath();
     }
 
     void GenerateEnemy()
@@ -66,15 +73,15 @@ public class RoleController : MonoBehaviour
     void FixedUpdate()
     {
         // dynamic generate route list
-        if (storedPath.Count < bufferSize && canMove == true)
+        /*if (storedPath.Count < bufferSize && canMove == true)
         {
             newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
             newDestination += newDirection;
             // store path
             storedPath.Add(newDestination);
-        }
+        }*/
         // check role is moving or not
-        else if (nma.hasPath == false && canMove == true)
+        if (nma.hasPath == false && canMove == true)
         {
             nma.SetDestination(storedPath[0]);
             animator.SetFloat("speed", 0.0f);
@@ -100,16 +107,16 @@ public class RoleController : MonoBehaviour
         }
 
         // check if out of bound
-        if (this.gameObject.transform.position.x <= -8)
+        /*if (this.gameObject.transform.position.x <= -8)
         {
             canMove = false;
-        }
+        }*/
 
         // debug health Z to -hp
-        if (Input.GetKeyDown(KeyCode.Z))
+        /*if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(1);
-        }
+        }*/
         // Debug.Log(storedPath[0]);
     }
 
@@ -134,6 +141,19 @@ public class RoleController : MonoBehaviour
         initDestination = new Vector3(-4.0f, 0.7f, 4.0f);
         newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
         newDestination = initDestination + newDirection;
+    }
+
+    private void getMapPath()
+    {
+        for (int i = 0; i < mapGenerator.mapNum; i++)
+        {
+            for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+            {
+                storedPath.Add(mapGenerator.GetPath(i)[j]);
+                Debug.Log(mapGenerator.GetPath(i)[j]);
+            }
+            mapNow++;
+        }
     }
 
     public void TakeDamage(int damage)
