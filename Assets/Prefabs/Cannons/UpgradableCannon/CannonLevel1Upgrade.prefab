@@ -1267,7 +1267,7 @@ MonoBehaviour:
     type: 3}
   greenDisplayPrefab: {fileID: 6688719554086305117, guid: 9ce8b686ff85a46778267835f008af80,
     type: 3}
-  loadBulletSound: {fileID: 0}
+  loadBulletSound: {fileID: 8300000, guid: 99722d72fc24749eaa111dac86eda199, type: 3}
   coolDownTime: 3
 --- !u!111 &8533739143291163974
 Animation:
