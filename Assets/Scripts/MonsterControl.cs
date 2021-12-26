@@ -113,7 +113,7 @@ public class MonsterControl : MonoBehaviour
             {
                 targetPosition = storedPath[0];
                 SetTargetPosition();
-                animator.SetFloat("speed", 1.0f);
+                animator.SetFloat("Speed", 1.0f);
                 storedPath.RemoveAt(0);
             }
 
@@ -225,7 +225,7 @@ public class MonsterControl : MonoBehaviour
             for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
             {
                 storedPath.Add(mapGenerator.GetPath(i)[j]);
-                Debug.Log(mapGenerator.GetPath(i)[j]);
+                //Debug.Log(mapGenerator.GetPath(i)[j]);
             }
         }
     }

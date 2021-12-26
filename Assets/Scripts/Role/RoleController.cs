@@ -123,7 +123,7 @@ public class RoleController : MonoBehaviour
             for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
             {
                 storedPath.Add(mapGenerator.GetPath(i)[j]);
-                Debug.Log(mapGenerator.GetPath(i)[j]);
+                //Debug.Log(mapGenerator.GetPath(i)[j]);
             }
         }
     }
