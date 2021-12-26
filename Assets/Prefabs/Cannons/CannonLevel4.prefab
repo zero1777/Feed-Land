@@ -856,8 +856,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3395009408823929778}
   m_Layer: 0
-  m_Name: CannonLevel3
-  m_TagString: Untagged
+  m_Name: CannonLevel4
+  m_TagString: cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

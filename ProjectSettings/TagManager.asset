@@ -15,11 +15,11 @@ TagManager:
   - red_tree
   - green_tree
   - blue_tree
-  - turret
-  - turret_place
   - red_mine
   - blue_mine
   - green_mine
+  - cannon
+  - cannon_place
   layers:
   - Default
   - TransparentFX

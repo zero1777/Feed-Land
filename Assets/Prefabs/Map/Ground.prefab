@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8486019574564057314}
   - component: {fileID: 8486019574564057342}
   m_Layer: 0
-  m_Name: Ground 1
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,8 @@ MonoBehaviour:
     type: 3}
   pathEffectPrefab: {fileID: 2586128363244842901, guid: f784b45b2004c4c2d8fc3c1c03d7710d,
     type: 3}
-  minNum: 10
-  maxNum: 10
+  cannonPlacePrefab: {fileID: 100475668941552973, guid: 11ff683d60b044b61baff93d49fd1f82,
+    type: 3}
+  minElementNum: 0
+  maxElementNum: 0
   mapNum: 0

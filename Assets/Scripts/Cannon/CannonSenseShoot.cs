@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -22,12 +21,14 @@ public class CannonSenseShoot : MonoBehaviour
     public GameObject redDisplayPrefab;
     public GameObject blueDisplayPrefab;
     public GameObject greenDisplayPrefab;
-    private float coolDownTime = 3f; // shooting CD
+    public AudioClip loadBulletSound;
+    public float coolDownTime = 3f; // shooting CD
     private float shootTimer = 0f;
     private bool vacant = true;
     private Dictionary<string, GameObject> bulletPrefabs;
     private Dictionary<string, GameObject> displayPrefabs;
-    private Queue<GameObject> waitBullets = new Queue<GameObject>();
+    private Queue<String> waitBullets = new Queue<String>();
+    private AudioSource audioPlayer;
 
     void Start()
     {
@@ -42,6 +43,8 @@ public class CannonSenseShoot : MonoBehaviour
             {"green", greenDisplayPrefab},
             {"blue", blueDisplayPrefab},
         };
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -51,13 +54,13 @@ public class CannonSenseShoot : MonoBehaviour
         if (shootTimer > coolDownTime && waitBulletsCount > 0 && vacant)
         {
             shootTimer = 0f;
-            GameObject nextBullet = waitBullets.Dequeue();
+            String nextBulletTag = waitBullets.Dequeue();
 
             // the bullet used for display will be destroyed if that bullet is fired
             Destroy(stagePoint.GetChild(0).gameObject);
 
             // create next bullet
-            CreateBullet(nextBullet.tag.Split('_')[0]);
+            CreateBullet(nextBulletTag.Split('_')[0]);
             vacant = false;
         }
 
@@ -99,19 +102,27 @@ public class CannonSenseShoot : MonoBehaviour
     }
 
     // load bullet
-    public void LoadBullet(GameObject newBullet)
+    public bool LoadBullet(GameObject bulletPrefab)
     {
-        if (waitBullets.Count < maxBulletNum)
+        if (waitBullets.Count >= maxBulletNum)
         {
-            if (newBullet.tag.EndsWith(foodTagSuffix))
-            {
-                waitBullets.Enqueue(newBullet);
-                Debug.Log("load bullet");
-
-                // display on the top of turret
-                CreateDisplayBullet(newBullet.tag.Split('_')[0]);
-            }
+            return false;
         }
+
+        Debug.Log($"[CannonSenseShoot.LoadBullet]: load bullet with {bulletPrefab.name}, {bulletPrefab.tag}");
+
+        if (bulletPrefab.tag.EndsWith(foodTagSuffix))
+        {
+            String newBulletTag = bulletPrefab.tag;
+            waitBullets.Enqueue(newBulletTag);
+            PlaySoundEffect(loadBulletSound);
+            Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
+
+            // display on the top of cannon
+            CreateDisplayBullet(newBulletTag.Split('_')[0]);
+        }
+
+        return true;
     }
 
     private void CreateBullet(string color = "")
@@ -123,5 +134,10 @@ public class CannonSenseShoot : MonoBehaviour
     {
         GameObject ammoFood = Instantiate(displayPrefabs[color], stagePoint);
         ammoFood.transform.localPosition = new Vector3(0.3f, 0, 4.0f);
+    }
+
+    private void PlaySoundEffect(AudioClip soundEffect)
+    {
+        audioPlayer.PlayOneShot(soundEffect);
     }
 }

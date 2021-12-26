@@ -399,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 680338884016680253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 680338884016779523}
   - {fileID: 680338884016779551}
@@ -440,6 +440,8 @@ MonoBehaviour:
   movementSpeed: 6
   rotationSpeed: 540
   actionCooldown: 1
+  resetBoundaryY: -20
+  mapGenerator: {fileID: 0}
   redFoodPrefab: {fileID: 5452013488800006156, guid: 5dfbbd9a8a33f4a49b8b6cb7afe07715,
     type: 3}
   greenFoodPrefab: {fileID: 4331629460947023306, guid: 4b7e6120fd93d4536a1d737a3c1358ba,
@@ -479,8 +481,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 1, z: 1.5}
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0.9, z: 1.5}
 --- !u!65 &237341942734553498
 BoxCollider:
   m_ObjectHideFlags: 0

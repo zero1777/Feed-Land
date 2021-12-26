@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
@@ -7,13 +8,17 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public float rotationSpeed;
     public float actionCooldown;
+    public float resetBoundaryY;
 
     // tag definitions
-    public const string turretPlaceTag = "turret_place";
-    public const string turretTag = "turret";
+    public const string cannonPlaceTag = "cannon_place";
+    public const string cannonTag = "cannon";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
+
+    // map generator
+    public MapGenerator mapGenerator;
 
     // carriable object prefabs
     public GameObject redFoodPrefab;
@@ -28,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private float nextActionTime;
     private GameObject carryingObject;
     private GameObject toBeDestroyedObject;
+    private bool isTriggeringAnimation;
 
     // prefabs collections for convinience
     private Dictionary<string, GameObject> foodPrefabs;
@@ -52,6 +58,8 @@ public class PlayerController : MonoBehaviour
             {"green", greenMinePrefab},
             {"blue", blueMinePrefab},
         };
+
+        isTriggeringAnimation = false;
     }
 
     void Update()
@@ -64,10 +72,21 @@ public class PlayerController : MonoBehaviour
                 nextActionTime = Time.time + actionCooldown;
             }
         }
+
+        // we delete the object after taking action finish
+        // since we cannot delete object when there is an foreach loop using the object
+        if (toBeDestroyedObject != null)
+        {
+            targets.Remove(toBeDestroyedObject);
+            Destroy(toBeDestroyedObject);
+            toBeDestroyedObject = null;
+        }
     }
 
     void FixedUpdate()
     {
+        if (isTriggeringAnimation) return;
+
         // get keyboard inputs
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -85,6 +104,12 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+
+        if (transform.position.y < resetBoundaryY)
+        {
+            transform.position = mapGenerator.ResetPlayerPosition(transform.position);
+            StartCoroutine(ReleaseResource());
         }
     }
 
@@ -109,70 +134,74 @@ public class PlayerController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            if (target.CompareTag(turretPlaceTag) && IsCarryingMine())
+            if (target.CompareTag(cannonPlaceTag) && IsCarryingMine("red") && !isTriggeringAnimation)
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret place: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
 
-                // TODO: call the turret place method to interact with the turret place
+                CannonPlace cannonPlace = target.GetComponent<CannonPlace>();
+                if (cannonPlace.GetMine())
+                {
+                    isTriggeringAnimation = true;
+                    StartCoroutine(TriggerBlockingAnimation("building"));
 
-                ReleaseResource();
-
-                animator.SetTrigger("building");
+                    StartCoroutine(ReleaseResource());
+                }
             }
 
-            if (target.CompareTag(turretTag) && IsCarryingFood())
+            if (target.CompareTag(cannonTag) && IsCarryingFood() && !isTriggeringAnimation)
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon: {target.name}");
 
-                // TODO: call the turret method to interact with the turret
-                ReleaseResource();
+                CannonSenseShoot cannonSenseShoot = target.GetComponent<CannonSenseShoot>();
+                if (cannonSenseShoot.LoadBullet(carryingObject))
+                {
+                    isTriggeringAnimation = true;
+                    StartCoroutine(TriggerBlockingAnimation("reloading"));
 
-                animator.SetTrigger("reloading");
+                    StartCoroutine(ReleaseResource());
+                }
             }
 
-            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null)
+            if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
-                // TODO: call the tree method to interact with the tree
-                if (MockResourceTakeDamage(target))
+                isTriggeringAnimation = true;
+                StartCoroutine(TriggerBlockingAnimation("cutting"));
+
+                ResourceController resourceController = target.GetComponent<ResourceController>();
+                if (resourceController.GetHit(1))
                 {
-                    DestroyResource(target, "tree", target.tag.Split('_')[0]);
+                    StartCoroutine(DestroyResource(target, "tree", target.tag.Split('_')[0]));
                 }
 
-                animator.SetTrigger("cutting");
                 shouldResetCooldown = true;
             }
 
-            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null)
+            if (target.tag.EndsWith(mineTagSuffix) && notInCooldown && carryingObject == null && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
 
-                // TODO: call the mine method to interact with the mine
-                if (MockResourceTakeDamage(target))
+                isTriggeringAnimation = true;
+                StartCoroutine(TriggerBlockingAnimation("mining"));
+
+                ResourceController resourceController = target.GetComponent<ResourceController>();
+                if (resourceController.GetHit(1))
                 {
-                    DestroyResource(target, "mine", target.tag.Split('_')[0]);
+                    StartCoroutine(DestroyResource(target, "mine", target.tag.Split('_')[0]));
                 }
 
-                animator.SetTrigger("mining");
                 shouldResetCooldown = true;
             }
-        }
-
-        // we delete the object after the loop finished,
-        // since we cannot delete object when there is an foreach loop using the object
-        if (toBeDestroyedObject != null)
-        {
-            targets.Remove(toBeDestroyedObject);
-            Destroy(toBeDestroyedObject);
-            toBeDestroyedObject = null;
         }
 
         return shouldResetCooldown;
     }
 
-    private void DestroyResource(GameObject o, string resourceType, string color = "")
+    private IEnumerator DestroyResource(GameObject o, string resourceType, string color = "")
     {
+        yield return new WaitUntil(() => (!isTriggeringAnimation));
+
         Debug.Log($"[PlayerController.DestroyResource] destroy {resourceType} with color {color}");
 
         if (resourceType == "tree")
@@ -191,15 +220,29 @@ public class PlayerController : MonoBehaviour
         toBeDestroyedObject = o;
     }
 
-    private void ReleaseResource()
+    private IEnumerator TriggerBlockingAnimation(string triggerName)
     {
+        Debug.Log("[PlayerController.TriggerBlockingAnimation]: trigger starts");
+
+        animator.SetTrigger(triggerName);
+
+        yield return new WaitForSeconds(0.417f);
+
+        isTriggeringAnimation = false;
+        Debug.Log("[PlayerController.TriggerBlockingAnimation]: trigger ends");
+    }
+
+    private IEnumerator ReleaseResource()
+    {
+        yield return new WaitUntil(() => (!isTriggeringAnimation));
+
         Destroy(carryingObject);
         carryingObject = null;
     }
 
-    private bool IsCarryingMine()
+    private bool IsCarryingMine(string color = "")
     {
-        return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix);
+        return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix) && (color == "" || carryingObject.CompareTag(minePrefabs[color].tag));
     }
 
     private bool IsCarryingFood()
