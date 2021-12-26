@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5566169284006870334}
   - component: {fileID: -1560316355443076784}
   m_Layer: 0
-  m_Name: Mines
+  m_Name: RedMine
   m_TagString: red_mine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 86f2e8bf13c2747409165485bd4b2c78, type: 2}
+  - {fileID: 2100000, guid: 847bb8f54aa3f49658d619ea54c2e17b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,4 +109,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
-  getHit: 0
