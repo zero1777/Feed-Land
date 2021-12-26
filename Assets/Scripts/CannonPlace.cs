@@ -31,13 +31,15 @@ public class CannonPlace : MonoBehaviour
         Debug.Log("[CannonPlace.GetMine]: get mine successfully");
 
         currentMines++;
-        if (currentMines == demandMines)
-        {
-            ConstructCannon();
-            return true;
-        }
 
-        return false;
+        return currentMines == demandMines;
+    }
+
+    public void ConstructCannon()
+    {
+        // construct the cannon on the current cannon place
+        GameObject cannon = Instantiate(cannonPrefab, gameObject.transform.position, Quaternion.identity);
+        cannon.transform.Rotate(0f, 180f, 0f);
     }
 
     private void InitialMines()
@@ -53,13 +55,6 @@ public class CannonPlace : MonoBehaviour
             Color newColor = new Color(mat.color.r, mat.color.g, mat.color.b, 0.5f);
             mat.color = newColor;
         }
-    }
-
-    private void ConstructCannon()
-    {
-        // construct the cannon on the current cannon place
-        GameObject cannon = Instantiate(cannonPrefab, gameObject.transform.position, Quaternion.identity);
-        cannon.transform.Rotate(0f, 180f, 0f);
     }
 
     private void UpdateMinesStatus()

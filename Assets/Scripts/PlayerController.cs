@@ -215,6 +215,10 @@ public class PlayerController : MonoBehaviour
             GameObject mine = Instantiate(minePrefabs[color], gameObject.transform);
             carryingObject = mine;
         }
+        else if (resourceType == "cannon_place")
+        {
+            o.GetComponent<CannonPlace>().ConstructCannon();
+        }
 
         if (carryingObject != null)
         {
