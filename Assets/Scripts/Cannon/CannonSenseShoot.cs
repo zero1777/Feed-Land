@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -99,19 +98,27 @@ public class CannonSenseShoot : MonoBehaviour
     }
 
     // load bullet
-    public void LoadBullet(GameObject newBullet)
+    public bool LoadBullet(GameObject bulletPrefab)
     {
-        if (waitBullets.Count < maxBulletNum)
+        if (waitBullets.Count >= maxBulletNum)
         {
-            if (newBullet.tag.EndsWith(foodTagSuffix))
-            {
-                waitBullets.Enqueue(newBullet);
-                Debug.Log("load bullet");
-
-                // display on the top of cannon
-                CreateDisplayBullet(newBullet.tag.Split('_')[0]);
-            }
+            return false;
         }
+
+        Debug.Log($"[CannonSenseShoot.LoadBullet]: load bullet with {bulletPrefab.name}, {bulletPrefab.tag}");
+
+        if (bulletPrefab.tag.EndsWith(foodTagSuffix))
+        {
+            GameObject newBullet = Instantiate(bulletPrefab);
+            newBullet.SetActive(false);
+            waitBullets.Enqueue(newBullet);
+            Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
+
+            // display on the top of cannon
+            CreateDisplayBullet(newBullet.tag.Split('_')[0]);
+        }
+
+        return true;
     }
 
     private void CreateBullet(string color = "")

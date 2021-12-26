@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI; //for NavMeshAgent
+﻿using UnityEngine;
 
 public class ResourceController : MonoBehaviour
 {
@@ -30,17 +28,9 @@ public class ResourceController : MonoBehaviour
 
     public bool GetHit(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            DestroyResource();
-            return true;
-        }
-        return false;
-    }
+        Debug.Log("[Resource.GetHit]: get hit successfully");
 
-    public void DestroyResource()
-    {
-        Destroy(gameObject);
+        currentHealth -= damage;
+        return currentHealth <= 0;
     }
 }

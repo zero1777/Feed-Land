@@ -26,10 +26,21 @@ public class CannonPlace : MonoBehaviour
         UpdateMinesStatus();
     }
 
-    public void GetMine()
+    public bool GetMine()
     {
-        if (currentMines < demandMines) currentMines++;
-        if (currentMines >= demandMines) ConstructCannon();
+        if (currentMines > demandMines)
+        {
+            return false;
+        }
+
+        currentMines++;
+        if (currentMines >= demandMines)
+        {
+            ConstructCannon();
+        }
+        Debug.Log("[CannonPlace.GetMine]: get mine successfully");
+
+        return true;
     }
 
     private void InitialMines()
