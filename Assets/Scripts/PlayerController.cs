@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     public float actionCooldown;
 
     // tag definitions
-    public const string turretPlaceTag = "turret_place";
-    public const string turretTag = "turret";
+    public const string cannonPlaceTag = "cannon_place";
+    public const string cannonTag = "cannon";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
@@ -109,22 +109,22 @@ public class PlayerController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            if (target.CompareTag(turretPlaceTag) && IsCarryingMine())
+            if (target.CompareTag(cannonPlaceTag) && IsCarryingMine())
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret place: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
 
-                // TODO: call the turret place method to interact with the turret place
+                // TODO: call the cannon place method to interact with the cannon place
 
                 ReleaseResource();
 
                 animator.SetTrigger("building");
             }
 
-            if (target.CompareTag(turretTag) && IsCarryingFood())
+            if (target.CompareTag(cannonTag) && IsCarryingFood())
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon: {target.name}");
 
-                // TODO: call the turret method to interact with the turret
+                // TODO: call the cannon method to interact with the cannon
                 ReleaseResource();
 
                 animator.SetTrigger("reloading");

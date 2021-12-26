@@ -9,12 +9,12 @@ public class MapGenerator : MonoBehaviour
     public GameObject treePrefab;
     public GameObject minePrefab;
     public GameObject pathEffectPrefab;
-    public GameObject turretPlacePrefab;
+    public GameObject cannonPlacePrefab;
     public int minElementNum;
     public int maxElementNum;
     public int mapNum;
 
-    private int turretPlaceNum;
+    private int cannonPlaceNum;
     private int treesNum;
     private int minesNum;
     private int mapWidth;
@@ -26,7 +26,7 @@ public class MapGenerator : MonoBehaviour
         // initialization
         mapWidth = 28;
         mapHeight = 14;
-        turretPlaceNum = 6;
+        cannonPlaceNum = 6;
         paths = new List<List<Vector3>>();
 
         for (int mapIdx = 0; mapIdx < mapNum; mapIdx++)
@@ -41,8 +41,8 @@ public class MapGenerator : MonoBehaviour
             minesNum = Random.Range(minElementNum, maxElementNum);
             GenerateElement(minesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), minePrefab);
             GenerateElement(treesNum, new Vector3(0.5f + mapIdx * mapWidth, 0.5f, 6.5f), treePrefab);
-            // generate turretPlace on the map
-            GenerateTurretPlace(new Vector3(-9.5f + mapIdx * mapWidth, 0f, -1.5f));
+            // generate cannonPlace on the map
+            GenerateCannonPlace(new Vector3(-9.5f + mapIdx * mapWidth, 0f, -1.5f));
         }
     }
 
@@ -125,14 +125,14 @@ public class MapGenerator : MonoBehaviour
         return paths[idx];
     }
 
-    private void GenerateTurretPlace(Vector3 offset)
+    private void GenerateCannonPlace(Vector3 offset)
     {
         // for convenience, directly set the constant
-        for (int i = 0; i < turretPlaceNum; i++)
+        for (int i = 0; i < cannonPlaceNum; i++)
         {
             Vector3 point = new Vector3(i * 4f, 0f, 0f);
             Vector3 position = offset + point;
-            Instantiate(turretPlacePrefab, position, Quaternion.identity);
+            Instantiate(cannonPlacePrefab, position, Quaternion.identity);
         }
     }
 

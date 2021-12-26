@@ -342,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580918107402672, guid: 145360948ef8a084c9d9160d22d564f4, type: 3}
       propertyPath: m_TagString
-      value: red_stone
+      value: red_mine
       objectReference: {fileID: 0}
     - target: {fileID: 4758694837357350, guid: 145360948ef8a084c9d9160d22d564f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -418,6 +418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CannonLevel1Upgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261579030550920900, guid: 41b11a70fe876480cbb977885307aa16,
+        type: 3}
+      propertyPath: m_TagString
+      value: cannon
       objectReference: {fileID: 0}
     - target: {fileID: 6261579030550920921, guid: 41b11a70fe876480cbb977885307aa16,
         type: 3}

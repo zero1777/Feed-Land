@@ -2299,8 +2299,8 @@ GameObject:
   - component: {fileID: 8889674755959056283}
   - component: {fileID: 8889674755959056284}
   m_Layer: 0
-  m_Name: CannonLevel2 test
-  m_TagString: turret
+  m_Name: CannonLevel2Upgrade
+  m_TagString: cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
