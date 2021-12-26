@@ -68,7 +68,6 @@ public class RoleController : MonoBehaviour
         // check role is  not
         if (isMoving == false && canMove == true)
         {
-            //nma.SetDestination(storedPath[0]);
             targetPosition = storedPath[0];
             SetTargetPosition();
             animator.SetFloat("speed", 1.0f);
@@ -78,7 +77,6 @@ public class RoleController : MonoBehaviour
         {
             animator.SetFloat("speed", 0.0f);
         }
-        
         // check if dead
         if (currentHealth <= 0)
         {
