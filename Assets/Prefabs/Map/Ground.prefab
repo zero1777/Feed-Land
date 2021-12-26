@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8486019574564057313
 Transform:
@@ -113,7 +113,8 @@ MonoBehaviour:
     type: 3}
   pathEffectPrefab: {fileID: 2586128363244842901, guid: f784b45b2004c4c2d8fc3c1c03d7710d,
     type: 3}
-  turretPlacePrefab: {fileID: 0}
+  cannonPlacePrefab: {fileID: 100475668941552973, guid: 11ff683d60b044b61baff93d49fd1f82,
+    type: 3}
   minElementNum: 0
   maxElementNum: 0
   mapNum: 0

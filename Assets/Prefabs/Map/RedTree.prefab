@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 7231594691557932058}
   - component: {fileID: 7241579549910862906}
   - component: {fileID: -9045624078803756231}
+  - component: {fileID: 7996188453269884207}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: RedTree
   m_TagString: red_tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7214979518173596176
 Transform:
@@ -94,3 +95,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
+--- !u!65 &7996188453269884207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218559754734676202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 320.00003, z: 200}
+  m_Center: {x: 0, y: 160.00002, z: 0}

@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     public float actionCooldown;
 
     // tag definitions
-    public const string turretPlaceTag = "turret_place";
-    public const string turretTag = "turret";
+    public const string cannonPlaceTag = "cannon_place";
+    public const string cannonTag = "cannon";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
@@ -109,33 +109,38 @@ public class PlayerController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            if (target.CompareTag(turretPlaceTag) && IsCarryingMine())
+            if (target.CompareTag(cannonPlaceTag) && IsCarryingMine("red"))
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret place: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
 
-                // TODO: call the turret place method to interact with the turret place
+                // TODO: call the cannon place method to interact with the cannon place
 
-                ReleaseResource();
-
-                animator.SetTrigger("building");
+                CannonPlace cannonPlace = target.GetComponent<CannonPlace>();
+                if (cannonPlace.GetMine())
+                {
+                    ReleaseResource();
+                    animator.SetTrigger("building");
+                }
             }
 
-            if (target.CompareTag(turretTag) && IsCarryingFood())
+            if (target.CompareTag(cannonTag) && IsCarryingFood())
             {
-                Debug.Log($"[PlayerController.TakeAction] interacting with turret: {target.name}");
+                Debug.Log($"[PlayerController.TakeAction] interacting with cannon: {target.name}");
 
-                // TODO: call the turret method to interact with the turret
-                ReleaseResource();
-
-                animator.SetTrigger("reloading");
+                CannonSenseShoot cannonSenseShoot = target.GetComponent<CannonSenseShoot>();
+                if (cannonSenseShoot.LoadBullet(carryingObject))
+                {
+                    ReleaseResource();
+                    animator.SetTrigger("reloading");
+                }
             }
 
             if (target.tag.EndsWith(treeTagSuffix) && notInCooldown && carryingObject == null)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
-                // TODO: call the tree method to interact with the tree
-                if (MockResourceTakeDamage(target))
+                ResourceController resourceController = target.GetComponent<ResourceController>();
+                if (resourceController.GetHit(1))
                 {
                     DestroyResource(target, "tree", target.tag.Split('_')[0]);
                 }
@@ -148,8 +153,8 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
 
-                // TODO: call the mine method to interact with the mine
-                if (MockResourceTakeDamage(target))
+                ResourceController resourceController = target.GetComponent<ResourceController>();
+                if (resourceController.GetHit(1))
                 {
                     DestroyResource(target, "mine", target.tag.Split('_')[0]);
                 }
@@ -197,9 +202,9 @@ public class PlayerController : MonoBehaviour
         carryingObject = null;
     }
 
-    private bool IsCarryingMine()
+    private bool IsCarryingMine(string color = "")
     {
-        return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix);
+        return carryingObject && carryingObject.tag.EndsWith(mineTagSuffix) && (color == "" || carryingObject.CompareTag(minePrefabs[color].tag));
     }
 
     private bool IsCarryingFood()

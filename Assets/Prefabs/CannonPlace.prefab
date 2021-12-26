@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 100475668941552974}
   - component: {fileID: -5813027616617572780}
   m_Layer: 0
-  m_Name: TurretPlace
-  m_TagString: turret_place
+  m_Name: CannonPlace
+  m_TagString: cannon_place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d24af782778e41aa83e64f2629643c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 606173555527376378, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94,
+  cannonPrefab: {fileID: 6261579030550920900, guid: 41b11a70fe876480cbb977885307aa16,
     type: 3}
   minesPlace: {fileID: 100475668941552973}
   minePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,

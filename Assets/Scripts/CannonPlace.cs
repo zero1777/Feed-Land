@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretPlace : MonoBehaviour
+public class CannonPlace : MonoBehaviour
 {
-    public GameObject turretPrefab;
+    public GameObject cannonPrefab;
     public GameObject minesPlace;
     public GameObject minePrefab;
-    // public GameObject turretPlace;
+    // public GameObject cannonPlace;
     public int demandMines;
 
     private int currentMines;
@@ -26,10 +26,21 @@ public class TurretPlace : MonoBehaviour
         UpdateMinesStatus();
     }
 
-    public void GetMine()
+    public bool GetMine()
     {
-        if (currentMines < demandMines) currentMines++;
-        if (currentMines >= demandMines) ConstructTurret();
+        if (currentMines > demandMines)
+        {
+            return false;
+        }
+
+        currentMines++;
+        if (currentMines >= demandMines)
+        {
+            ConstructCannon();
+        }
+        Debug.Log("[CannonPlace.GetMine]: get mine successfully");
+
+        return true;
     }
 
     private void InitialMines()
@@ -43,7 +54,7 @@ public class TurretPlace : MonoBehaviour
         }
     }
 
-    private void ConstructTurret()
+    private void ConstructCannon()
     {
         // destroy the floor
         for (int i = places - 1; i >= 0; i--)
@@ -57,9 +68,9 @@ public class TurretPlace : MonoBehaviour
         // }
         Destroy(minesPlace);
 
-        // construct the turret on the current turret place
-        Instantiate(turretPrefab, gameObject.transform);
-        turretPrefab.transform.localPosition = new Vector3(-0.5f, 1.0f, -0.5f);
+        // construct the cannon on the current cannon place
+        Instantiate(cannonPrefab, gameObject.transform);
+        cannonPrefab.transform.localPosition = new Vector3(-0.5f, 1.0f, -0.5f);
     }
 
     private void UpdateMinesStatus()
