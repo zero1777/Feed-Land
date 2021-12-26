@@ -17,14 +17,17 @@ public class MonsterControl : MonoBehaviour
 
     // store path
     public List<Vector3> storedPath;
-    private NavMeshAgent nma = null;
 
     // use to decide route
-    private Vector3 initDestination;
-    private Vector3 newDirection;
-    private Vector3 newDestination;
+    public float monsterMovingSpeed = 5.0f;
+    public float monsterRotSpeed = 0.1f;
+    public MapGenerator mapGenerator;
+    private Vector3 targetPosition;
+    private Vector3 lookAtTarget;
+    private Quaternion roleRot;
     private bool canMove;
-    public int bufferSize = 15;
+    private bool isMoving = false;
+    private Rigidbody rb;
 
 
     // how many numbers of food will be generated, default is 5 
@@ -38,8 +41,10 @@ public class MonsterControl : MonoBehaviour
     private List<string> foodList = new List<string> { "red_food", "blue_food", "green_food" };
     private AudioSource audioPlayer;
 
-    void Start()
+    IEnumerator Start()
     {
+        //init para
+        mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
         canMove = true;
         audioPlayer = gameObject.GetComponent<AudioSource>();
 
@@ -77,13 +82,9 @@ public class MonsterControl : MonoBehaviour
         animator = GetComponent<Animator>();
         // this set the monster to be in idle state
         animator.SetFloat("Speed", 0);
-        nma = this.GetComponent<NavMeshAgent>();
-        // init route;
-        initDestination = new Vector3(Mathf.Round(this.gameObject.transform.position.x), this.gameObject.transform.position.y, Mathf.Round(this.gameObject.transform.position.z));
-        newDirection = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 2));
-        newDestination = initDestination + newDirection;
-        InitFirst15Path();
         //InvokeRepeating("MovedRandomly", 0.0f, 0.5f);
+        yield return new WaitUntil(() => mapGenerator.isInitialized);
+        GetMapPath();
     }
 
     void Update()
@@ -102,19 +103,21 @@ public class MonsterControl : MonoBehaviour
             animator.SetBool("Attack", false);
         }
 
+        // check is moving 
+        if (isMoving && canMove == true)
+            MoveRole();
+        // check role is  not
         // dynamic generate route list
-        if (storedPath.Count < bufferSize && canMove == true)
+        if (isMoving == false && canMove == true)
         {
-            newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
-            newDestination += newDirection;
-            // store path
-            storedPath.Add(newDestination);
-        }
-        // check role is moving or not
-        else if (nma.hasPath == false && canMove == true)
-        {
-            nma.SetDestination(storedPath[0]);
-            storedPath.RemoveAt(0);
+            if (storedPath.Count > 0)
+            {
+                targetPosition = storedPath[0];
+                SetTargetPosition();
+                animator.SetFloat("speed", 1.0f);
+                storedPath.RemoveAt(0);
+            }
+
         }
         else
         {
@@ -139,7 +142,6 @@ public class MonsterControl : MonoBehaviour
                 {
                     // stop chasing the unicorn
                     canMove = false;
-                    nma.isStopped = true;
                     animator.SetBool("Satisfied", true);
                     PlaySoundEffect(successSound);
                     Destroy(gameObject, 3.0f);
@@ -167,29 +169,6 @@ public class MonsterControl : MonoBehaviour
     void PlaySoundEffect(AudioClip soundEffect)
     {
         audioPlayer.PlayOneShot(soundEffect);
-    }
-
-    // insert fixed first 15 path
-    private void InitFirst15Path()
-    {
-        storedPath.Add(new Vector3(6.0f, 0.7f, 6.0f));
-        storedPath.Add(new Vector3(5.0f, 0.7f, 7.0f));
-        storedPath.Add(new Vector3(5.0f, 0.7f, 6.0f));
-        storedPath.Add(new Vector3(4.0f, 0.7f, 7.0f));
-        storedPath.Add(new Vector3(4.0f, 0.7f, 8.0f));
-        storedPath.Add(new Vector3(4.0f, 0.7f, 7.0f));
-        storedPath.Add(new Vector3(3.0f, 0.7f, 6.0f));
-        storedPath.Add(new Vector3(2.0f, 0.7f, 5.0f));
-        storedPath.Add(new Vector3(1.0f, 0.7f, 5.0f));
-        storedPath.Add(new Vector3(1.0f, 0.7f, 4.0f));
-        storedPath.Add(new Vector3(0.0f, 0.7f, 4.0f));
-        storedPath.Add(new Vector3(-1.0f, 0.7f, 4.0f));
-        storedPath.Add(new Vector3(-2.0f, 0.7f, 5.0f));
-        storedPath.Add(new Vector3(-3.0f, 0.7f, 5.0f));
-        storedPath.Add(new Vector3(-4.0f, 0.7f, 4.0f));
-        initDestination = new Vector3(-4.0f, 0.7f, 4.0f);
-        newDirection = new Vector3(UnityEngine.Random.Range(-1, 1), 0, UnityEngine.Random.Range(-1, 2));
-        newDestination = initDestination + newDirection;
     }
 
     public void AppendPath(Vector3 newPath)
@@ -224,7 +203,6 @@ public class MonsterControl : MonoBehaviour
                 {
                     // stop chasing the unicorn
                     canMove = false;
-                    nma.isStopped = true;
                     animator.SetBool("Satisfied", true);
                     PlaySoundEffect(successSound);
                     Destroy(gameObject, 3.0f);
@@ -240,4 +218,34 @@ public class MonsterControl : MonoBehaviour
     //     Gizmos.color = Color.white;
     //     Gizmos.DrawWireSphere(transform.position, 5.0f);
     // }
+
+    private void GetMapPath()
+    {
+        for (int i = 0; i < mapGenerator.mapNum; i++)
+        {
+            for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+            {
+                storedPath.Add(mapGenerator.GetPath(i)[j]);
+                Debug.Log(mapGenerator.GetPath(i)[j]);
+            }
+        }
+    }
+
+    private void SetTargetPosition()
+    {
+        transform.LookAt(targetPosition);
+        lookAtTarget = new Vector3(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y, targetPosition.z - transform.position.z);
+        roleRot = Quaternion.LookRotation(lookAtTarget);
+        isMoving = true;
+    }
+
+    private void MoveRole()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, roleRot, monsterRotSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, monsterMovingSpeed * Time.fixedDeltaTime);
+        if (transform.position == targetPosition)
+        {
+            isMoving = false;
+        }
+    }
 }
