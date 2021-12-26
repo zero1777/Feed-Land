@@ -99,19 +99,23 @@ public class CannonSenseShoot : MonoBehaviour
     }
 
     // load bullet
-    public void LoadBullet(GameObject newBullet)
+    public bool LoadBullet(GameObject newBullet)
     {
-        if (waitBullets.Count < maxBulletNum)
+        if (waitBullets.Count >= maxBulletNum)
         {
-            if (newBullet.tag.EndsWith(foodTagSuffix))
-            {
-                waitBullets.Enqueue(newBullet);
-                Debug.Log("load bullet");
-
-                // display on the top of cannon
-                CreateDisplayBullet(newBullet.tag.Split('_')[0]);
-            }
+            return false;
         }
+
+        if (newBullet.tag.EndsWith(foodTagSuffix))
+        {
+            waitBullets.Enqueue(newBullet);
+            Debug.Log("load bullet");
+
+            // display on the top of cannon
+            CreateDisplayBullet(newBullet.tag.Split('_')[0]);
+        }
+
+        return true;
     }
 
     private void CreateBullet(string color = "")

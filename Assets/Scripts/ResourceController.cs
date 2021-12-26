@@ -31,16 +31,6 @@ public class ResourceController : MonoBehaviour
     public bool GetHit(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            DestroyResource();
-            return true;
-        }
-        return false;
-    }
-
-    public void DestroyResource()
-    {
-        Destroy(gameObject);
+        return currentHealth <= 0;
     }
 }
