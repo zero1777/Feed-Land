@@ -20,7 +20,7 @@ public class ButtonControl : MonoBehaviour
     {
         // this will be changed back in the future
         //SceneManager.LoadScene("GameScene");
-        SceneManager.LoadScene("OtherCanvasScene");
+        SceneManager.LoadScene("DemoScene");
     }
 
     public void ReturnToMenu()
