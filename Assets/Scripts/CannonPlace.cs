@@ -28,21 +28,16 @@ public class CannonPlace : MonoBehaviour
 
     public bool GetMine()
     {
-        Debug.Log("[CannonPlace.GetMine]: get mine");
-
-        if (currentMines > demandMines)
-        {
-            return false;
-        }
-
-        currentMines++;
-        if (currentMines >= demandMines)
-        {
-            ConstructCannon();
-        }
         Debug.Log("[CannonPlace.GetMine]: get mine successfully");
 
-        return true;
+        currentMines++;
+        if (currentMines == demandMines)
+        {
+            ConstructCannon();
+            return true;
+        }
+
+        return false;
     }
 
     private void InitialMines()
@@ -65,9 +60,6 @@ public class CannonPlace : MonoBehaviour
         // construct the cannon on the current cannon place
         GameObject cannon = Instantiate(cannonPrefab, gameObject.transform.position, Quaternion.identity);
         cannon.transform.Rotate(0f, 180f, 0f);
-
-        // destroy cannonPlace & its children
-        Destroy(gameObject);
     }
 
     private void UpdateMinesStatus()
