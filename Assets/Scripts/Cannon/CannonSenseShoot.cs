@@ -109,7 +109,7 @@ public class CannonSenseShoot : MonoBehaviour
         if (newBullet.tag.EndsWith(foodTagSuffix))
         {
             waitBullets.Enqueue(newBullet);
-            Debug.Log("load bullet");
+            Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
 
             // display on the top of cannon
             CreateDisplayBullet(newBullet.tag.Split('_')[0]);

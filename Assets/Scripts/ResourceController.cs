@@ -30,6 +30,8 @@ public class ResourceController : MonoBehaviour
 
     public bool GetHit(int damage)
     {
+        Debug.Log("[Resource.GetHit]: get hit successfully");
+
         currentHealth -= damage;
         return currentHealth <= 0;
     }

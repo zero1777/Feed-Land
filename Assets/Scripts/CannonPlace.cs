@@ -38,6 +38,7 @@ public class CannonPlace : MonoBehaviour
         {
             ConstructCannon();
         }
+        Debug.Log("[CannonPlace.GetMine]: get mine successfully");
 
         return true;
     }
