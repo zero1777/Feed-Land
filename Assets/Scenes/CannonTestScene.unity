@@ -501,12 +501,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannonObject: {fileID: 1705600602}
+  cannonObject2: {fileID: 843822767}
   redFoodPrefab: {fileID: 2368693546532051336, guid: 0d79f5e87ed981d4a934858513a37a32,
     type: 3}
   blueFoodPrefab: {fileID: 4317940529210026039, guid: 53084f9ce54dd2740998c05e7605b2c3,
     type: 3}
   greenFoodPrefab: {fileID: 4331629460947023306, guid: 4b7e6120fd93d4536a1d737a3c1358ba,
     type: 3}
+--- !u!1 &843822767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1031671180778036490, guid: dff8373b12d2c45f795680f2a4841093,
+    type: 3}
+  m_PrefabInstance: {fileID: 1844492649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &868054167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1134,6 +1141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794500956765143014, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16792e5da9d0d4b1e87ba4eccbeb6f94, type: 3}

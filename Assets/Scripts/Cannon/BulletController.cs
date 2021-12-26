@@ -8,12 +8,14 @@ public class BulletController : MonoBehaviour
     public AnimationCurve lerpCurve;
     public Vector3 lerpOffset;
     public float lerpTime = 3f;
+    public AudioClip shootBulletSound;
     private Rigidbody rb;
     private float timer = 0f;
     private Vector3 startPoint;
     private Transform cannonTransform;
     private Animation animations;
     private bool isShoot = false;
+    private AudioSource audioPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,8 @@ public class BulletController : MonoBehaviour
 
         animations = gameObject.GetComponentInParent<Animation>();
         cannonTransform = transform.parent.parent;
+
+        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,6 +52,7 @@ public class BulletController : MonoBehaviour
             {
                 isShoot = true;
                 animations.Play("CannonShoot");
+                PlaySoundEffect(shootBulletSound);
             }
 
             // lerpRatio: 0-1
@@ -94,5 +99,10 @@ public class BulletController : MonoBehaviour
         Vector3 direction = (target.position - cannon.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         cannon.rotation = Quaternion.Slerp(cannon.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    private void PlaySoundEffect(AudioClip soundEffect)
+    {
+        audioPlayer.PlayOneShot(soundEffect);
     }
 }
