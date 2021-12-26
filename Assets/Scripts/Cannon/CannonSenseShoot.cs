@@ -108,7 +108,7 @@ public class CannonSenseShoot : MonoBehaviour
                 waitBullets.Enqueue(newBullet);
                 Debug.Log("load bullet");
 
-                // display on the top of turret
+                // display on the top of cannon
                 CreateDisplayBullet(newBullet.tag.Split('_')[0]);
             }
         }

@@ -20,7 +20,6 @@ TagManager:
   - green_mine
   - cannon
   - cannon_place
-  - turret
   layers:
   - Default
   - TransparentFX
