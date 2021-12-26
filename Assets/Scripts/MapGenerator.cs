@@ -142,6 +142,7 @@ public class MapGenerator : MonoBehaviour
     {
         // first, find out which map the player is at
         int mapIdx = Mathf.FloorToInt((14f + currentPos.x) / mapWidth);
+        mapIdx = Mathf.Max(mapIdx, 0);
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
