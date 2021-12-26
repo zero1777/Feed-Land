@@ -790,7 +790,7 @@ MonoBehaviour:
   eatSound: {fileID: 8300000, guid: ac1054742beaf1649960bb0338b9430c, type: 3}
   successSound: {fileID: 8300000, guid: b225e60909768fa45a47c8c9af9cc461, type: 3}
   roarSound: {fileID: 8300000, guid: f877bfd4bec65b749b84cb7e1f62130a, type: 3}
-  roleHurtSound: {fileID: 8300000, guid: ad476cda078dab74994091aaf7c3d0f9, type: 3}
+  roleHurtSound: {fileID: 8300000, guid: 6130b43b8d684134d9aab47e98a62bc8, type: 3}
   unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
   storedPath: []
   monsterMovingSpeed: 1
@@ -813,7 +813,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.2
-  m_Pitch: 1
+  m_Pitch: 1.2
   Loop: 0
   Mute: 0
   Spatialize: 0
