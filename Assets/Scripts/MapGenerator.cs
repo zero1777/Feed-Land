@@ -136,13 +136,14 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public Vector3 ResetPlayerPosition(Vector3 currentPos) {
+    public Vector3 ResetPlayerPosition(Vector3 currentPos)
+    {
         // first, find out which map the player is at
         int mapIdx = Mathf.FloorToInt((14f + currentPos.x) / mapWidth);
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
-        Vector3 resetPosition = new Vector3(-0.5f + mapIdx*mapWidth, currentPos.y, currentPos.z); 
+        Vector3 resetPosition = new Vector3(-0.5f + mapIdx * mapWidth, currentPos.y, currentPos.z);
         return resetPosition;
     }
 
