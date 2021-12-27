@@ -5,6 +5,10 @@ using System;
 
 public class BulletController : MonoBehaviour
 {
+    // nearest enemy related
+    public float checkRadius;
+    public LayerMask checkLayers; // Layer = Enemy
+
     public AnimationCurve lerpCurve;
     public Vector3 lerpOffset;
     public float lerpTime = 3f;
@@ -27,16 +31,15 @@ public class BulletController : MonoBehaviour
         animations = gameObject.GetComponentInParent<Animation>();
         cannonTransform = transform.parent.parent;
 
-        audioPlayer = gameObject.GetComponent<AudioSource>();     
-          
-        // return a nearest enemy with correct tag or null
-        nearestEnemy = gameObject.GetComponentInParent<CannonSenseShoot>().FindNearestEnemyWithTag(gameObject);
-
+        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // return a nearest enemy with correct tag or null
+        nearestEnemy = FindNearestEnemyWithTag(gameObject);
+
         // if there is an enemy, throw bullet to the nearest enemy
         if (nearestEnemy != null)
         {
@@ -106,5 +109,29 @@ public class BulletController : MonoBehaviour
     private void PlaySoundEffect(AudioClip soundEffect)
     {
         audioPlayer.PlayOneShot(soundEffect);
+    }
+
+    // return a nearest enemy with correct tag or null
+    private Collider FindNearestEnemyWithTag(GameObject food)
+    {
+        // find the near enemies
+        Collider[] nearEnemies = Physics.OverlapSphere(transform.position, checkRadius, checkLayers);
+
+        // compare enemies distance, array[0] is the nearest one
+        Array.Sort(nearEnemies, new DistanceComparer(transform));
+
+        String foodColor = food.tag.Split('_')[0];
+
+        // find the same tag between food and monster
+        foreach (Collider nearEnemy in nearEnemies)
+        {
+            String monsterColor = nearEnemy.tag.Split('_')[0];
+            if (foodColor == monsterColor)
+            {
+                return nearEnemy;
+            }
+        }
+
+        return null;
     }
 }
