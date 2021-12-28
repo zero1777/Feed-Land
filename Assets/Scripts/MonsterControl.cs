@@ -21,12 +21,15 @@ public class MonsterControl : MonoBehaviour
     public float monsterMovingSpeed = 5.0f;
     public float monsterRotSpeed = 0.1f;
     public MapGenerator mapGenerator;
+    public GameObject pauseButton;
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
     private Quaternion roleRot;
     private bool canMove;
     private bool isMoving = false;
+    private bool gameRunning = false;
     private Rigidbody rb;
+    private SphereCollider sphereCollider;
 
 
     // how many numbers of food will be generated, default is 5 
@@ -43,9 +46,12 @@ public class MonsterControl : MonoBehaviour
     IEnumerator Start()
     {
         //init para
+        rb = GetComponent<Rigidbody>();
+        pauseButton = GameObject.Find("PauseButton");
         mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
+        sphereCollider = GetComponent<SphereCollider>();
         canMove = true;
-        audioPlayer = gameObject.GetComponent<AudioSource>();
+        audioPlayer = GetComponent<AudioSource>();
 
         int randomRedFood = Random.Range(1, redFoodNum);
         if (gameObject.tag == "red_monster")
@@ -101,9 +107,10 @@ public class MonsterControl : MonoBehaviour
         {
             animator.SetBool("Attack", false);
         }
-
+        if (pauseButton != null)
+            gameRunning = pauseButton.active;
         // check is moving 
-        if (isMoving && canMove == true)
+        if (isMoving && canMove == true && gameRunning)
             MoveRole();
         // check role is  not
         // dynamic generate route list
@@ -211,6 +218,9 @@ public class MonsterControl : MonoBehaviour
                 if (!foodList.Contains(lastTwoEattenFood.tag))
                 {
                     // stop chasing the unicorn
+                    sphereCollider.enabled = false;
+                    rb.useGravity = false;
+                    monsterMovingSpeed = 0.0f;
                     canMove = false;
                     animator.SetBool("Satisfied", true);
                     PlaySoundEffect(successSound);
