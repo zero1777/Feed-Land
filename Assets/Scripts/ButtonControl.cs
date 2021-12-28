@@ -20,7 +20,8 @@ public class ButtonControl : MonoBehaviour
     {
         // this will be changed back in the future
         //SceneManager.LoadScene("GameScene");
-        SceneManager.LoadScene("OtherCanvasScene");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("DemoScene");
     }
 
     public void ReturnToMenu()

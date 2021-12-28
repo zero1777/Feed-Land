@@ -303,7 +303,6 @@ GameObject:
   - component: {fileID: 3763743799605677646}
   - component: {fileID: 4073917158648544163}
   - component: {fileID: -131493516560412522}
-  - component: {fileID: 9216281834332423906}
   m_Layer: 0
   m_Name: Unicorn00
   m_TagString: role
@@ -319,7 +318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223860131980980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.5, y: 0.5, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4627141306535996}
@@ -360,13 +359,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81764ca0d6d6b6d4e9800ce9fc78bb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 500
+  roleMovingSpeed: 1
+  roleRotSpeed: 0.1
   currentHealth: 5
   healthBar: {fileID: 782867172595525757}
-  storedPath: []
-  bufferSize: 15
+  mapGenerator: {fileID: 0}
   enemies:
-  - {fileID: 4595219238604163120, guid: 0f8e9c6510039b24d90d7d257aba5c33, type: 3}
+  - {fileID: 7796034374063013152, guid: bea0a48fb05ec31459d3c9234c8b20a8, type: 3}
+  - {fileID: 2263965975130722102, guid: abe7c16478c1ea44abbcb937d74ba588, type: 3}
+  storedPath: []
 --- !u!54 &4073917158648544163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -375,7 +377,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223860131980980}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -396,28 +398,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9146107, y: 1.1689758, z: 1}
   m_Center: {x: 0.025616795, y: 0.5882845, z: 0}
---- !u!195 &9216281834332423906
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1223860131980980}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1226162150511652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,7 +1471,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2463785218681530663}
   m_FillRect: {fileID: 5078980918062961763}
   m_HandleRect: {fileID: 0}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 3
   m_WholeNumbers: 0
@@ -1644,11 +1624,11 @@ RectTransform:
   m_Father: {fileID: 5970002697626817950}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -18.2, y: 0.3656044}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -138.3, y: 0.3656044}
   m_SizeDelta: {x: 37.132507, y: 30.553726}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8977487555025759857
 CanvasRenderer:
   m_ObjectHideFlags: 0

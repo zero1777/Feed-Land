@@ -50,8 +50,7 @@ public class RoleController : MonoBehaviour
         light = GameObject.Find("Directional Light");
 
         // generate Enemy after 1 second, every 10 second generate another monster
-
-        InvokeRepeating("GenerateEnemy", 1.0f, 5.0f);
+        InvokeRepeating("GenerateEnemy", 2f, 10.0f);
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
@@ -59,8 +58,13 @@ public class RoleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // check is moving 
-        if (isMoving && canMove == true)
+        //debug
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            TakeDamage(1);
+        }
+            // check is moving 
+            if (isMoving && canMove == true)
             MoveRole();
         // check role is  not
         if (isMoving == false && canMove == true)
@@ -123,7 +127,7 @@ public class RoleController : MonoBehaviour
             for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
             {
                 storedPath.Add(mapGenerator.GetPath(i)[j]);
-                Debug.Log(mapGenerator.GetPath(i)[j]);
+                //Debug.Log(mapGenerator.GetPath(i)[j]);
             }
         }
     }

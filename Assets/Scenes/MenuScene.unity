@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2522,6 +2522,8 @@ MonoBehaviour:
   audioPlayer: {fileID: 2126733635}
   clickSound: {fileID: 8300000, guid: 7b28d4d6931fe634e9691ec7514a51eb, type: 3}
   exitCanvas: {fileID: 273152184}
+  resumeButton: {fileID: 0}
+  pauseButton: {fileID: 0}
 --- !u!82 &2126733635
 AudioSource:
   m_ObjectHideFlags: 0

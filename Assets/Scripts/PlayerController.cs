@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y < resetBoundaryY)
         {
-            transform.position = mapGenerator.ResetPlayerPosition(transform.position);
+            transform.position = mapGenerator.ResetPlayerPosition();
             StartCoroutine(ReleaseResource());
         }
     }
@@ -138,13 +138,14 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
 
+                isTriggeringAnimation = true;
+                StartCoroutine(TriggerBlockingAnimation("building"));
+
                 CannonPlace cannonPlace = target.GetComponent<CannonPlace>();
                 if (cannonPlace.GetMine())
                 {
-                    isTriggeringAnimation = true;
-                    StartCoroutine(TriggerBlockingAnimation("building"));
-
                     StartCoroutine(ReleaseResource());
+                    StartCoroutine(DestroyResource(target, "cannon_place"));
                 }
             }
 
@@ -214,8 +215,15 @@ public class PlayerController : MonoBehaviour
             GameObject mine = Instantiate(minePrefabs[color], gameObject.transform);
             carryingObject = mine;
         }
+        else if (resourceType == "cannon_place")
+        {
+            o.GetComponent<CannonPlace>().ConstructCannon();
+        }
 
-        carryingObject.transform.localPosition = new Vector3(0, 2.2f, 0);
+        if (carryingObject != null)
+        {
+            carryingObject.transform.localPosition = new Vector3(0, 2.2f, 0);
+        }
 
         toBeDestroyedObject = o;
     }
