@@ -5,8 +5,10 @@ public class MapGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject mapPrefab;
-    public GameObject treePrefab;
-    public GameObject minePrefab;
+    public GameObject redTreePrefab;
+    // public GameObject blueTreePrefab;
+    public GameObject redMinePrefab;
+    // public GameObject blueMinePrefab;
     public GameObject pathEffectPrefab;
     public GameObject cannonPlacePrefab;
     public GameObject unicorn;
@@ -40,10 +42,10 @@ public class MapGenerator : MonoBehaviour
             // generate elements on the map
             treesNum = Random.Range(minElementNum, maxElementNum);
             minesNum = Random.Range(minElementNum, maxElementNum);
-            GenerateElement(minesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), minePrefab);
-            GenerateElement(treesNum, new Vector3(0.5f + mapIdx * mapWidth, 0.5f, 6.5f), treePrefab);
+            GenerateElement(minesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redMinePrefab);
+            GenerateElement(treesNum, new Vector3(0.5f + mapIdx * mapWidth, 0.5f, 6.5f), redTreePrefab);
             // generate cannonPlace on the map
-            GenerateCannonPlace(new Vector3(-9.5f + mapIdx * mapWidth, 0f, -1.5f));
+            GenerateCannonPlace(new Vector3(-13.5f + mapIdx * mapWidth, 0f, -0.5f));
         }
         isInitialized = true;
     }
@@ -77,7 +79,7 @@ public class MapGenerator : MonoBehaviour
         // First, random each column position
         List<int> zPositions = new List<int>();
         int pathWidth = 2;
-        int lines = 4;
+        int lines = 3;
         for (int i = 0; i < mapWidth - 2; i++)
         {
             int zPos = Random.Range(0, lines);
@@ -139,14 +141,36 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateCannonPlace(Vector3 offset)
     {
-        Vector3 baseY = new Vector3(0f, 1f, 0f);
-        // for convenience, directly set the constant
+        int lines = 4;
+        // first, random the column position
+        List<int> xPositions = new List<int>();
+        for (int i=0; i<cannonPlaceNum; i++) {
+            int xPos;
+            do {
+                xPos = Random.Range(0, mapWidth-1);
+            } while (CheckIfOverlay(xPositions, xPos));
+            xPositions.Add(xPos);
+        }
+
+        // next, place the cannonPlace according the column position
+        // notice that there are 3 available z positions to place
+        // so we need to decide it first (random)
+        // Vector3 baseY = new Vector3(0f, 1f, 0f);
         for (int i = 0; i < cannonPlaceNum; i++)
         {
-            Vector3 point = new Vector3(i * 4f, 0f, 0f);
-            Vector3 position = offset + point;
-            Instantiate(cannonPlacePrefab, position + baseY, Quaternion.identity);
+            int zPos = Random.Range(0, lines-1);
+            Vector3 position = offset + new Vector3(xPositions[i], 1f, -zPos);
+            Instantiate(cannonPlacePrefab, position, Quaternion.identity);
         }
+    }
+
+    private bool CheckIfOverlay(List<int> xPositions, int xPos) {
+        // If there's already a cannonPlace in xPos-2, xPos-1, xPos, xPos+1, xPos+2 -> overlay
+        // Else -> valid position to place the cannonPlace
+        for (int i=-2; i<=2; i++) {
+            if (xPositions.Contains(xPos+i)) return true;
+        }
+        return false;
     }
 
     public Vector3 ResetPlayerPosition()
