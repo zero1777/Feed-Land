@@ -20,6 +20,7 @@ TagManager:
   - green_mine
   - cannon
   - cannon_place
+  - music
   layers:
   - Default
   - TransparentFX

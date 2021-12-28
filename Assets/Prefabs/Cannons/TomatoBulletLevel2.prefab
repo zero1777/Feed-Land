@@ -111,6 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fea746c0bab943b5af83d6cebcbc4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkRadius: 10
+  checkLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   lerpCurve:
     serializedVersion: 2
     m_Curve:
