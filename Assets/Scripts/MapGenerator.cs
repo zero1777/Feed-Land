@@ -71,8 +71,9 @@ public class MapGenerator : MonoBehaviour
     {
 
     }
-      
-    private void shuffle(List<Vector3> list) {
+
+    private void shuffle(List<Vector3> list)
+    {
         for (int i = 0; i < list.Count; i++)
         {
             Vector3 currentIndex = list[i];
@@ -80,18 +81,20 @@ public class MapGenerator : MonoBehaviour
             list[i] = list[randomIndex];
             list[randomIndex] = currentIndex;
         }
-    } 
+    }
 
     private void GenerateElement(int total, Vector3 offset, GameObject prefab)
     {
         HashSet<Vector3> element = new HashSet<Vector3>();
 
         // first, random generate the position
-        for (int i=0; i<total; i++) {
+        for (int i = 0; i < total; i++)
+        {
             Vector3 point;
-            do {
-                point = new Vector3(Random.Range(0, mapWidth-2), 0f, (-1)*Random.Range(0, 5));
-            } while(CheckIfElementOverlay(point));
+            do
+            {
+                point = new Vector3(Random.Range(0, mapWidth - 2), 0f, (-1) * Random.Range(0, 5));
+            } while (CheckIfElementOverlay(point));
             elementPositions.Add(point);
             element.Add(point);
         }
@@ -100,27 +103,33 @@ public class MapGenerator : MonoBehaviour
         // notice that we will reserved 3*3 place for that kind of elements
         // random the number of each 3*3 place for diversity
         List<Vector3> box = new List<Vector3>();
-        for (int i=0; i<3; i++) {
-            for (int j=0; j<3; j++) {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
                 box.Add(new Vector3(i, 0f, -j));
             }
         }
 
-        foreach (Vector3 topLeftPoint in element) {
-            int num = Random.Range(4,8);
+        foreach (Vector3 topLeftPoint in element)
+        {
+            int num = Random.Range(4, 8);
             List<Vector3> boxIdx = new List<Vector3>();
             Vector3 position = offset + topLeftPoint;
             shuffle(box);
-            
-            for (int i=0; i<num; i++) {
+
+            for (int i = 0; i < num; i++)
+            {
                 Instantiate(prefab, position + box[i], Quaternion.identity);
             }
         }
     }
 
-    private bool CheckIfElementOverlay(Vector3 position) {
-        for (int x=-2; x<=2; x++) {
-            for (int z=-2; z<=2; z++) 
+    private bool CheckIfElementOverlay(Vector3 position)
+    {
+        for (int x = -2; x <= 2; x++)
+        {
+            for (int z = -2; z <= 2; z++)
                 if (elementPositions.Contains(position + new Vector3(x, 0f, z))) return true;
         }
         return false;
@@ -196,10 +205,12 @@ public class MapGenerator : MonoBehaviour
         int lines = 4;
         // first, random the column position
         List<int> xPositions = new List<int>();
-        for (int i=0; i<cannonPlaceNum; i++) {
+        for (int i = 0; i < cannonPlaceNum; i++)
+        {
             int xPos;
-            do {
-                xPos = Random.Range(0, mapWidth-1);
+            do
+            {
+                xPos = Random.Range(0, mapWidth - 1);
             } while (CheckIfCannonPlaceOverlay(xPositions, xPos));
             xPositions.Add(xPos);
         }
@@ -211,17 +222,19 @@ public class MapGenerator : MonoBehaviour
         // Vector3 baseY = new Vector3(0f, 1f, 0f);
         foreach (int xPosition in xPositions)
         {
-            int zPos = Random.Range(0, lines-1);
+            int zPos = Random.Range(0, lines - 1);
             Vector3 position = offset + new Vector3(xPosition, 1f, -zPos);
             Instantiate(cannonPlacePrefab, position, Quaternion.identity);
         }
     }
 
-    private bool CheckIfCannonPlaceOverlay(List<int> xPositions, int xPos) {
+    private bool CheckIfCannonPlaceOverlay(List<int> xPositions, int xPos)
+    {
         // If there's already a cannonPlace in xPos-2, xPos-1, xPos, xPos+1, xPos+2 -> overlay
         // Else -> valid position to place the cannonPlace
-        for (int i=-2; i<=2; i++) {
-            if (xPositions.Contains(xPos+i)) return true;
+        for (int i = -2; i <= 2; i++)
+        {
+            if (xPositions.Contains(xPos + i)) return true;
         }
         return false;
     }
