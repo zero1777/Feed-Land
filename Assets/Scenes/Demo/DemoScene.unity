@@ -2468,6 +2468,16 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4073917158648544163, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073917158648544163, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4353533598030991345, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: m_Value
