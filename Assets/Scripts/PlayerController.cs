@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public GameObject redMinePrefab;
     public GameObject greenMinePrefab;
     public GameObject blueMinePrefab;
+    public AudioClip choppingSound;
+    public AudioClip miningSound;
 
     private Animator animator;
     private List<GameObject> targets;
@@ -38,10 +40,12 @@ public class PlayerController : MonoBehaviour
     // prefabs collections for convinience
     private Dictionary<string, GameObject> foodPrefabs;
     private Dictionary<string, GameObject> minePrefabs;
+    private AudioSource audioPlayer;
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        audioPlayer = gameObject.GetComponent<AudioSource>();
 
         targets = new List<GameObject>();
 
@@ -167,6 +171,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with tree: {target.name}");
 
+                audioPlayer.PlayOneShot(choppingSound);
                 isTriggeringAnimation = true;
                 StartCoroutine(TriggerBlockingAnimation("cutting"));
 
@@ -183,6 +188,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with mine: {target.name}");
 
+                audioPlayer.PlayOneShot(miningSound);
                 isTriggeringAnimation = true;
                 StartCoroutine(TriggerBlockingAnimation("mining"));
 
