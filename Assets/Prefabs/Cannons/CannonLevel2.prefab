@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 5492652599187200716}
   m_Layer: 0
   m_Name: CannonLevel2
-  m_TagString: cannon
+  m_TagString: v2_cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2300,7 +2300,7 @@ GameObject:
   - component: {fileID: 8889674755959056284}
   m_Layer: 0
   m_Name: CannonLevel2Upgrade
-  m_TagString: cannon
+  m_TagString: v2_cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2366,6 +2366,8 @@ MonoBehaviour:
     type: 3}
   greenDisplayPrefab: {fileID: 6688719554086305117, guid: 9ce8b686ff85a46778267835f008af80,
     type: 3}
+  loadBulletSound: {fileID: 0}
+  coolDownTime: 3
 --- !u!111 &8889674755959056283
 Animation:
   m_ObjectHideFlags: 0

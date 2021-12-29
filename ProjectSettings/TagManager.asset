@@ -18,9 +18,10 @@ TagManager:
   - red_mine
   - blue_mine
   - green_mine
-  - cannon
   - cannon_place
   - music
+  - v1_cannon
+  - v2_cannon
   layers:
   - Default
   - TransparentFX
