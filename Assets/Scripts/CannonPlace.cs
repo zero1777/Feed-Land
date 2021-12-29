@@ -5,7 +5,7 @@ public class CannonPlace : MonoBehaviour
     public GameObject cannonPrefab;
     public GameObject minePrefab;
     public int demandMines;
-    public AudioClip buildSuccessEffect;
+    public AudioClip buildSuccessSoundEffect;
 
     private AudioSource audioSource;
     private int currentMines;
@@ -42,7 +42,7 @@ public class CannonPlace : MonoBehaviour
     {
         // construct the cannon on the current cannon place
         Debug.Log("[CannonPlace.ConstructCannon]: construct cannon successfully");
-        audioSource.PlayOneShot(buildSuccessEffect);
+        audioSource.PlayOneShot(buildSuccessSoundEffect);
         GameObject cannon = Instantiate(cannonPrefab, gameObject.transform.position, Quaternion.identity);
         cannon.transform.Rotate(0f, 180f, 0f);
     }
