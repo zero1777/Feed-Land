@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
 
     // tag definitions
     public const string cannonPlaceTag = "cannon_place";
-    public const string cannonTag = "cannon";
+    public const string cannonTagSuffix = "_cannon";
+    public const string v1CannonTag = "v1_cannon";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
@@ -169,7 +170,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (target.CompareTag(cannonTag) && IsCarryingFood() && !isTriggeringAnimation)
+            if (target.tag.EndsWith(cannonTagSuffix) && IsCarryingFood() && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with cannon: {target.name}");
 
@@ -180,6 +181,16 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine(TriggerBlockingAnimation("reloading"));
 
                     StartCoroutine(ReleaseResource());
+                }
+            }
+
+            if (target.CompareTag(v1CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation) {
+                Debug.Log($"[PlayerController.TakeAction] interacing with v1 cannon: {target.name}");
+
+                CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
+                if (cannonUpgrade.GetUpgradeMaterial()) {
+                    StartCoroutine(ReleaseResource());
+                    StartCoroutine(DestroyResource(target, "cannon"));
                 }
             }
 
@@ -241,6 +252,10 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.PlayOneShot(buildSuccessSound);
             o.GetComponent<CannonPlace>().ConstructCannon();
+        }
+        else if (resourceType == "cannon")
+        {
+            o.GetComponent<CannonUpgrade>().UpgradeCannon();
         }
 
         if (carryingObject != null)

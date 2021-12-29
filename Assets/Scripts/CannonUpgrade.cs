@@ -31,17 +31,17 @@ public class CannonUpgrade : MonoBehaviour
         progressBar.fillAmount = ratio;
     }
 
-    private void UpgradeCannon()
+    public void UpgradeCannon()
     {
         Debug.Log("[CannonUpgrade.UpgradeCannon]: Cannon Upgrade successfully");
         GameObject upgradeCannon = Instantiate(upgradeCannonPrefab, transform.position, transform.rotation);
-        Destroy(gameObject);
     }
 
-    public void GetUpgradeMaterial()
+    public bool GetUpgradeMaterial()
     {
-        if (currentUpgradeMaterials < demandUpgradeMaterials)
-            currentUpgradeMaterials++;
-        if (currentUpgradeMaterials >= demandUpgradeMaterials) UpgradeCannon();
+        Debug.Log("[CannonUpgrade.GetUpgradeMaterial]: get upgrade material successfully");
+        currentUpgradeMaterials++;
+
+        return currentUpgradeMaterials == demandUpgradeMaterials;
     }
 }
