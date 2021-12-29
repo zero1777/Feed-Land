@@ -46,7 +46,7 @@ MonoBehaviour:
   numberOfPlayers: 2
   playerPrefabs:
   - {fileID: 680338884016680253, guid: 1964cd0d5b7624443a4cdda00e2d8dc9, type: 3}
-  - {fileID: 680338884016680253, guid: 1964cd0d5b7624443a4cdda00e2d8dc9, type: 3}
+  - {fileID: 7840536784004863584, guid: 72e3b1a3abc484d269833615f426254b, type: 3}
   playerNames:
   - Player1
   - Player2
