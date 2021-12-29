@@ -72,7 +72,7 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    private void shuffle(List<Vector3> list)
+    private void Shuffle(List<Vector3> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
@@ -116,7 +116,7 @@ public class MapGenerator : MonoBehaviour
             int num = Random.Range(4, 8);
             List<Vector3> boxIdx = new List<Vector3>();
             Vector3 position = offset + topLeftPoint;
-            shuffle(box);
+            Shuffle(box);
 
             for (int i = 0; i < num; i++)
             {
