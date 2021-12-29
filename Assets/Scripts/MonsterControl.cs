@@ -22,6 +22,7 @@ public class MonsterControl : MonoBehaviour
     public int blueFoodNum = 5;
     public int greenFoodNum = 5;
     public float attackDistance;
+    public float tooFarDistance = 28.0f;
 
     // use to decide route
     public float monsterMovingSpeed = 5.0f;
@@ -278,8 +279,18 @@ public class MonsterControl : MonoBehaviour
 
     private void MoveRole()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, roleRot, monsterRotSpeed * Time.fixedDeltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, monsterMovingSpeed * Time.fixedDeltaTime);
+        float movementSpeed = monsterMovingSpeed;
+        float rotationSpeed = monsterRotSpeed;
+
+        GameObject unicorn = GameObject.Find("Unicorn");
+        float dist = Vector3.Distance(unicorn.transform.position, transform.position);
+        if (dist > tooFarDistance) {
+            movementSpeed *= (1 + dist / tooFarDistance);
+            rotationSpeed *= (1 + dist / tooFarDistance);
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, roleRot, rotationSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.fixedDeltaTime);
         if (transform.position == targetPosition)
         {
             isMoving = false;
