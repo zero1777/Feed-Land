@@ -3,7 +3,13 @@ guid: 4d24af782778e41aa83e64f2629643c3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cannonPrefab: {fileID: 9080489585567837883, guid: 4ebabc6ccc7d04ba6a69ff7ed5f9639a,
+      type: 3}
+  - minePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
+      type: 3}
+  - buildSuccessEffect: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

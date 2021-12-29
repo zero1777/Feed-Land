@@ -5,7 +5,9 @@ public class CannonPlace : MonoBehaviour
     public GameObject cannonPrefab;
     public GameObject minePrefab;
     public int demandMines;
+    public AudioClip buildSuccessSoundEffect;
 
+    private AudioSource audioSource;
     private int currentMines;
     private int places;
     // Start is called before the first frame update
@@ -13,6 +15,7 @@ public class CannonPlace : MonoBehaviour
     {
         places = 4;
         currentMines = 0;
+        audioSource = gameObject.GetComponent<AudioSource>();
         InitialMines();
     }
 
@@ -21,7 +24,7 @@ public class CannonPlace : MonoBehaviour
     {
         // testing
         // if (Input.GetKeyDown(KeyCode.A)) {
-        //     GetMine();
+        //     ConstructCannon();
         // }
         UpdateMinesStatus();
     }
@@ -38,6 +41,8 @@ public class CannonPlace : MonoBehaviour
     public void ConstructCannon()
     {
         // construct the cannon on the current cannon place
+        Debug.Log("[CannonPlace.ConstructCannon]: construct cannon successfully");
+        audioSource.PlayOneShot(buildSuccessSoundEffect);
         GameObject cannon = Instantiate(cannonPrefab, gameObject.transform.position, Quaternion.identity);
         cannon.transform.Rotate(0f, 180f, 0f);
     }
