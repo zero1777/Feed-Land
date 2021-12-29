@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -32,13 +33,15 @@ public class PlayerController : MonoBehaviour
     public AudioClip cuttingSoundEffect;
     public AudioClip miningSoundEffect;
 
+    private Vector2 movementInput;
+    private bool takeActionInput;
     private Animator animator;
+    private AudioSource audioSource;
     private List<GameObject> targets;
     private float nextActionTime;
     private GameObject carryingObject;
     private GameObject toBeDestroyedObject;
     private bool isTriggeringAnimation;
-    private AudioSource audioSource;
 
     // prefabs collections for convinience
     private Dictionary<string, GameObject> foodPrefabs;
@@ -58,19 +61,20 @@ public class PlayerController : MonoBehaviour
             {"green", greenFoodPrefab},
             {"blue", blueFoodPrefab},
         };
-
         minePrefabs = new Dictionary<string, GameObject>(){
             {"red", redMinePrefab},
             {"green", greenMinePrefab},
             {"blue", blueMinePrefab},
         };
 
+        carryingObject = null;
+        toBeDestroyedObject = null;
         isTriggeringAnimation = false;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (takeActionInput)
         {
             bool shouldResetCooldown = TakeAction(Time.time > nextActionTime);
             if (shouldResetCooldown)
@@ -93,10 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggeringAnimation) return;
 
-        // get keyboard inputs
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
+        Vector3 moveDirection = new Vector3(movementInput.x, 0, movementInput.y);
 
         // set animation
         animator.SetFloat("speed", moveDirection.magnitude);
@@ -131,6 +132,14 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"[PlayerController.OnTriggerExit] exit {other.transform.name}");
 
         targets.Remove(other.gameObject);
+    }
+
+    public void OnMove(InputAction.CallbackContext context) {
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnTakeAction(InputAction.CallbackContext context) {
+        takeActionInput = context.action.triggered;
     }
 
     // TakeAction returns true if should reset the cooldown

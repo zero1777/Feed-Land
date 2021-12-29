@@ -107,13 +107,14 @@ public class MonsterControl : MonoBehaviour
         {
             animator.SetBool("Attack", false);
         }
+
         if (pauseButton != null)
-            gameRunning = pauseButton.active;
+            gameRunning = pauseButton.activeSelf;
+
         // check is moving 
         if (isMoving && canMove == true && gameRunning)
             MoveRole();
-        // check role is  not
-        // dynamic generate route list
+
         if (isMoving == false && canMove == true)
         {
             if (storedPath.Count > 0)
@@ -123,7 +124,6 @@ public class MonsterControl : MonoBehaviour
                 animator.SetFloat("Speed", 1.0f);
                 storedPath.RemoveAt(0);
             }
-
         }
         else
         {
@@ -131,6 +131,7 @@ public class MonsterControl : MonoBehaviour
             animator.SetFloat("Speed", randomSpeed);
         }
 
+        /* Debug only
         // will be replaced after (eat animation will be triggered by the food shoot)
         if (Input.GetKey(KeyCode.E))
         {
@@ -154,6 +155,7 @@ public class MonsterControl : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private IEnumerator WaitThenMove()
