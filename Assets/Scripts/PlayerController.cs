@@ -26,13 +26,11 @@ public class PlayerController : MonoBehaviour
     public GameObject redMinePrefab;
     public GameObject greenMinePrefab;
     public GameObject blueMinePrefab;
-    public AudioClip choppingSound;
-    public AudioClip miningSound;
-    public AudioClip buildSuccessSound;
 
     // Sound Effects
     public AudioClip cuttingSoundEffect;
     public AudioClip miningSoundEffect;
+    public AudioClip buildSuccessSoundEffect;
 
     private Vector2 movementInput;
     private bool takeActionInput;
@@ -167,6 +165,7 @@ public class PlayerController : MonoBehaviour
                 CannonPlace cannonPlace = target.GetComponent<CannonPlace>();
                 if (cannonPlace.GetMine())
                 {
+                    audioSource.PlayOneShot(buildSuccessSoundEffect);
                     StartCoroutine(ReleaseResource());
                     StartCoroutine(DestroyResource(target, "cannon_place"));
                 }
@@ -254,7 +253,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (resourceType == "cannon_place")
         {
-            audioSource.PlayOneShot(buildSuccessSound);
             o.GetComponent<CannonPlace>().ConstructCannon();
         }
         else if (resourceType == "cannon")

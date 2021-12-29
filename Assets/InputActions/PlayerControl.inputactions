@@ -150,7 +150,7 @@
                     "path": "<Keyboard>/comma",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "TakeAction",
                     "isComposite": false,
                     "isPartOfComposite": false
