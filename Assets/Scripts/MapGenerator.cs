@@ -296,15 +296,17 @@ public class MapGenerator : MonoBehaviour
         return idx;
     }
 
-    public Vector3 GetEnemySpawnPoint() {
+    public Vector3 GetEnemySpawnPoint()
+    {
         int whichMap = FindUnicornPosition();
         whichMap = Mathf.Max(0, whichMap - 1);
         Vector3 offset = new Vector3(-13.5f, 0.5f, -5.5f);
-        Vector3 SpawnPoint = offset + new Vector3(whichMap*mapWidth, 0f, 0f);
+        Vector3 SpawnPoint = offset + new Vector3(whichMap * mapWidth, 0f, 0f);
         return SpawnPoint;
     }
 
-    public int GetEnemySpawnMapIdx() {
+    public int GetEnemySpawnMapIdx()
+    {
         int whichMap = FindUnicornPosition();
         whichMap = Mathf.Max(0, whichMap - 1);
         return whichMap;
