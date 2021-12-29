@@ -155,6 +155,9 @@ public class PlayerController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
+            // Skipping null values
+            if (target == null) continue;
+
             if (target.CompareTag(cannonPlaceTag) && IsCarryingMine("red") && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacting with cannon place: {target.name}");
