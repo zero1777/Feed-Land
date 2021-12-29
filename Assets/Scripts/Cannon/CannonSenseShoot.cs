@@ -21,14 +21,12 @@ public class CannonSenseShoot : MonoBehaviour
     public GameObject redDisplayPrefab;
     public GameObject blueDisplayPrefab;
     public GameObject greenDisplayPrefab;
-    public AudioClip loadBulletSound;
     public float coolDownTime = 3f; // shooting CD
     private float shootTimer = 0f;
     private bool vacant = true;
     private Dictionary<string, GameObject> bulletPrefabs;
     private Dictionary<string, GameObject> displayPrefabs;
     private Queue<String> waitBullets = new Queue<String>();
-    private AudioSource audioPlayer;
 
     void Start()
     {
@@ -43,8 +41,6 @@ public class CannonSenseShoot : MonoBehaviour
             {"green", greenDisplayPrefab},
             {"blue", blueDisplayPrefab},
         };
-
-        audioPlayer = gameObject.GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -109,19 +105,17 @@ public class CannonSenseShoot : MonoBehaviour
             return false;
         }
 
-        Debug.Log($"[CannonSenseShoot.LoadBullet]: load bullet with {bulletPrefab.name}, {bulletPrefab.tag}");
-
-        if (bulletPrefab.tag.EndsWith(foodTagSuffix))
+        if (!bulletPrefab.tag.EndsWith(foodTagSuffix))
         {
-            String newBulletTag = bulletPrefab.tag;
-            waitBullets.Enqueue(newBulletTag);
-            PlaySoundEffect(loadBulletSound);
-            Debug.Log("[CannonSenseShoot.LoadBullet]: load bullet successfully");
-
-            // display on the top of cannon
-            CreateDisplayBullet(newBulletTag.Split('_')[0]);
+            return false;
         }
 
+        Debug.Log($"[CannonSenseShoot.LoadBullet]: load bullet with {bulletPrefab.name}, {bulletPrefab.tag}");
+
+        String newBulletTag = bulletPrefab.tag;
+        waitBullets.Enqueue(newBulletTag);
+
+        CreateDisplayBullet(newBulletTag.Split('_')[0]);
         return true;
     }
 
@@ -134,10 +128,5 @@ public class CannonSenseShoot : MonoBehaviour
     {
         GameObject ammoFood = Instantiate(displayPrefabs[color], stagePoint);
         ammoFood.transform.localPosition = new Vector3(0.3f, 0, 4.0f);
-    }
-
-    private void PlaySoundEffect(AudioClip soundEffect)
-    {
-        audioPlayer.PlayOneShot(soundEffect);
     }
 }

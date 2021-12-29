@@ -459,6 +459,8 @@ MonoBehaviour:
   miningSoundEffect: {fileID: 8300000, guid: 45ef1a7de3bd35249b27c32a31260d50, type: 3}
   buildSuccessSoundEffect: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f,
     type: 3}
+  loadBulletSoundEffect: {fileID: 8300000, guid: 99722d72fc24749eaa111dac86eda199,
+    type: 3}
 --- !u!114 &1456628909073360677
 MonoBehaviour:
   m_ObjectHideFlags: 0
