@@ -2381,7 +2381,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
       propertyPath: m_Name
-      value: Unicorn00
+      value: Unicorn
       objectReference: {fileID: 0}
     - target: {fileID: 4977984389245144, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
       propertyPath: m_LocalPosition.x

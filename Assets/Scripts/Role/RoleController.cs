@@ -10,7 +10,6 @@ public class RoleController : MonoBehaviour
     public int currentHealth;
 
     public HealthBar healthBar;
-    public MapGenerator mapGenerator;
 
     public enum Direction
     {
@@ -23,6 +22,8 @@ public class RoleController : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     public List<Vector3> storedPath;
 
+    // map generator
+    private MapGenerator mapGenerator;
     // use to decide route
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
