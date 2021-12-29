@@ -184,11 +184,13 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (target.CompareTag(v1CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation) {
+            if (target.CompareTag(v1CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation)
+            {
                 Debug.Log($"[PlayerController.TakeAction] interacing with v1 cannon: {target.name}");
 
                 CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
-                if (cannonUpgrade.GetUpgradeMaterial()) {
+                if (cannonUpgrade.GetUpgradeMaterial())
+                {
                     StartCoroutine(ReleaseResource());
                     StartCoroutine(DestroyResource(target, "cannon"));
                 }
