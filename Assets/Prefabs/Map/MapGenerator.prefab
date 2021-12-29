@@ -43,19 +43,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e44abb82d494fefbdb6d1490ca6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPrefab: {fileID: 8486019574564057317, guid: e24d35f17938a41d084c9d2fe74bfac9,
+  mapPrefab: {fileID: 8520300103122973095, guid: 0f5da10221fa74b6bad5116450483f0e,
     type: 3}
-  redTreePrefab: {fileID: 7218559754734676202, guid: dbfc9f447444746ae9d1710e1ea7a948,
+  redTreePrefab: {fileID: 7218559754734676202, guid: 5c9196c5854404a659ff09f9c3274e57,
     type: 3}
-  blueTreePrefab: {fileID: 302389472426655255, guid: b5513e4b773a045689bf36b9a3f2ce4d,
+  blueTreePrefab: {fileID: 3437392360418801730, guid: d0c8920bab899427fa18ec28d5a1e22f,
     type: 3}
-  redMinePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
+  redMinePrefab: {fileID: 44130982510965014, guid: f228dd6565c3d4705b8b49a4b5fa70ca,
     type: 3}
-  blueMinePrefab: {fileID: 3723393909993456683, guid: 2a341d22fa965432587d19b13049b322,
+  blueMinePrefab: {fileID: 4612450955021793273, guid: b78002cbbf7924dcc826c47cc600803b,
     type: 3}
   pathEffectPrefab: {fileID: 2586128363244842901, guid: f784b45b2004c4c2d8fc3c1c03d7710d,
     type: 3}
-  cannonPlacePrefab: {fileID: 372717334692429292, guid: 11ff683d60b044b61baff93d49fd1f82,
+  cannonPlacePrefab: {fileID: 9138861137629827488, guid: 9c62169a948f445d0bfe69a93b283c3e,
     type: 3}
   unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
   Level1ElementNum: 3
