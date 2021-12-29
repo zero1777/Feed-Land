@@ -152,7 +152,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach (Vector3 topLeftPoint in element)
         {
-            int num = Random.Range(4, 8);
+            int num = Random.Range(3, 7);
             Vector3 position = offset + topLeftPoint;
             Shuffle(box);
 
