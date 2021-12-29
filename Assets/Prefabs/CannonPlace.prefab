@@ -93,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.7458937, z: 1}
+  m_Center: {x: 0, y: 0.37294686, z: 0}
 --- !u!114 &372717334692429283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,8 @@ MonoBehaviour:
   minePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
     type: 3}
   demandMines: 1
-  buildSuccessEffect: {fileID: 0}
+  buildSuccessSoundEffect: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f,
+    type: 3}
 --- !u!82 &1487533088761027539
 AudioSource:
   m_ObjectHideFlags: 0

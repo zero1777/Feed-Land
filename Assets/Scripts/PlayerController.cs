@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     public GameObject redMinePrefab;
     public GameObject greenMinePrefab;
     public GameObject blueMinePrefab;
+    public AudioClip choppingSound;
+    public AudioClip miningSound;
+    public AudioClip buildSuccessSound;
 
     // Sound Effects
     public AudioClip cuttingSoundEffect;
@@ -236,6 +239,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (resourceType == "cannon_place")
         {
+            audioSource.PlayOneShot(buildSuccessSound);
             o.GetComponent<CannonPlace>().ConstructCannon();
         }
 

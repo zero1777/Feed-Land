@@ -6,9 +6,9 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     public GameObject mapPrefab;
     public GameObject redTreePrefab;
-    public GameObject yellowTreePrefab;
+    public GameObject blueTreePrefab;
     public GameObject redMinePrefab;
-    public GameObject yellowMinePrefab;
+    public GameObject blueMinePrefab;
     public GameObject pathEffectPrefab;
     public GameObject cannonPlacePrefab;
     public GameObject unicorn;
@@ -24,8 +24,8 @@ public class MapGenerator : MonoBehaviour
     private int cannonPlaceNum;
     private int redTreesNum;
     private int redMinesNum;
-    private int yellowTreesNum;
-    private int yellowMinesNum;
+    private int blueTreesNum;
+    private int blueMinesNum;
     private int mapWidth;
     private int mapHeight;
     private List<List<Vector3>> paths;
@@ -38,10 +38,11 @@ public class MapGenerator : MonoBehaviour
         mapHeight = 14;
         cannonPlaceNum = 6;
         paths = new List<List<Vector3>>();
-        elementPositions = new List<Vector3>();
+        
 
         for (int mapIdx = 0; mapIdx < mapNum; mapIdx++)
         {
+            elementPositions = new List<Vector3>();
             // create ground first
             Vector3 mapPos = new Vector3(mapIdx * mapWidth, 0f, 0f);
             Instantiate(mapPrefab, mapPos, Quaternion.identity);
@@ -56,12 +57,12 @@ public class MapGenerator : MonoBehaviour
             GenerateElement(redTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redTreePrefab);
             GenerateElement(redMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redMinePrefab);
             // level2
-            yellowTreesNum = Level2ElementNum;
-            yellowMinesNum = Level2ElementNum;
-            GenerateElement(yellowTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), yellowTreePrefab);
-            GenerateElement(yellowMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), yellowMinePrefab);
+            blueTreesNum = Level2ElementNum;
+            blueMinesNum = Level2ElementNum;
+            GenerateElement(blueTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), blueTreePrefab);
+            GenerateElement(blueMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), blueMinePrefab);
             // generate cannonPlace on the map
-            GenerateCannonPlace(new Vector3(-13.5f + mapIdx * mapWidth, 0f, -0.5f));
+            GenerateCannonPlace(new Vector3(-13.5f + mapIdx * mapWidth, 0f, -1.5f));
         }
         isInitialized = true;
     }
