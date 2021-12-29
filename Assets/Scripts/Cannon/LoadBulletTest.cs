@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LoadBulletTest : MonoBehaviour
 {
@@ -25,10 +23,12 @@ public class LoadBulletTest : MonoBehaviour
             cannonObject2.GetComponent<CannonSenseShoot>().LoadBullet(blueFoodPrefab);
         }
 
+        /* Debug only
         if (Input.GetKeyDown("space"))
         {
             cannonObject.GetComponent<CannonSenseShoot>().LoadBullet(greenFoodPrefab);
             cannonObject2.GetComponent<CannonSenseShoot>().LoadBullet(greenFoodPrefab);
         }
+        */
     }
 }

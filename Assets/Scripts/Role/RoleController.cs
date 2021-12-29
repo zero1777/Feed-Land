@@ -58,15 +58,17 @@ public class RoleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //debug
+        /* Debug only
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(1);
         }
-            // check is moving 
-            if (isMoving && canMove == true)
+        */
+
+        // check is moving 
+        if (isMoving && canMove == true)
             MoveRole();
-        // check role is  not
+
         if (isMoving == false && canMove == true)
         {
             if (storedPath.Count > 0)

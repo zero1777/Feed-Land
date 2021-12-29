@@ -19,11 +19,12 @@ public class ResourceController : MonoBehaviour
 
     void Update()
     {
-        // debug health X to -hp
+        /* Debug only
         if (Input.GetKeyDown(KeyCode.X))
         {
             GetHit(1);
         }
+        */
     }
 
     public bool GetHit(int damage)
