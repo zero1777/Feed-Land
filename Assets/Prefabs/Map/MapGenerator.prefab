@@ -57,7 +57,8 @@ MonoBehaviour:
     type: 3}
   cannonPlacePrefab: {fileID: 372717334692429292, guid: 11ff683d60b044b61baff93d49fd1f82,
     type: 3}
-  unicorn: {fileID: 0}
+  unicornGameObject: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e,
+    type: 3}
   Level1ElementNum: 0
   Level2ElementNum: 0
   mapNum: 2

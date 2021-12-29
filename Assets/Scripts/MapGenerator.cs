@@ -18,8 +18,9 @@ public class MapGenerator : MonoBehaviour
     // public int maxLevel1ElementNum;
     // public int minLevel2ElementNum;
     // public int maxLevel2ElementNum;
-    public int mapNum;
+    public int initMapNum;
     public bool isInitialized { get; private set; }
+    private int currentMapIdx;
 
     private int cannonPlaceNum;
     private int redTreesNum;
@@ -30,7 +31,7 @@ public class MapGenerator : MonoBehaviour
     private int mapHeight;
     private List<List<Vector3>> paths;
     private List<Vector3> elementPositions;
-    private int currentMapIdx;
+
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class MapGenerator : MonoBehaviour
         cannonPlaceNum = 6;
         paths = new List<List<Vector3>>();
 
-        for (int i = 0; i < mapNum; i++)
+        for (int i = 0; i < initMapNum; i++)
         {
             // elementPositions = new List<Vector3>();
             // // create ground first
@@ -72,7 +73,16 @@ public class MapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (unicorn != null)
+        {
+            int unicornMapIdx = FindUnicornPosition();
+            if (unicornMapIdx == currentMapIdx - 1) GenerateMap();
+        }
+    }
 
+    public int GetCurrentMapIdx()
+    {
+        return currentMapIdx;
     }
 
     private void GenerateMap()
@@ -230,7 +240,7 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateCannonPlace(Vector3 offset)
     {
-        int lines = 4;
+        int lines = 3;
         // first, random the column position
         List<int> xPositions = new List<int>();
         for (int i = 0; i < cannonPlaceNum; i++)
@@ -270,7 +280,7 @@ public class MapGenerator : MonoBehaviour
     public Vector3 ResetPlayerPosition()
     {
         // first, find out which map unicorn is at
-        int mapIdx = FindUnicorn();
+        int mapIdx = FindUnicornPosition();
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
@@ -278,8 +288,9 @@ public class MapGenerator : MonoBehaviour
         return resetPosition;
     }
 
-    private int FindUnicorn()
+    private int FindUnicornPosition()
     {
+        // Debug.Log(unicorn.name);
         int idx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
         idx = Mathf.Max(idx, 0);
         return idx;

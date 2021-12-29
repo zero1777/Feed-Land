@@ -34,10 +34,12 @@ public class RoleController : MonoBehaviour
     // camera & light follow
     private GameObject mainCamera;
     private GameObject light;
+    private int nextGetMapIdx;
 
     IEnumerator Start()
     {
         // init para
+        nextGetMapIdx = 0;
         mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
         rb = GetComponent<Rigidbody>();
         canMove = true;
@@ -54,6 +56,14 @@ public class RoleController : MonoBehaviour
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if (nextGetMapIdx < mapGenerator.GetCurrentMapIdx()) GetMapPath();
     }
 
     void FixedUpdate()
@@ -124,11 +134,19 @@ public class RoleController : MonoBehaviour
 
     private void GetMapPath()
     {
-        for (int i = 0; i < mapGenerator.mapNum; i++)
+        // for (int i=0; i < mapGenerator.mapNum; i++)
+        // {
+        //     for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+        //     {
+        //         storedPath.Add(mapGenerator.GetPath(i)[j]);
+        //         //Debug.Log(mapGenerator.GetPath(i)[j]);
+        //     }
+        // }
+        for ( ; nextGetMapIdx < mapGenerator.GetCurrentMapIdx(); nextGetMapIdx++)
         {
-            for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+            for (int j = 0; j < mapGenerator.GetPath(nextGetMapIdx).Count; j++)
             {
-                storedPath.Add(mapGenerator.GetPath(i)[j]);
+                storedPath.Add(mapGenerator.GetPath(nextGetMapIdx)[j]);
                 //Debug.Log(mapGenerator.GetPath(i)[j]);
             }
         }

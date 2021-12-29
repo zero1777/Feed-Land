@@ -42,10 +42,12 @@ public class MonsterControl : MonoBehaviour
     private Animator animator;
     private List<string> foodList = new List<string> { "red_food", "blue_food", "green_food" };
     private AudioSource audioPlayer;
+    private int nextGetMapIdx;
 
     IEnumerator Start()
     {
         //init para
+        nextGetMapIdx = 0;
         rb = GetComponent<Rigidbody>();
         pauseButton = GameObject.Find("PauseButton");
         mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
@@ -130,6 +132,8 @@ public class MonsterControl : MonoBehaviour
             float randomSpeed = Random.Range(0.1f, 1.0f);
             animator.SetFloat("Speed", randomSpeed);
         }
+
+        if (nextGetMapIdx < mapGenerator.GetCurrentMapIdx()) GetMapPath();
 
         /* Debug only
         // will be replaced after (eat animation will be triggered by the food shoot)
@@ -242,11 +246,19 @@ public class MonsterControl : MonoBehaviour
 
     private void GetMapPath()
     {
-        for (int i = 0; i < mapGenerator.mapNum; i++)
+        // for (int i = 0; i < mapGenerator.mapNum; i++)
+        // {
+        //     for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+        //     {
+        //         storedPath.Add(mapGenerator.GetPath(i)[j]);
+        //         //Debug.Log(mapGenerator.GetPath(i)[j]);
+        //     }
+        // }
+        for (; nextGetMapIdx < mapGenerator.GetCurrentMapIdx(); nextGetMapIdx++)
         {
-            for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+            for (int j = 0; j < mapGenerator.GetPath(nextGetMapIdx).Count; j++)
             {
-                storedPath.Add(mapGenerator.GetPath(i)[j]);
+                storedPath.Add(mapGenerator.GetPath(nextGetMapIdx)[j]);
                 //Debug.Log(mapGenerator.GetPath(i)[j]);
             }
         }
