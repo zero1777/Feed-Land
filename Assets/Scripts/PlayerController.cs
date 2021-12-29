@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip cuttingSoundEffect;
     public AudioClip miningSoundEffect;
     public AudioClip buildSuccessSoundEffect;
+    public AudioClip loadBulletSoundEffect;
 
     private Vector2 movementInput;
     private bool takeActionInput;
@@ -181,6 +182,8 @@ public class PlayerController : MonoBehaviour
                 CannonSenseShoot cannonSenseShoot = target.GetComponent<CannonSenseShoot>();
                 if (cannonSenseShoot.LoadBullet(carryingObject))
                 {
+                    audioSource.PlayOneShot(loadBulletSoundEffect);
+
                     isTriggeringAnimation = true;
                     StartCoroutine(TriggerBlockingAnimation("reloading"));
 
