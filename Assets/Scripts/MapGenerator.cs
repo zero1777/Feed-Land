@@ -31,7 +31,7 @@ public class MapGenerator : MonoBehaviour
     private int mapHeight;
     private List<List<Vector3>> paths;
     private List<Vector3> elementPositions;
-    
+
 
     void Start()
     {
@@ -73,13 +73,15 @@ public class MapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (unicorn != null) {
+        if (unicorn != null)
+        {
             int unicornMapIdx = FindUnicornPosition();
-            if (unicornMapIdx == currentMapIdx-1) GenerateMap();
+            if (unicornMapIdx == currentMapIdx - 1) GenerateMap();
         }
     }
 
-    public int GetCurrentMapIdx() {
+    public int GetCurrentMapIdx()
+    {
         return currentMapIdx;
     }
 

@@ -254,7 +254,7 @@ public class MonsterControl : MonoBehaviour
         //         //Debug.Log(mapGenerator.GetPath(i)[j]);
         //     }
         // }
-        for ( ; nextGetMapIdx < mapGenerator.GetCurrentMapIdx(); nextGetMapIdx++)
+        for (; nextGetMapIdx < mapGenerator.GetCurrentMapIdx(); nextGetMapIdx++)
         {
             for (int j = 0; j < mapGenerator.GetPath(nextGetMapIdx).Count; j++)
             {
