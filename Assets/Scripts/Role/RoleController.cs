@@ -130,7 +130,8 @@ public class RoleController : MonoBehaviour
     private void GenerateEnemy()
     {
         int idx = Random.Range(0, enemies.Count);
-        Instantiate(enemies[idx]);
+        Vector3 spawnPoint = mapGenerator.GetEnemySpawnPoint();
+        Instantiate(enemies[idx], spawnPoint, Quaternion.identity);
     }
 
     private void GetMapPath()

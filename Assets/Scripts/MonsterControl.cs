@@ -15,7 +15,7 @@ public class MonsterControl : MonoBehaviour
     public GameObject unicorn;
 
     // store path
-    public List<Vector3> storedPath;
+    private List<Vector3> storedPath;
 
     // how many numbers of food will be generated, default is 5
     public int redFoodNum = 5;
@@ -46,7 +46,7 @@ public class MonsterControl : MonoBehaviour
     IEnumerator Start()
     {
         //init para
-        nextGetMapIdx = 0;
+        storedPath = null;
         rb = GetComponent<Rigidbody>();
         pauseButton = GameObject.Find("PauseButton");
         mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
@@ -90,11 +90,15 @@ public class MonsterControl : MonoBehaviour
         animator.SetFloat("Speed", 0);
         //InvokeRepeating("MovedRandomly", 0.0f, 0.5f);
         yield return new WaitUntil(() => mapGenerator.isInitialized);
+        nextGetMapIdx = mapGenerator.GetEnemySpawnMapIdx();
+        storedPath = new List<Vector3>();
+        Debug.Log($"nextGetMapIdx: {nextGetMapIdx}");
         GetMapPath();
     }
 
     void FixedUpdate()
     {
+        if (storedPath == null) return;
         // check distance, if the monster and the role is close, monster will use roar to warn players
         float distance = (unicorn.transform.position - transform.position).magnitude;
 
