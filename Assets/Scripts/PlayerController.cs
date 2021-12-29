@@ -19,9 +19,6 @@ public class PlayerController : MonoBehaviour
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
 
-    // map generator
-    public MapGenerator mapGenerator;
-
     // carriable object prefabs
     public GameObject redFoodPrefab;
     public GameObject greenFoodPrefab;
@@ -47,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private GameObject toBeDestroyedObject;
     private bool isTriggeringAnimation;
 
+    // map generator
+    private MapGenerator mapGenerator;
+
     // prefabs collections for convinience
     private Dictionary<string, GameObject> foodPrefabs;
     private Dictionary<string, GameObject> minePrefabs;
@@ -60,6 +60,12 @@ public class PlayerController : MonoBehaviour
 
         nextActionTime = Time.time;
 
+        carryingObject = null;
+        toBeDestroyedObject = null;
+        isTriggeringAnimation = false;
+
+        mapGenerator = GameObject.FindObjectOfType<MapGenerator>();
+
         foodPrefabs = new Dictionary<string, GameObject>(){
             {"red", redFoodPrefab},
             {"green", greenFoodPrefab},
@@ -70,10 +76,6 @@ public class PlayerController : MonoBehaviour
             {"green", greenMinePrefab},
             {"blue", blueMinePrefab},
         };
-
-        carryingObject = null;
-        toBeDestroyedObject = null;
-        isTriggeringAnimation = false;
     }
 
     void Update()
