@@ -114,7 +114,6 @@ public class MapGenerator : MonoBehaviour
         foreach (Vector3 topLeftPoint in element)
         {
             int num = Random.Range(4, 8);
-            List<Vector3> boxIdx = new List<Vector3>();
             Vector3 position = offset + topLeftPoint;
             Shuffle(box);
 
