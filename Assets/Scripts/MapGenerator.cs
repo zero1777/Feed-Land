@@ -72,7 +72,10 @@ public class MapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (unicorn != null) {
+            int unicornMapIdx = FindUnicornPosition();
+            if (unicornMapIdx == currentMapIdx-1) GenerateMap();
+        }
     }
 
     private void GenerateMap()
@@ -270,7 +273,7 @@ public class MapGenerator : MonoBehaviour
     public Vector3 ResetPlayerPosition()
     {
         // first, find out which map unicorn is at
-        int mapIdx = FindUnicorn();
+        int mapIdx = FindUnicornPosition();
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
@@ -278,8 +281,9 @@ public class MapGenerator : MonoBehaviour
         return resetPosition;
     }
 
-    private int FindUnicorn()
+    private int FindUnicornPosition()
     {
+        // Debug.Log(unicorn.name);
         int idx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
         idx = Mathf.Max(idx, 0);
         return idx;
