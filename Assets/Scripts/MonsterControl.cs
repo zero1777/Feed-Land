@@ -7,7 +7,7 @@ public class MonsterControl : MonoBehaviour
     // public float randomForce = 200.0f;
     public GameObject redFood; // tomatoes
     public GameObject blueFood; // bluberries
-    public GameObject greenFood; // bananas
+    public GameObject greenFood; // broccoli
     public AudioClip eatSound;
     public AudioClip successSound;
     public AudioClip roarSound;
@@ -17,10 +17,15 @@ public class MonsterControl : MonoBehaviour
     // store path
     public List<Vector3> storedPath;
 
+    // how many numbers of food will be generated, default is 5
+    public int redFoodNum = 5;
+    public int blueFoodNum = 5;
+    public int greenFoodNum = 5;
+    public float attackDistance;
+
     // use to decide route
     public float monsterMovingSpeed = 5.0f;
     public float monsterRotSpeed = 0.1f;
-    public MapGenerator mapGenerator;
     public GameObject pauseButton;
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
@@ -31,14 +36,7 @@ public class MonsterControl : MonoBehaviour
     private Rigidbody rb;
     private SphereCollider sphereCollider;
 
-
-    // how many numbers of food will be generated, default is 5 
-    public int redFoodNum = 5;
-    public int blueFoodNum = 5;
-    public int greenFoodNum = 5;
-
-    public float attackDistance;
-
+    private MapGenerator mapGenerator;
     private Animator animator;
     private List<string> foodList = new List<string> { "red_food", "blue_food", "green_food" };
     private AudioSource audioPlayer;
@@ -169,8 +167,8 @@ public class MonsterControl : MonoBehaviour
         canMove = true;
     }
 
-
-    /* void MovedRandomly()
+    /*
+    void MovedRandomly()
     {
         float randomNum = Random.Range(-1.0f, 1.0f);
         float absSpeed = Mathf.Abs(randomNum);
@@ -183,7 +181,8 @@ public class MonsterControl : MonoBehaviour
         {
             GetComponent<Rigidbody>().AddForce(-1 * Vector3.back * randomForce);
         }
-    } */
+    }
+    */
 
     void PlaySoundEffect(AudioClip soundEffect)
     {
@@ -237,23 +236,28 @@ public class MonsterControl : MonoBehaviour
         }
     }
 
-    // // draw the checking radius
-    // void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.white;
-    //     Gizmos.DrawWireSphere(transform.position, 5.0f);
-    // }
+    /*
+    // draw the checking radius
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, 5.0f);
+    }
+    */
 
     private void GetMapPath()
     {
-        // for (int i = 0; i < mapGenerator.mapNum; i++)
-        // {
-        //     for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
-        //     {
-        //         storedPath.Add(mapGenerator.GetPath(i)[j]);
-        //         //Debug.Log(mapGenerator.GetPath(i)[j]);
-        //     }
-        // }
+        /*
+        for (int i = 0; i < mapGenerator.mapNum; i++)
+        {
+            for (int j = 0; j < mapGenerator.GetPath(i).Count; j++)
+            {
+                storedPath.Add(mapGenerator.GetPath(i)[j]);
+                //Debug.Log(mapGenerator.GetPath(i)[j]);
+            }
+        }
+        */
+
         for (; nextGetMapIdx < mapGenerator.GetCurrentMapIdx(); nextGetMapIdx++)
         {
             for (int j = 0; j < mapGenerator.GetPath(nextGetMapIdx).Count; j++)

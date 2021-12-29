@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         toBeDestroyedObject = null;
         isTriggeringAnimation = false;
 
-        mapGenerator = GameObject.FindObjectOfType<MapGenerator>();
+        mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
 
         foodPrefabs = new Dictionary<string, GameObject>(){
             {"red", redFoodPrefab},
