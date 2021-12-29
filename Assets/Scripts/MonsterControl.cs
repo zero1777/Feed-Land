@@ -284,7 +284,8 @@ public class MonsterControl : MonoBehaviour
 
         GameObject unicorn = GameObject.Find("Unicorn");
         float dist = Vector3.Distance(unicorn.transform.position, transform.position);
-        if (dist > tooFarDistance) {
+        if (dist > tooFarDistance)
+        {
             movementSpeed *= (1 + dist / tooFarDistance);
             rotationSpeed *= (1 + dist / tooFarDistance);
         }
