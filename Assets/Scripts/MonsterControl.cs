@@ -92,7 +92,7 @@ public class MonsterControl : MonoBehaviour
         GetMapPath();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // check distance, if the monster and the role is close, monster will use roar to warn players
         float distance = (unicorn.transform.position - transform.position).magnitude;
