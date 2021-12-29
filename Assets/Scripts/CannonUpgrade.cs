@@ -13,7 +13,6 @@ public class CannonUpgrade : MonoBehaviour
     void Start()
     {
         currentUpgradeMaterials = 0;
-        audioSource = gameObject.GetComponent<AudioSource>();
         UpdateProgressBar((float)currentUpgradeMaterials / demandUpgradeMaterials);
     }
 
