@@ -53,7 +53,7 @@ public class RoleController : MonoBehaviour
         light = GameObject.Find("Directional Light");
 
         // generate Enemy after 1 second, every 10 second generate another monster
-        InvokeRepeating("GenerateEnemy", 2f, 10.0f);
+        InvokeRepeating("GenerateEnemy", 5.0f, 7.0f);
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();

@@ -248,7 +248,7 @@ public class MapGenerator : MonoBehaviour
             int xPos;
             do
             {
-                xPos = Random.Range(0, mapWidth - 1);
+                xPos = Random.Range(1, mapWidth - 1);
             } while (CheckIfCannonPlaceOverlay(xPositions, xPos));
             xPositions.Add(xPos);
         }
