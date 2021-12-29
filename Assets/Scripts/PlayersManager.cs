@@ -12,7 +12,8 @@ public class PlayersManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
             PlayerInput player = PlayerInput.Instantiate(
                 playerPrefabs[i],
                 controlScheme: playerControlSchemes[i],

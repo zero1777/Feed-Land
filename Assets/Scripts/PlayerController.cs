@@ -134,11 +134,13 @@ public class PlayerController : MonoBehaviour
         targets.Remove(other.gameObject);
     }
 
-    public void OnMove(InputAction.CallbackContext context) {
+    public void OnMove(InputAction.CallbackContext context)
+    {
         movementInput = context.ReadValue<Vector2>();
     }
 
-    public void OnTakeAction(InputAction.CallbackContext context) {
+    public void OnTakeAction(InputAction.CallbackContext context)
+    {
         takeActionInput = context.action.triggered;
     }
 
