@@ -2445,6 +2445,11 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: roleMovingSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4073917158648544163, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: m_Mass
@@ -3764,3 +3769,92 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101743648}
   m_CullTransparentMesh: 0
+--- !u!1001 &2119643903
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 680338884016680253, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_Name
+      value: Panda
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680338884016779549, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420163238640314510, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: mapGenerator
+      value: 
+      objectReference: {fileID: 466933547}
+    - target: {fileID: 7420163238640314510, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: choppingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c3fe213907d5bcc4789ae3211213f8fe, type: 3}
+    - target: {fileID: 7420163238640314510, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: miningSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ef1a7de3bd35249b27c32a31260d50, type: 3}
+    - target: {fileID: 7420163238640314510, guid: 1964cd0d5b7624443a4cdda00e2d8dc9,
+        type: 3}
+      propertyPath: buildSuccessSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1964cd0d5b7624443a4cdda00e2d8dc9, type: 3}
