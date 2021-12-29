@@ -75,7 +75,8 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    private void GenerateMap() {
+    private void GenerateMap()
+    {
         elementPositions = new List<Vector3>();
         // create ground first
         Vector3 mapPos = new Vector3(currentMapIdx * mapWidth, 0f, 0f);
@@ -277,7 +278,8 @@ public class MapGenerator : MonoBehaviour
         return resetPosition;
     }
 
-    private int FindUnicorn() {
+    private int FindUnicorn()
+    {
         int idx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
         idx = Mathf.Max(idx, 0);
         return idx;
