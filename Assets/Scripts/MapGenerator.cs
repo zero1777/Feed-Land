@@ -6,9 +6,9 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     public GameObject mapPrefab;
     public GameObject redTreePrefab;
-    public GameObject yellowTreePrefab;
+    public GameObject blueTreePrefab;
     public GameObject redMinePrefab;
-    public GameObject yellowMinePrefab;
+    public GameObject blueMinePrefab;
     public GameObject pathEffectPrefab;
     public GameObject cannonPlacePrefab;
     public GameObject unicorn;
@@ -24,44 +24,47 @@ public class MapGenerator : MonoBehaviour
     private int cannonPlaceNum;
     private int redTreesNum;
     private int redMinesNum;
-    private int yellowTreesNum;
-    private int yellowMinesNum;
+    private int blueTreesNum;
+    private int blueMinesNum;
     private int mapWidth;
     private int mapHeight;
     private List<List<Vector3>> paths;
     private List<Vector3> elementPositions;
+    private int currentMapIdx;
 
     void Start()
     {
         // initialization
         mapWidth = 28;
         mapHeight = 14;
+        currentMapIdx = 0;
         cannonPlaceNum = 6;
         paths = new List<List<Vector3>>();
-        elementPositions = new List<Vector3>();
 
-        for (int mapIdx = 0; mapIdx < mapNum; mapIdx++)
+        for (int i = 0; i < mapNum; i++)
         {
-            // create ground first
-            Vector3 mapPos = new Vector3(mapIdx * mapWidth, 0f, 0f);
-            Instantiate(mapPrefab, mapPos, Quaternion.identity);
-            // generate path on the map
-            GeneratePath(new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, -6.5f));
-            // generate elements on the map
-            // redTreesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
-            // redMinesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
-            // level1
-            redTreesNum = Level1ElementNum;
-            redMinesNum = Level1ElementNum;
-            GenerateElement(redTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redTreePrefab);
-            GenerateElement(redMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redMinePrefab);
-            // level2
-            yellowTreesNum = Level2ElementNum;
-            yellowMinesNum = Level2ElementNum;
-            GenerateElement(yellowTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), yellowTreePrefab);
-            GenerateElement(yellowMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), yellowMinePrefab);
-            // generate cannonPlace on the map
-            GenerateCannonPlace(new Vector3(-13.5f + mapIdx * mapWidth, 0f, -0.5f));
+            // elementPositions = new List<Vector3>();
+            // // create ground first
+            // Vector3 mapPos = new Vector3(mapIdx * mapWidth, 0f, 0f);
+            // Instantiate(mapPrefab, mapPos, Quaternion.identity);
+            // // generate path on the map
+            // GeneratePath(new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, -6.5f));
+            // // generate elements on the map
+            // // redTreesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
+            // // redMinesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
+            // // level1
+            // redTreesNum = Level1ElementNum;
+            // redMinesNum = Level1ElementNum;
+            // GenerateElement(redTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redTreePrefab);
+            // GenerateElement(redMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), redMinePrefab);
+            // // level2
+            // blueTreesNum = Level2ElementNum;
+            // blueMinesNum = Level2ElementNum;
+            // GenerateElement(blueTreesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), blueTreePrefab);
+            // GenerateElement(blueMinesNum, new Vector3(-13.5f + mapIdx * mapWidth, 0.5f, 6.5f), blueMinePrefab);
+            // // generate cannonPlace on the map
+            // GenerateCannonPlace(new Vector3(-13.5f + mapIdx * mapWidth, 0f, -1.5f));
+            GenerateMap();
         }
         isInitialized = true;
     }
@@ -70,6 +73,32 @@ public class MapGenerator : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void GenerateMap()
+    {
+        elementPositions = new List<Vector3>();
+        // create ground first
+        Vector3 mapPos = new Vector3(currentMapIdx * mapWidth, 0f, 0f);
+        Instantiate(mapPrefab, mapPos, Quaternion.identity);
+        // generate path on the map
+        GeneratePath(new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, -6.5f));
+        // generate elements on the map
+        // redTreesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
+        // redMinesNum = Random.Range(minLevel1ElementNum, maxLevel1ElementNum);
+        // level1
+        redTreesNum = Level1ElementNum;
+        redMinesNum = Level1ElementNum;
+        GenerateElement(redTreesNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), redTreePrefab);
+        GenerateElement(redMinesNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), redMinePrefab);
+        // level2
+        blueTreesNum = Level2ElementNum;
+        blueMinesNum = Level2ElementNum;
+        GenerateElement(blueTreesNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), blueTreePrefab);
+        GenerateElement(blueMinesNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), blueMinePrefab);
+        // generate cannonPlace on the map
+        GenerateCannonPlace(new Vector3(-13.5f + currentMapIdx * mapWidth, 0f, -1.5f));
+        currentMapIdx++;
     }
 
     private void Shuffle(List<Vector3> list)
@@ -240,9 +269,8 @@ public class MapGenerator : MonoBehaviour
 
     public Vector3 ResetPlayerPosition()
     {
-        // first, find out which map the player is at
-        int mapIdx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
-        mapIdx = Mathf.Max(mapIdx, 0);
+        // first, find out which map unicorn is at
+        int mapIdx = FindUnicorn();
         // Debug.Log(mapIdx);
 
         // next, set the player's position in the middle of the map
@@ -250,4 +278,10 @@ public class MapGenerator : MonoBehaviour
         return resetPosition;
     }
 
+    private int FindUnicorn()
+    {
+        int idx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
+        idx = Mathf.Max(idx, 0);
+        return idx;
+    }
 }

@@ -45,14 +45,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapPrefab: {fileID: 8486019574564057317, guid: e24d35f17938a41d084c9d2fe74bfac9,
     type: 3}
-  treePrefab: {fileID: 7218559754734676202, guid: dbfc9f447444746ae9d1710e1ea7a948,
+  redTreePrefab: {fileID: 7218559754734676202, guid: dbfc9f447444746ae9d1710e1ea7a948,
     type: 3}
-  minePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
+  blueTreePrefab: {fileID: 302389472426655255, guid: b5513e4b773a045689bf36b9a3f2ce4d,
+    type: 3}
+  redMinePrefab: {fileID: 3424928520502617047, guid: 1b5b7b5cffa65422c9ccdec62a68812f,
+    type: 3}
+  blueMinePrefab: {fileID: 3723393909993456683, guid: 2a341d22fa965432587d19b13049b322,
     type: 3}
   pathEffectPrefab: {fileID: 2586128363244842901, guid: f784b45b2004c4c2d8fc3c1c03d7710d,
     type: 3}
   cannonPlacePrefab: {fileID: 372717334692429292, guid: 11ff683d60b044b61baff93d49fd1f82,
     type: 3}
-  minElementNum: 10
-  maxElementNum: 10
+  unicorn: {fileID: 0}
+  Level1ElementNum: 0
+  Level2ElementNum: 0
   mapNum: 2
