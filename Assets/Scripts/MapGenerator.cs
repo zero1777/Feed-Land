@@ -233,7 +233,7 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateCannonPlace(Vector3 offset)
     {
-        int lines = 4;
+        int lines = 3;
         // first, random the column position
         List<int> xPositions = new List<int>();
         for (int i = 0; i < cannonPlaceNum; i++)
