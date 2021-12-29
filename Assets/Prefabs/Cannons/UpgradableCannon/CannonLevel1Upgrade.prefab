@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 883187998534229604}
   m_Layer: 0
   m_Name: CannonLevel1Upgrade
-  m_TagString: cannon
+  m_TagString: v1_cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1333,9 +1333,6 @@ MonoBehaviour:
     type: 3}
   demandUpgradeMaterials: 4
   progressBar: {fileID: 8533739145176091764}
-  upgradeSuccessSoundEffect: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f,
-    type: 3}
-  audioSource: {fileID: 0}
 --- !u!1 &9080489585692364015
 GameObject:
   m_ObjectHideFlags: 0
