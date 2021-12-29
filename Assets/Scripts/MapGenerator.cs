@@ -18,8 +18,9 @@ public class MapGenerator : MonoBehaviour
     // public int maxLevel1ElementNum;
     // public int minLevel2ElementNum;
     // public int maxLevel2ElementNum;
-    public int mapNum;
+    public int initMapNum;
     public bool isInitialized { get; private set; }
+    private int currentMapIdx;
 
     private int cannonPlaceNum;
     private int redTreesNum;
@@ -30,7 +31,7 @@ public class MapGenerator : MonoBehaviour
     private int mapHeight;
     private List<List<Vector3>> paths;
     private List<Vector3> elementPositions;
-    private int currentMapIdx;
+    
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class MapGenerator : MonoBehaviour
         cannonPlaceNum = 6;
         paths = new List<List<Vector3>>();
 
-        for (int i = 0; i < mapNum; i++)
+        for (int i = 0; i < initMapNum; i++)
         {
             // elementPositions = new List<Vector3>();
             // // create ground first
@@ -76,6 +77,10 @@ public class MapGenerator : MonoBehaviour
             int unicornMapIdx = FindUnicornPosition();
             if (unicornMapIdx == currentMapIdx-1) GenerateMap();
         }
+    }
+
+    public int GetCurrentMapIdx() {
+        return currentMapIdx;
     }
 
     private void GenerateMap()
