@@ -86,8 +86,8 @@ MonoBehaviour:
     type: 3}
   blueMinePrefab: {fileID: 8842546389692242188, guid: 9b420c3c8e36b497fb8a7d07cdcf01ad,
     type: 3}
-  cuttingSoundEffect: {fileID: 8300000, guid: c3fe213907d5bcc4789ae3211213f8fe, type: 3}
-  miningSoundEffect: {fileID: 8300000, guid: 45ef1a7de3bd35249b27c32a31260d50, type: 3}
+  cuttingSoundEffect: {fileID: 8300000, guid: 391967e27d4f0b746b7b4edb68ad4f3e, type: 3}
+  miningSoundEffect: {fileID: 8300000, guid: 570148ed2be31cb43b462913a2b4b2f8, type: 3}
   buildSuccessSoundEffect: {fileID: 8300000, guid: 77088f321c72e4ea48454b0e4895890f,
     type: 3}
   loadBulletSoundEffect: {fileID: 8300000, guid: 99722d72fc24749eaa111dac86eda199,

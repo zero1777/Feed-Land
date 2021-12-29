@@ -288,10 +288,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ReleaseResource()
     {
+        // To set null early
+        GameObject tempCarryingObject = carryingObject;
+        carryingObject = null;
+
         yield return new WaitUntil(() => (!isTriggeringAnimation));
 
-        Destroy(carryingObject);
-        carryingObject = null;
+        Destroy(tempCarryingObject);
     }
 
     private bool IsCarryingMine(string color = "")
