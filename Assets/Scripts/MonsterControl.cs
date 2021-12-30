@@ -31,7 +31,8 @@ public class MonsterControl : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
     private Quaternion roleRot;
-    private bool canMove;
+    [SerializeField] private bool canMove;
+    [SerializeField] private bool isEating;
     private bool isMoving = false;
     private bool gameRunning = false;
     private Rigidbody rb;
@@ -113,10 +114,10 @@ public class MonsterControl : MonoBehaviour
             gameRunning = pauseButton.activeSelf;
 
         // check is moving 
-        if (isMoving && canMove == true && gameRunning)
+        if (isMoving && canMove == true && gameRunning && isEating == false)
             MoveRole();
 
-        if (isMoving == false && canMove == true)
+        if (isMoving == false && canMove == true && isEating == false)
         {
             if (storedPath.Count > 0)
             {
@@ -161,9 +162,16 @@ public class MonsterControl : MonoBehaviour
         */
     }
 
-    private IEnumerator WaitThenMove()
+    private IEnumerator WaitEatThenMove(int second)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(second);
+        print("wait");
+        isEating = false;
+        canMove = true;
+    }
+    private IEnumerator WaitAtttckThenMove(int second)
+    {
+        yield return new WaitForSeconds(second);
         print("wait");
         canMove = true;
     }
@@ -195,6 +203,19 @@ public class MonsterControl : MonoBehaviour
         storedPath.Add(newPath);
     }
 
+    public void PrepareToGetHit()
+    {
+        isEating = true;
+        canMove = false;
+        animator.SetBool("IsEating", true);
+    }
+    public void EndGetHit()
+    {
+        //canMove = true;
+        StartCoroutine(WaitEatThenMove(2));
+        animator.SetBool("IsEating", false);
+    }
+
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "role")
@@ -206,7 +227,7 @@ public class MonsterControl : MonoBehaviour
             }
             // wait a bit after attack the role
             canMove = false;
-            StartCoroutine(WaitThenMove());
+            StartCoroutine(WaitAtttckThenMove(2));
         }
 
         if (foodList.Contains(other.gameObject.tag))
