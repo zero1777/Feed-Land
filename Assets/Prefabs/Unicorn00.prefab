@@ -457,10 +457,11 @@ MonoBehaviour:
   roleRotSpeed: 0.1
   currentHealth: 5
   healthBar: {fileID: 782867172595525757}
-  mapGenerator: {fileID: 0}
   enemies:
   - {fileID: 7796034374063013152, guid: bea0a48fb05ec31459d3c9234c8b20a8, type: 3}
   - {fileID: 2263965975130722102, guid: abe7c16478c1ea44abbcb937d74ba588, type: 3}
+  - {fileID: 8341555360107069860, guid: a95f036821ab7dd45b51c25220fad704, type: 3}
+  - {fileID: 4595219238604163120, guid: 0f8e9c6510039b24d90d7d257aba5c33, type: 3}
   storedPath: []
 --- !u!54 &4073917158648544163
 Rigidbody:
