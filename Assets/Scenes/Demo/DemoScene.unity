@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2440,7 +2440,7 @@ PrefabInstance:
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: enemies.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
@@ -2469,6 +2469,18 @@ PrefabInstance:
       propertyPath: roleMovingSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 8341555360107069860, guid: a95f036821ab7dd45b51c25220fad704,
+        type: 3}
+    - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: enemies.Array.data[3]
+      value: 
+      objectReference: {fileID: 4595219238604163120, guid: 0f8e9c6510039b24d90d7d257aba5c33,
+        type: 3}
     - target: {fileID: 4073917158648544163, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: m_Mass
