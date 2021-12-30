@@ -28,6 +28,8 @@ public class MonsterControl : MonoBehaviour
     public float monsterMovingSpeed = 5.0f;
     public float monsterRotSpeed = 0.1f;
     public GameObject pauseButton;
+    public int frameLimit;
+    private int frame = 1;
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
     private Quaternion roleRot;
@@ -95,7 +97,17 @@ public class MonsterControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        // check distance, if the monster and the role is close, monster will use roar to warn players
+        // when reach frame limit, dragon will stop & roar
+        frame = frame + 1;
+        if (frame % frameLimit == 0){
+            animator.SetTrigger("Attack");
+            // PlaySoundEffect(roarSound); // a bit noisy,  can test if the dragon is roaring
+            canMove = false;
+            // wait 5 seconds (can change)
+            StartCoroutine(WaitThenMove(5));
+        }
+
+        /*// check distance, if the monster and the role is close, monster will use roar to warn players
         float distance = (unicorn.transform.position - transform.position).magnitude;
 
         // distance can be changed in the future
@@ -107,14 +119,15 @@ public class MonsterControl : MonoBehaviour
         else
         {
             animator.SetBool("Attack", false);
-        }
+        } */
 
         if (pauseButton != null)
             gameRunning = pauseButton.activeSelf;
 
         // check is moving 
-        if (isMoving && canMove == true && gameRunning)
+        if (isMoving && canMove == true && gameRunning) {
             MoveRole();
+        }
 
         if (isMoving == false && canMove == true)
         {
@@ -161,11 +174,15 @@ public class MonsterControl : MonoBehaviour
         */
     }
 
-    private IEnumerator WaitThenMove()
+    private IEnumerator WaitThenMove(int seconds)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(seconds);
         print("wait");
         canMove = true;
+    }
+
+    public bool MoveStatus() {
+        return canMove;
     }
 
     /*
@@ -206,7 +223,7 @@ public class MonsterControl : MonoBehaviour
             }
             // wait a bit after attack the role
             canMove = false;
-            StartCoroutine(WaitThenMove());
+            StartCoroutine(WaitThenMove(1));
         }
 
         if (foodList.Contains(other.gameObject.tag))

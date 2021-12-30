@@ -789,18 +789,21 @@ MonoBehaviour:
     type: 3}
   eatSound: {fileID: 8300000, guid: ac1054742beaf1649960bb0338b9430c, type: 3}
   successSound: {fileID: 8300000, guid: b225e60909768fa45a47c8c9af9cc461, type: 3}
-  roarSound: {fileID: 8300000, guid: f877bfd4bec65b749b84cb7e1f62130a, type: 3}
+  roarSound: {fileID: 8300000, guid: cbaa822eb995754459f08ed152ea0bca, type: 3}
   roleHurtSound: {fileID: 8300000, guid: 7f2e8dba0c65e8842a5280ddfcc82c81, type: 3}
   unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
   storedPath: []
-  monsterMovingSpeed: 2.5
-  monsterRotSpeed: 0.1
-  mapGenerator: {fileID: 0}
-  pauseButton: {fileID: 0}
   redFoodNum: 3
   blueFoodNum: 3
   greenFoodNum: 3
-  attackDistance: 0
+  redBullet: {fileID: 7395435368786097042, guid: ce05f297871e042daa850565ba89b2a3,
+    type: 3}
+  attackDistance: 5
+  tooFarDistance: 28
+  monsterMovingSpeed: 2.5
+  monsterRotSpeed: 0.1
+  pauseButton: {fileID: 0}
+  frameLimit: 100
 --- !u!82 &2263965975130722101
 AudioSource:
   m_ObjectHideFlags: 0
