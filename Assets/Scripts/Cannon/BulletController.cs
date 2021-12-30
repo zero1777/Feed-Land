@@ -38,6 +38,7 @@ public class BulletController : MonoBehaviour
     void FixedUpdate()
     {
         // return a nearest enemy with correct tag or null
+        if (!isShoot)
         nearestEnemy = FindNearestEnemyWithTag(gameObject);
 
         // if there is an enemy, throw bullet to the nearest enemy
@@ -56,6 +57,7 @@ public class BulletController : MonoBehaviour
             if (!isShoot && animations != null)
             {
                 isShoot = true;
+                nearestEnemy.GetComponent<MonsterControl>().PrepareToGetHit();
                 animations.Play("CannonShoot");
                 PlaySoundEffect(shootBulletSound);
             }
@@ -84,6 +86,7 @@ public class BulletController : MonoBehaviour
             Debug.Log("hit monster");
             Destroy(gameObject);
             isShoot = false;
+            nearestEnemy.GetComponent<MonsterControl>().EndGetHit();
         }
     }
 
