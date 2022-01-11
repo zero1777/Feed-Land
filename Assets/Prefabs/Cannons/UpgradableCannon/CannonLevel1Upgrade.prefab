@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.93333334, g: 0.627451, b: 0.22352941, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1214,7 +1214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9080489585567837883}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.92, y: 1.54, z: 1.57}
+  m_LocalPosition: {x: 1.92, y: 1.7, z: 1.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7160600580632304441}
@@ -1267,7 +1267,6 @@ MonoBehaviour:
     type: 3}
   greenDisplayPrefab: {fileID: 6688719554086305117, guid: 9ce8b686ff85a46778267835f008af80,
     type: 3}
-  loadBulletSound: {fileID: 8300000, guid: 99722d72fc24749eaa111dac86eda199, type: 3}
   coolDownTime: 3
 --- !u!111 &8533739143291163974
 Animation:
@@ -1329,7 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc3cc798095a4dbc8448c3bc0c56ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeCannonPrefab: {fileID: 1031671180778036490, guid: dff8373b12d2c45f795680f2a4841093,
+  upgradeCannonPrefab: {fileID: 3164562526322126175, guid: 221709d07e3014a53b3cedb3b37a32f5,
     type: 3}
   demandUpgradeMaterials: 4
   progressBar: {fileID: 8533739145176091764}

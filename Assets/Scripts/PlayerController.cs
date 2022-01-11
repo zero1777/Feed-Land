@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public const string cannonPlaceTag = "cannon_place";
     public const string cannonTagSuffix = "_cannon";
     public const string v1CannonTag = "v1_cannon";
+    public const string v2CannonTag = "v2_cannon";
     public const string treeTagSuffix = "_tree";
     public const string mineTagSuffix = "_mine";
     public const string foodTagSuffix = "_food";
@@ -194,6 +195,18 @@ public class PlayerController : MonoBehaviour
             if (target.CompareTag(v1CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacing with v1 cannon: {target.name}");
+
+                CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
+                if (cannonUpgrade.GetUpgradeMaterial())
+                {
+                    StartCoroutine(ReleaseResource());
+                    StartCoroutine(DestroyResource(target, "cannon"));
+                }
+            }
+
+            if (target.CompareTag(v2CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation)
+            {
+                Debug.Log($"[PlayerController.TakeAction] interacing with v2 cannon: {target.name}");
 
                 CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
                 if (cannonUpgrade.GetUpgradeMaterial())
