@@ -39,7 +39,7 @@ public class BulletController : MonoBehaviour
     {
         // return a nearest enemy with correct tag or null
         if (!isShoot)
-        nearestEnemy = FindNearestEnemyWithTag(gameObject);
+            nearestEnemy = FindNearestEnemyWithTag(gameObject);
 
         // if there is an enemy, throw bullet to the nearest enemy
         if (nearestEnemy != null)
