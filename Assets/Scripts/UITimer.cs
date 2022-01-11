@@ -52,31 +52,31 @@ public class UITimer : MonoBehaviour
             badgeCanvas.SetActive(true);
             gamingCanvas.SetActive(false);
             timerEndingText.text = timerFloat.ToString("F2");
-            if (10.0f > timerFloat && timerFloat >= 0.0f)
+            if (60.0f > timerFloat && timerFloat >= 0.0f)
             {
                 badgeTitle.text = "Bronze";
                 badgeTitle.color = new Color(0.9056604f, 0.5277233f, 0.1153435f, 1);
                 badgeImage.sprite = bronzeBadge;
             }
-            else if (20.0f > timerFloat && timerFloat >= 10.0f)
+            else if (150.0f > timerFloat && timerFloat >= 60.0f)
             {
                 badgeTitle.text = "Silver";
                 badgeTitle.color = new Color(0.745283f, 0.7093292f, 0.6925507f, 1);
                 badgeImage.sprite = silverBadge;
             }
-            else if (30.0f > timerFloat && timerFloat >= 20.0f)
+            else if (300.0f > timerFloat && timerFloat >= 150.0f)
             {
                 badgeTitle.text = "Gold";
                 badgeTitle.color = new Color(1, 0.7716983f, 0.0235849f, 1);
                 badgeImage.sprite = goldBadge;
             }
-            else if (40.0f > timerFloat && timerFloat >= 30.0f)
+            else if (500.0f > timerFloat && timerFloat >= 300.0f)
             {
                 badgeTitle.text = "Platinum";
                 badgeTitle.color = new Color(0.6650944f, 0.9793268f, 1, 1);
                 badgeImage.sprite = platinumBadge;
             }
-            else if (50.0f > timerFloat && timerFloat >= 40.0f)
+            else if (750.0f > timerFloat && timerFloat >= 500.0f)
             {
                 badgeTitle.text = "Diamond";
                 badgeTitle.color = new Color(0.0764062f, 0.6203933f, 1, 1);
