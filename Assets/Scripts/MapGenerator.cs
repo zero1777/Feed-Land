@@ -261,7 +261,7 @@ public class MapGenerator : MonoBehaviour
         foreach (int xPosition in xPositions)
         {
             int zPos = Random.Range(0, lines - 1);
-            Vector3 position = offset + new Vector3(xPosition, 1f, -zPos);
+            Vector3 position = offset + new Vector3(xPosition, 1.5f, -zPos);
             Instantiate(cannonPlacePrefab, position, Quaternion.identity);
         }
     }
