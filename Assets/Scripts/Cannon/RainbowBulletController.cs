@@ -128,9 +128,8 @@ public class RainbowBulletController : MonoBehaviour
 
 
         // find the monster
-        foreach (Collider nearEnemy in nearEnemies)
-        {
-            return nearEnemy;
+        if (nearEnemies.Length > 0) {
+            return nearEnemies[0];
         }
 
         return null;
