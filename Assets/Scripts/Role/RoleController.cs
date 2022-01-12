@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoleController : MonoBehaviour
 {
@@ -36,12 +37,33 @@ public class RoleController : MonoBehaviour
     private GameObject mainCamera;
     private GameObject light;
     private int nextGetMapIdx;
+    // generate monster
+    private UITimer uITimer;
+    private bool canGenerateMonster = true;
+    private bool canHugeWave = false;
+    private int currentHugeWave = 1;
+    // huge wave setting
+    private int hugeWaveInterval = 100;
+    private int hugeWaveDifficulty = 5;
+    private float prepareTime = 10.0f;
+    [SerializeField] private float monsterSpawnWait;
+    private float monsterLeastSpawnWait = 5.0f;
+    private float monsterMostSpawnWait = 10.0f;
+    // sound effect
+    private AudioSource audioPlayer;
+    public AudioClip hugeWaveSound;
+    // visual effect
+    private GameObject hugeWaveText;
 
     IEnumerator Start()
     {
         // init para
         nextGetMapIdx = 0;
+        uITimer = GameObject.Find("UITimer").GetComponent<UITimer>();
         mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
+        audioPlayer = GetComponent<AudioSource>();
+        hugeWaveText = GameObject.Find("HugeWaveText");
+        hugeWaveText.SetActive(false);
         rb = GetComponent<Rigidbody>();
         canMove = true;
         currentHealth = maxHealth;
@@ -53,7 +75,8 @@ public class RoleController : MonoBehaviour
         light = GameObject.Find("Directional Light");
 
         // generate Enemy after 1 second, every 10 second generate another monster
-        InvokeRepeating("GenerateEnemy", 5.0f, 7.0f);
+        //InvokeRepeating("GenerateEnemy", 5.0f, 7.0f);
+        StartCoroutine(MonsterSpawner());
         // wait mapGenerator has terminated own "Start" life cycle
         yield return new WaitUntil(() => mapGenerator.isInitialized);
         GetMapPath();
@@ -106,6 +129,12 @@ public class RoleController : MonoBehaviour
             canMove = true;
             animator.SetInteger("animation", 1);
         }
+        // decide difficulty
+        DecideDifficulty();
+        // spwan monster
+        monsterSpawnWait = Random.Range(monsterLeastSpawnWait, monsterMostSpawnWait);
+        // check Huge Wave
+        CheckHugeWave();
     }
 
     void LateUpdate()
@@ -169,5 +198,64 @@ public class RoleController : MonoBehaviour
         {
             isMoving = false;
         }
+    }
+    // normal spawn monster
+    private IEnumerator MonsterSpawner()
+    {
+        // difficult of generate monster
+        yield return new WaitForSeconds(prepareTime);
+        while (canGenerateMonster == true)
+        {
+            GenerateEnemy();
+            yield return new WaitForSeconds (monsterSpawnWait);
+        }
+        
+    }
+    // wave spawn monster
+    private IEnumerator MonsterSpawnerWave(int spawnNumber)
+    {
+        int hadSpawn = 0;
+        // difficult of generate monster
+        while (canHugeWave == true)
+        {
+            if (hadSpawn >= (spawnNumber * hugeWaveDifficulty))
+            {
+                canHugeWave = false;
+                hugeWaveText.SetActive(false);
+                break;
+            }
+            GenerateEnemy();
+            hadSpawn++;
+            yield return new WaitForSeconds(Random.Range(0.1f, 1.0f));
+        }
+
+    }
+    // used to decide difficulty
+    private void DecideDifficulty()
+    {
+        if (uITimer.timerFloat < 1200)
+        {
+            monsterLeastSpawnWait = 1500 / (uITimer.timerFloat + 300);
+            monsterMostSpawnWait = 3000 / (uITimer.timerFloat + 300);
+        }
+        else
+        {
+            monsterLeastSpawnWait = 1.0f;
+            monsterMostSpawnWait = 2.0f;
+        }
+    }
+    // check huge wave
+    private void CheckHugeWave()
+    {
+        if (canHugeWave == false && Mathf.Floor((uITimer.timerFloat/ hugeWaveInterval)) == currentHugeWave)
+        {
+            canHugeWave = true;
+            Debug.Log("Huge Wave incoming!!!");
+            hugeWaveText.SetActive(true);
+            audioPlayer.PlayOneShot(hugeWaveSound);
+            StartCoroutine(MonsterSpawnerWave(currentHugeWave));
+            currentHugeWave++;
+        }
+
     }
 }
