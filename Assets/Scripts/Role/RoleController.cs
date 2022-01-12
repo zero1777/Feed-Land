@@ -41,7 +41,7 @@ public class RoleController : MonoBehaviour
     private UITimer uITimer;
     private bool canGenerateMonster = true;
     private bool canHugeWave = false;
-    private int CurrentHugeWave = 1;
+    private int currentHugeWave = 1;
     // huge wave setting
     private int hugeWaveInterval = 100;
     private int hugeWaveDifficulty = 5;
@@ -247,14 +247,14 @@ public class RoleController : MonoBehaviour
     // check huge wave
     private void CheckHugeWave()
     {
-        if (canHugeWave == false && Mathf.Floor((uITimer.timerFloat/ hugeWaveInterval)) == CurrentHugeWave)
+        if (canHugeWave == false && Mathf.Floor((uITimer.timerFloat/ hugeWaveInterval)) == currentHugeWave)
         {
             canHugeWave = true;
             Debug.Log("Huge Wave incoming!!!");
             hugeWaveText.SetActive(true);
             audioPlayer.PlayOneShot(hugeWaveSound);
-            StartCoroutine(MonsterSpawnerWave(CurrentHugeWave));
-            CurrentHugeWave++;
+            StartCoroutine(MonsterSpawnerWave(currentHugeWave));
+            currentHugeWave++;
         }
 
     }
