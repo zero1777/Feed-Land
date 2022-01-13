@@ -445,7 +445,7 @@ MonoBehaviour:
   resetBoundaryY: -20
   redFoodPrefab: {fileID: 5452013488800006156, guid: 5dfbbd9a8a33f4a49b8b6cb7afe07715,
     type: 3}
-  greenFoodPrefab: {fileID: 4331629460947023306, guid: 4b7e6120fd93d4536a1d737a3c1358ba,
+  greenFoodPrefab: {fileID: 6341855032448282133, guid: aa641b177f4e4804e9795fe29830b2fb,
     type: 3}
   blueFoodPrefab: {fileID: 6220021002384598952, guid: a74b3b3e1d120487397b6eaa51be7e15,
     type: 3}
