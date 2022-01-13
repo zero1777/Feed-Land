@@ -3902,17 +3902,17 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: treePrefab.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: minePrefab.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: elementNum.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
@@ -3942,7 +3942,7 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: level
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
@@ -3976,6 +3976,23 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: elementNum.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: treePrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 503339983544236196, guid: febffa4e594a14d5ebefa2926c2c55b7,
+        type: 3}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: minePrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 686848817996970533, guid: 983df3a3f03404a8f98b38d8ad33e2b7,
+        type: 3}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: elementNum.Array.data[2]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872065, guid: fac5556aab6584535bcd9c97aef8f6ab,

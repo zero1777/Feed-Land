@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (target.CompareTag(v2CannonTag) && IsCarryingMine("blue") && !isTriggeringAnimation)
+            if (target.CompareTag(v2CannonTag) && IsCarryingMine("green") && !isTriggeringAnimation)
             {
                 Debug.Log($"[PlayerController.TakeAction] interacing with v2 cannon: {target.name}");
 
