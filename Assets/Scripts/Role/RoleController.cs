@@ -44,7 +44,7 @@ public class RoleController : MonoBehaviour
     private int currentHugeWave = 1;
     // huge wave setting
     private int hugeWaveInterval = 100;
-    private int hugeWaveDifficulty = 5;
+    private int hugeWaveDifficulty = 3;
     private float prepareTime = 10.0f;
     [SerializeField] private float monsterSpawnWait;
     private float monsterLeastSpawnWait = 5.0f;
@@ -233,15 +233,15 @@ public class RoleController : MonoBehaviour
     // used to decide difficulty
     private void DecideDifficulty()
     {
-        if (uITimer.timerFloat < 1200)
+        if (uITimer.timerFloat < 2700)
         {
-            monsterLeastSpawnWait = 1500 / (uITimer.timerFloat + 300);
-            monsterMostSpawnWait = 3000 / (uITimer.timerFloat + 300);
+            monsterLeastSpawnWait = 3000 / (uITimer.timerFloat + 300);
+            monsterMostSpawnWait = 4500 / (uITimer.timerFloat + 300);
         }
         else
         {
             monsterLeastSpawnWait = 1.0f;
-            monsterMostSpawnWait = 2.0f;
+            monsterMostSpawnWait = 1.5f;
         }
     }
     // check huge wave
