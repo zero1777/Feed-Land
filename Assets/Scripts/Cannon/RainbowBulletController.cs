@@ -1,9 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BulletController : MonoBehaviour
+public class RainbowBulletController : MonoBehaviour
 {
     // nearest enemy related
     public float checkRadius;
@@ -17,7 +17,7 @@ public class BulletController : MonoBehaviour
     private float timer = 0f;
     private Vector3 startPoint;
     private Transform cannonTransform;
-    private Animation animations;
+    // private Animation animations;
     private bool isShoot = false;
     private AudioSource audioPlayer;
     private Collider nearestEnemy;
@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPoint = transform.position;
 
-        animations = gameObject.GetComponentInParent<Animation>();
+        // animations = gameObject.GetComponentInParent<Animation>();
         cannonTransform = transform.parent.parent;
 
         audioPlayer = gameObject.GetComponent<AudioSource>();
@@ -39,7 +39,9 @@ public class BulletController : MonoBehaviour
     {
         // return a nearest enemy with correct tag or null
         if (!isShoot)
-            nearestEnemy = FindNearestEnemyWithTag(gameObject);
+        {
+            nearestEnemy = FindNearestEnemyWithTag();
+        }
 
         // if there is an enemy, throw bullet to the nearest enemy
         if (nearestEnemy != null)
@@ -54,11 +56,12 @@ public class BulletController : MonoBehaviour
             // Cannon turn to nearest enemy
             FaceTarget(nearestEnemy.transform, cannonTransform);
 
-            if (!isShoot && animations != null)
+            // if (!isShoot && animations != null)
+            if (!isShoot)
             {
                 isShoot = true;
                 nearestEnemy.GetComponent<MonsterControl>().PrepareToGetHit();
-                animations.Play("CannonShoot");
+                // animations.Play("CannonShoot");
                 PlaySoundEffect(shootBulletSound);
             }
 
@@ -115,7 +118,7 @@ public class BulletController : MonoBehaviour
     }
 
     // return a nearest enemy with correct tag or null
-    private Collider FindNearestEnemyWithTag(GameObject food)
+    private Collider FindNearestEnemyWithTag()
     {
         // find the near enemies
         Collider[] nearEnemies = Physics.OverlapSphere(transform.position, checkRadius, checkLayers);
@@ -123,16 +126,10 @@ public class BulletController : MonoBehaviour
         // compare enemies distance, array[0] is the nearest one
         Array.Sort(nearEnemies, new DistanceComparer(transform));
 
-        String foodColor = food.tag.Split('_')[0];
 
-        // find the same tag between food and monster
-        foreach (Collider nearEnemy in nearEnemies)
-        {
-            String monsterColor = nearEnemy.tag.Split('_')[0];
-            if (foodColor == monsterColor)
-            {
-                return nearEnemy;
-            }
+        // find the monster
+        if (nearEnemies.Length > 0) {
+            return nearEnemies[0];
         }
 
         return null;

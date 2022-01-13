@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayersManager : MonoBehaviour
 {
-    public int numberOfPlayers;
+    // public int numberOfPlayers;
     public GameObject[] playerPrefabs;
     public string[] playerNames;
     public string[] playerControlSchemes;
@@ -12,21 +12,23 @@ public class PlayersManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < numberOfPlayers; i++)
-        {
-            PlayerInput player = PlayerInput.Instantiate(
-                playerPrefabs[i],
-                controlScheme: playerControlSchemes[i],
-                pairWithDevice: Keyboard.current
-            );
-
-            player.name = playerNames[i];
-            player.transform.position = playerInitialPositions[i];
-            player.transform.Rotate(playerInitialRotations[i], Space.World);
-        }
     }
 
     void Update()
     {
+    }
+
+    public void GeneratePlayer(int playerNum, int playerAvatar)
+    {
+        print("Generate player:" + playerNum + ", player avatar:" + playerAvatar);
+        PlayerInput player = PlayerInput.Instantiate(
+            playerPrefabs[playerAvatar],
+            controlScheme: playerControlSchemes[playerNum],
+            pairWithDevice: Keyboard.current
+        );
+
+        player.name = playerNames[playerNum];
+        player.transform.position = playerInitialPositions[playerNum];
+        player.transform.Rotate(playerInitialRotations[playerNum], Space.World);
     }
 }
