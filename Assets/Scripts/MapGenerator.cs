@@ -281,7 +281,7 @@ public class MapGenerator : MonoBehaviour
 
             // Generate cannonPlace prefab accroding to the point
             Vector3 position = offset + point;
-            Instantiate(cannonPlacePrefab, position + new Vector3(0f, 0.5f, 0f), Quaternion.identity);
+            Instantiate(cannonPlacePrefab, position + new Vector3(0f, 1.0f, 0f), Quaternion.identity);
 
             // add the occupied point to the cannonPlacePositions
             for (int x = -1; x <= 1; x++)
