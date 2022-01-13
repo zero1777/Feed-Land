@@ -709,7 +709,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2263965975130722102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.5, y: 0.5, z: -2.5}
+  m_LocalPosition: {x: -13.5, y: 0.5, z: -5.5}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 2263965975272269264}
@@ -793,14 +793,16 @@ MonoBehaviour:
   roleHurtSound: {fileID: 8300000, guid: 7f2e8dba0c65e8842a5280ddfcc82c81, type: 3}
   unicorn: {fileID: 1223860131980980, guid: 04641a7f037600a44b0cd5864884a54e, type: 3}
   storedPath: []
-  monsterMovingSpeed: 2.5
-  monsterRotSpeed: 0.1
-  mapGenerator: {fileID: 0}
-  pauseButton: {fileID: 0}
   redFoodNum: 3
   blueFoodNum: 3
   greenFoodNum: 3
   attackDistance: 0
+  tooFarDistance: 28
+  monsterMovingSpeed: 2.5
+  monsterRotSpeed: 0.1
+  pauseButton: {fileID: 0}
+  canMove: 0
+  isEating: 0
 --- !u!82 &2263965975130722101
 AudioSource:
   m_ObjectHideFlags: 0
