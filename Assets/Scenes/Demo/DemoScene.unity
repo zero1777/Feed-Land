@@ -2549,7 +2549,7 @@ PrefabInstance:
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: enemies.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
@@ -2589,6 +2589,18 @@ PrefabInstance:
       propertyPath: enemies.Array.data[3]
       value: 
       objectReference: {fileID: 4595219238604163120, guid: 0f8e9c6510039b24d90d7d257aba5c33,
+        type: 3}
+    - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: enemies.Array.data[4]
+      value: 
+      objectReference: {fileID: 2764826580988296040, guid: 6c2979b55496a114dbdb1298fa49c002,
+        type: 3}
+    - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
+        type: 3}
+      propertyPath: enemies.Array.data[5]
+      value: 
+      objectReference: {fileID: 3756621753193741483, guid: 14a8e2effa11cc247a8488cd6230f2ea,
         type: 3}
     - target: {fileID: 4073917158648544163, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
@@ -3902,17 +3914,17 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: treePrefab.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: minePrefab.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: elementNum.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
@@ -3942,7 +3954,7 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: level
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
@@ -3976,6 +3988,23 @@ PrefabInstance:
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: elementNum.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: treePrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 503339983544236196, guid: febffa4e594a14d5ebefa2926c2c55b7,
+        type: 3}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: minePrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 686848817996970533, guid: 983df3a3f03404a8f98b38d8ad33e2b7,
+        type: 3}
+    - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
+        type: 3}
+      propertyPath: elementNum.Array.data[2]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872065, guid: fac5556aab6584535bcd9c97aef8f6ab,
