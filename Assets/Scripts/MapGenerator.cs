@@ -37,11 +37,11 @@ public class MapGenerator : MonoBehaviour
     private int prevZPoint;
     private List<List<Vector3>> paths;
 
-    private enum mapType
+    private enum mapType : int
     {
-        Origin = -1,
         Santa,
-        Winter
+        Winter,
+        Origin
     }
 
     void Start()
