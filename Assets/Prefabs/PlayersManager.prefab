@@ -43,19 +43,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb1af92cb1e94cbb91dd42d7d552c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 2
   playerPrefabs:
   - {fileID: 680338884016680253, guid: 1964cd0d5b7624443a4cdda00e2d8dc9, type: 3}
   - {fileID: 7840536784004863584, guid: 72e3b1a3abc484d269833615f426254b, type: 3}
+  - {fileID: 5083170555910200386, guid: 8874a3db92651e04f8bc01be07435e31, type: 3}
+  - {fileID: 2269088505834362888, guid: 65a74274abd56234f9a16fd97c135c63, type: 3}
+  - {fileID: 369424003942851523, guid: 6155c0664b6783346b3ccf61293b5248, type: 3}
+  - {fileID: 4725259023453592623, guid: 73648422ef1c98d48baa58f30c6965c3, type: 3}
+  - {fileID: 6631670298884299102, guid: ea220451ad49c734387eee5d07a1f205, type: 3}
+  - {fileID: 7804944953018789141, guid: 1b77fac1334c50441858c950f98fb1af, type: 3}
+  - {fileID: 4395259970993016844, guid: 71217a39cecfb6f4ab9d0b556ff7a392, type: 3}
   playerNames:
   - Player1
   - Player2
+  - Player3
+  - Player4
   playerControlSchemes:
   - Player1
   - Player2
+  - Player3
+  - Player4
   playerInitialPositions:
-  - {x: 0, y: 0.5, z: -4}
-  - {x: -2, y: 0.5, z: -4}
+  - {x: -12, y: 0.5, z: -4}
+  - {x: -10, y: 0.5, z: -4}
+  - {x: -8, y: 0.5, z: -4}
+  - {x: -6, y: 0.5, z: -4}
   playerInitialRotations:
+  - {x: 0, y: -180, z: 0}
+  - {x: 0, y: -180, z: 0}
   - {x: 0, y: -180, z: 0}
   - {x: 0, y: -180, z: 0}
