@@ -27,7 +27,6 @@ public class MapGenerator : MonoBehaviour
     private List<List<Vector3>> specialPrefabCoord;
     private List<mapType> mapTypeSeq;
     private List<List<int>> specialPrefabPathZPos;
-    private int mapLoopSize;
     private mapType currentMapType;
 
     private int cannonPlaceNum;
@@ -52,7 +51,6 @@ public class MapGenerator : MonoBehaviour
         mapHeight = 14;
         currentMapIdx = 0;
         prevZPoint = mapHeight - 1;
-        mapLoopSize = 6;
 
         specialPrefabCoord = new List<List<Vector3>>();
         specialPrefabPathZPos = new List<List<int>>();
@@ -93,7 +91,7 @@ public class MapGenerator : MonoBehaviour
         List<Vector3> specialPrefabPathPositions;
 
         // get mapType from currentMapIdx
-        currentMapType = mapTypeSeq[currentMapIdx % mapLoopSize];
+        currentMapType = mapTypeSeq[currentMapIdx % mapTypeSeq.Count];
 
         // create ground first
         // according to the mapTypeSeq
@@ -524,7 +522,7 @@ public class MapGenerator : MonoBehaviour
             else if (x >= 10 && x <= 18) santaZPositions.Add(4);
             // 3. ===
             else if (x >= 19 && x <= mapWidth - 3) santaZPositions.Add(0);
-            else if (x >= mapWidth - 2 && x<=mapWidth-1) santaZPositions.Add(mapHeight / 2);
+            else if (x >= mapWidth - 2 && x <= mapWidth - 1) santaZPositions.Add(mapHeight / 2);
         }
         specialPrefabPathZPos.Add(santaZPositions);
 
