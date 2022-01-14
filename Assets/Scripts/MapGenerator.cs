@@ -10,30 +10,27 @@ public class MapGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject mapPrefab;
-    // public GameObject redTreePrefab;
-    // public GameObject blueTreePrefab;
-    // public GameObject redMinePrefab;
-    // public GameObject blueMinePrefab;
+    public GameObject mapPrefabWithSanta;
+    public GameObject mapPrefabWithWinter;
     public GameObject pathEffectPrefab;
     public GameObject cannonPlacePrefab;
     public GameObject unicorn;
     public GameObject[] treePrefab;
     public GameObject[] minePrefab;
+    public GameObject snowEffect;
+
     public int[] elementNum;
     public int level;
-    // public int minLevel1ElementNum;
-    // public int maxLevel1ElementNum;
-    // public int minLevel2ElementNum;
-    // public int maxLevel2ElementNum;
     public int initMapNum;
     public bool isInitialized { get; private set; }
     private int currentMapIdx;
+    private List<List<Vector3>> specialPrefabCoord;
+    private List<mapType> mapTypeSeq; 
+    private List<List<int>> specialPrefabPathZPos;
+    private int mapLoopSize;
+    private mapType currentMapType;
 
     private int cannonPlaceNum;
-    // private int redTreesNum;
-    // private int redMinesNum;
-    // private int blueTreesNum;
-    // private int blueMinesNum;
     private int[] treesNum;
     private int[] minesNum;
     private int mapWidth;
@@ -41,6 +38,11 @@ public class MapGenerator : MonoBehaviour
     private int prevZPoint;
     private List<List<Vector3>> paths;
 
+    private enum mapType {
+        Origin = -1,
+        Santa,
+        Winter
+    }
 
     void Start()
     {
@@ -49,8 +51,15 @@ public class MapGenerator : MonoBehaviour
         mapHeight = 14;
         currentMapIdx = 0;
         prevZPoint = mapHeight - 1;
+        mapLoopSize = 6;
 
+        specialPrefabCoord = new List<List<Vector3>>();
+        specialPrefabPathZPos = new List<List<int>>();
         paths = new List<List<Vector3>>();
+        mapTypeSeq = new List<mapType>() {mapType.Origin, mapType.Origin, mapType.Santa, mapType.Origin, mapType.Origin, mapType.Winter};
+
+        LoadSpecialPrefabPos();
+        LoadSpecialPrefabPathZPos();
 
         for (int i = 0; i < initMapNum; i++)
         {
@@ -80,10 +89,27 @@ public class MapGenerator : MonoBehaviour
         List<System.Tuple<Vector3, GameObject>> elementPositions;
         List<Vector3> cannonPlacePositions;
         List<Vector3> path;
+        List<Vector3> specialPrefabPathPositions;
+
+        // get mapType from currentMapIdx
+        currentMapType = mapTypeSeq[currentMapIdx % mapLoopSize];
 
         // create ground first
+        // according to the mapTypeSeq
         Vector3 mapPos = new Vector3(currentMapIdx * mapWidth, 0f, 0f);
-        Instantiate(mapPrefab, mapPos, Quaternion.identity);
+
+        switch(currentMapType) {
+            case mapType.Origin:
+                Instantiate(mapPrefab, mapPos, Quaternion.identity); 
+                break;
+            case mapType.Santa:
+                Instantiate(mapPrefabWithSanta, mapPos, Quaternion.identity);
+                break;
+        }
+        
+        // generate specialPrefab Positions on the map
+        specialPrefabPathPositions = GenerateSpecialPrefabPosition(new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f));
+
 
         // Initialize some variables
         List<int> total = new List<int>();
@@ -108,10 +134,10 @@ public class MapGenerator : MonoBehaviour
         path = GeneratePath(new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f));
 
         // generate cannonPlace on the map
-        cannonPlacePositions = GenerateCannonPlace(cannonPlaceNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), path);
+        cannonPlacePositions = GenerateCannonPlace(cannonPlaceNum, new Vector3(-13.5f + currentMapIdx * mapWidth, 0.5f, 6.5f), path, specialPrefabPathPositions);
 
         // generate elements on the map
-        GenerateElementsPrefab(elementPositions, path, cannonPlacePositions);
+        GenerateElementsPrefab(elementPositions, path, cannonPlacePositions, specialPrefabPathPositions);
 
         currentMapIdx++;
     }
@@ -202,21 +228,32 @@ public class MapGenerator : MonoBehaviour
     {
         // First, random each column position
         List<int> zPositions = new List<int>();
-        int pathWidth = 5;
-        zPositions.Add(prevZPoint);
+        switch(currentMapType) {
+            case mapType.Origin:
+                int pathWidth = 5;
+                zPositions.Add(prevZPoint);
 
-        for (int i = 0; i < mapWidth - 1;)
-        {
-            int zPos = Random.Range(0, mapHeight);
-            for (int k = 0; k < pathWidth; k++)
-            {
-                if (i == mapWidth - 2) prevZPoint = zPos;
-                zPositions.Add(zPos);
-                i++;
-                if (i >= mapWidth - 1) break;
-            }
+                for (int i = 0; i < mapWidth - 1;)
+                {
+                    int zPos = Random.Range(0, mapHeight);
+                    for (int k = 0; k < pathWidth; k++)
+                    {
+                        if (i == mapWidth - 2) prevZPoint = zPos;
+                        zPositions.Add(zPos);
+                        i++;
+                        if (i >= mapWidth - 1) break;
+                    }
+                }
+                Debug.Log($"zPosition size: {zPositions.Count}");
+                break;
+            case mapType.Santa:
+                zPositions = specialPrefabPathZPos[(int)mapType.Santa];
+                zPositions.Insert(0, prevZPoint);
+                prevZPoint = mapHeight / 2;
+                Debug.Log($"zPosition size: {zPositions.Count}");
+            break;
         }
-        Debug.Log($"zPosition size: {zPositions.Count}");
+        
 
 
         // direction
@@ -267,7 +304,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     // offset is at the left-top of map
-    private List<Vector3> GenerateCannonPlace(int total, Vector3 offset, List<Vector3> path)
+    private List<Vector3> GenerateCannonPlace(int total, Vector3 offset, List<Vector3> path, List<Vector3> specialPrefabPathPositions)
     {
         List<Vector3> cannonPlacePositions = new List<Vector3>();
         // first, random the column position
@@ -277,7 +314,7 @@ public class MapGenerator : MonoBehaviour
             do
             {
                 point = new Vector3(Random.Range(1, mapWidth - 2), 0f, -(Random.Range(1, mapHeight - 2)));
-            } while (CheckIfCannonPlaceOverlay(offset + point, cannonPlacePositions, path));
+            } while (CheckIfCannonPlaceOverlay(offset + point, cannonPlacePositions, path, specialPrefabPathPositions));
 
             // Generate cannonPlace prefab accroding to the point
             Vector3 position = offset + point;
@@ -297,7 +334,7 @@ public class MapGenerator : MonoBehaviour
         return cannonPlacePositions;
     }
 
-    private bool CheckIfCannonPlaceOverlay(Vector3 point, List<Vector3> cannonPlacePositions, List<Vector3> path)
+    private bool CheckIfCannonPlaceOverlay(Vector3 point, List<Vector3> cannonPlacePositions, List<Vector3> path, List<Vector3> specialPrefabPathPositions)
     {
         // If there's already a path or a cannonPlace in the position -> overlay
         // Else -> valid position to place the cannonPlace
@@ -308,12 +345,15 @@ public class MapGenerator : MonoBehaviour
                 Vector3 position = point + new Vector3(x, 0f, -z);
                 if (cannonPlacePositions.Contains(position)) return true;
                 if (path.Contains(position)) return true;
+                if (currentMapType != mapType.Origin) {
+                    if (specialPrefabPathPositions.Contains(position)) return true;
+                }
             }
         }
         return false;
     }
 
-    private void GenerateElementsPrefab(List<System.Tuple<Vector3, GameObject>> elementPositions, List<Vector3> path, List<Vector3> cannonPlacePositions)
+    private void GenerateElementsPrefab(List<System.Tuple<Vector3, GameObject>> elementPositions, List<Vector3> path, List<Vector3> cannonPlacePositions, List<Vector3> specialPrefabPathPositions)
     {
         // only create the prefab where the position isn't occupied by cannonPlace or path
         foreach (System.Tuple<Vector3, GameObject> tp in elementPositions)
@@ -329,8 +369,11 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
             }
+
+            bool isSpecialPrefabOverlay = false;
+            if (currentMapType != mapType.Origin && specialPrefabPathPositions.Contains(tp.Item1)) isSpecialPrefabOverlay = true;
             // if (!isPathOverlay && !cannonPlacePositions.Contains(tp.Item1)) Debug.Log($"position: {tp.Item1}");
-            if (!isPathOverlay && !cannonPlacePositions.Contains(tp.Item1)) Instantiate(tp.Item2, tp.Item1, Quaternion.identity);
+            if (!isPathOverlay && !cannonPlacePositions.Contains(tp.Item1) && !isSpecialPrefabOverlay) Instantiate(tp.Item2, tp.Item1, Quaternion.identity);
         }
     }
 
@@ -351,5 +394,55 @@ public class MapGenerator : MonoBehaviour
         int idx = Mathf.FloorToInt((14f + unicorn.transform.position.x) / mapWidth);
         idx = Mathf.Max(idx, 0);
         return idx;
+    }
+
+    // for special prefab position and function
+    private void LoadSpecialPrefabPos() {
+        // santa Prefab
+        List<Vector3> santaList = new List<Vector3>();
+        for (int x=11; x<=18; x++) {
+            for (int z=0; z<=3; z++) {
+                santaList.Add(new Vector3(x, 0f, -z));
+            }
+        }
+        specialPrefabCoord.Add(santaList);
+
+        // winter Prefab
+        // TODO
+    }
+
+    private void LoadSpecialPrefabPathZPos() {
+        // santa map path
+        // |===|    |===|
+        // |   ======   |
+        // |            | 
+        List<int> santaZPositions = new List<int>();
+        for (int x=0; x<mapWidth; x++) {
+            // 1. ===
+            if (x>=1 && x<=9) santaZPositions.Add(0);
+            // 2. =====
+            else if (x>=10 && x<=18) santaZPositions.Add(4);
+            // 3. ===
+            else if (x>=19 && x<=mapWidth-2) santaZPositions.Add(0);
+            else if (x == mapWidth-1) santaZPositions.Add(mapHeight/2);
+        }
+        specialPrefabPathZPos.Add(santaZPositions);
+
+        // winter Prefab
+        // TODO
+    }
+
+    private List<Vector3> GenerateSpecialPrefabPosition(Vector3 offset) {
+        switch(currentMapType) {
+            case mapType.Origin:
+                return null;
+            case mapType.Santa:
+                List<Vector3> spps = new List<Vector3>();
+                foreach (Vector3 spp in specialPrefabCoord[((int)mapType.Santa)]) {
+                    spps.Add(offset + spp);
+                }
+                return spps;
+        }
+        return null;
     }
 }
