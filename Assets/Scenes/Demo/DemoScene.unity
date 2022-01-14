@@ -2464,7 +2464,7 @@ PrefabInstance:
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}
       propertyPath: roleMovingSpeed
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3763743799605677646, guid: 04641a7f037600a44b0cd5864884a54e,
         type: 3}

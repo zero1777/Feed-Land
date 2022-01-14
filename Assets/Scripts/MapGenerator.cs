@@ -523,8 +523,8 @@ public class MapGenerator : MonoBehaviour
             // 2. =====
             else if (x >= 10 && x <= 18) santaZPositions.Add(4);
             // 3. ===
-            else if (x >= 19 && x <= mapWidth - 2) santaZPositions.Add(0);
-            else if (x == mapWidth - 1) santaZPositions.Add(mapHeight / 2);
+            else if (x >= 19 && x <= mapWidth - 3) santaZPositions.Add(0);
+            else if (x >= mapWidth - 2 && x<=mapWidth-1) santaZPositions.Add(mapHeight / 2);
         }
         specialPrefabPathZPos.Add(santaZPositions);
 
