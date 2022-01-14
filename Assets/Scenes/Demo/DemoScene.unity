@@ -3880,21 +3880,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
-      propertyPath: treePrefab.Array.data[2]
+      propertyPath: mapPrefabWithSanta
       value: 
-      objectReference: {fileID: 503339983544236196, guid: febffa4e594a14d5ebefa2926c2c55b7,
+      objectReference: {fileID: 6723137031346786036, guid: 509699da295ed4fd29d70aa282b8efd8,
         type: 3}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
-      propertyPath: minePrefab.Array.data[2]
+      propertyPath: mapPrefabWithWinter
       value: 
-      objectReference: {fileID: 686848817996970533, guid: 983df3a3f03404a8f98b38d8ad33e2b7,
+      objectReference: {fileID: 1805599477320284043, guid: 707dc7cf92848446aa20e7afac234f67,
         type: 3}
     - target: {fileID: 1822169290377872064, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
-      propertyPath: elementNum.Array.data[2]
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: snowEffect
+      value: 
+      objectReference: {fileID: 4506517121224881920, guid: 5d6d2a0437f644cdc945d1be5e8740f9,
+        type: 3}
     - target: {fileID: 1822169290377872065, guid: fac5556aab6584535bcd9c97aef8f6ab,
         type: 3}
       propertyPath: m_Name
