@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 481325433117186172}
   - component: {fileID: 6237886850861071732}
   - component: {fileID: 8709578678319962752}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GreenTree
   m_TagString: green_tree
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3553197200412132927}
   - component: {fileID: 952064323543073741}
   - component: {fileID: 787692947289441875}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

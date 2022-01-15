@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7723926740696425676}
   - component: {fileID: 5500939691960551586}
   - component: {fileID: 8693736219796959548}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GreenMine 2
   m_TagString: green_mine
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4450263553185714141}
   - component: {fileID: 2443931713070912967}
   - component: {fileID: 3543094061484150609}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

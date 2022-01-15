@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7665794263743537983}
   - component: {fileID: -1986178201896147182}
   - component: {fileID: 7911410230015213575}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BlueMine
   m_TagString: blue_mine
   m_Icon: {fileID: 0}

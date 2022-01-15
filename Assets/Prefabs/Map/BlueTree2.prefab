@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3451492074646875962}
   - component: {fileID: 786187715148234116}
   - component: {fileID: 6980555028734543416}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BlueTree2
   m_TagString: blue_tree
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1562900944651389742}
   - component: {fileID: 4260697964537156417}
   - component: {fileID: 7928577272190753040}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9138861137629827502}
   - component: {fileID: 9138861137629827503}
   - component: {fileID: 8024058626019243935}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CannonPlaceV2
   m_TagString: cannon_place
   m_Icon: {fileID: 0}

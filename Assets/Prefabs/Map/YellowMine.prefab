@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 976154426273047533}
   - component: {fileID: 4451850382721343036}
   - component: {fileID: 6279868525805077882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: YellowMine
   m_TagString: blue_food
   m_Icon: {fileID: 0}

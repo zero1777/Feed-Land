@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5566169284006870334}
   - component: {fileID: -1560316355443076784}
   - component: {fileID: 6821189871584110798}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RedMine
   m_TagString: red_mine
   m_Icon: {fileID: 0}

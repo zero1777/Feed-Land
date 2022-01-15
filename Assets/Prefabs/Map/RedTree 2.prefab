@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2020773022736975245}
   - component: {fileID: 921840696524946028}
   - component: {fileID: 8269197354523932310}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7241579549910862906}
   - component: {fileID: -9045624078803756231}
   - component: {fileID: 7996188453269884207}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RedTree 2
   m_TagString: red_tree
   m_Icon: {fileID: 0}
