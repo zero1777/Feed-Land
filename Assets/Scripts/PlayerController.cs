@@ -199,6 +199,7 @@ public class PlayerController : MonoBehaviour
                 CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
                 if (cannonUpgrade.GetUpgradeMaterial())
                 {
+                    audioSource.PlayOneShot(buildSuccessSoundEffect);
                     StartCoroutine(TriggerBlockingAnimation("building"));
                     StartCoroutine(ReleaseResource());
                     StartCoroutine(DestroyResource(target, "cannon"));
@@ -212,6 +213,7 @@ public class PlayerController : MonoBehaviour
                 CannonUpgrade cannonUpgrade = target.GetComponent<CannonUpgrade>();
                 if (cannonUpgrade.GetUpgradeMaterial())
                 {
+                    audioSource.PlayOneShot(buildSuccessSoundEffect);
                     StartCoroutine(TriggerBlockingAnimation("building"));
                     StartCoroutine(ReleaseResource());
                     StartCoroutine(DestroyResource(target, "cannon"));

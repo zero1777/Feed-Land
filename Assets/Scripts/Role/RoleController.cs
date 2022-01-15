@@ -233,10 +233,10 @@ public class RoleController : MonoBehaviour
     // used to decide difficulty
     private void DecideDifficulty()
     {
-        if (uITimer.timerFloat < 2700)
+        if (uITimer.timerFloat < 1800)
         {
-            monsterLeastSpawnWait = 3000 / (uITimer.timerFloat + 300);
-            monsterMostSpawnWait = 4500 / (uITimer.timerFloat + 300);
+            monsterLeastSpawnWait = 2100 / (uITimer.timerFloat + 300);
+            monsterMostSpawnWait = 3600 / (uITimer.timerFloat + 300);
         }
         else
         {
