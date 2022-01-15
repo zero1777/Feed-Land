@@ -28,15 +28,15 @@ public class GameSetting : MonoBehaviour
         level = initialSettings.level;
         if (level == 0)
         {
-            unicorn.GetComponent<RoleController>().maxHealth = 30;
+            unicorn.GetComponent<RoleController>().maxHealth = 60;
         }
         else if (level == 1)
         {
-            unicorn.GetComponent<RoleController>().maxHealth = 20;
+            unicorn.GetComponent<RoleController>().maxHealth = 40;
         }
         else if (level == 2)
         {
-            unicorn.GetComponent<RoleController>().maxHealth = 3;
+            unicorn.GetComponent<RoleController>().maxHealth = 20;
         }
 
         // set the background music volume
